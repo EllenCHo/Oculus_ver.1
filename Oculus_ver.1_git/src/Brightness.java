@@ -48,7 +48,7 @@ public class Brightness implements Runnable{
 					setBrightness(0);
 					Thread.sleep(5000);
 					setBrightness(100);
-					Thread.sleep(5000);
+					Thread.sleep(3500);
 				}catch(IOException e){
 					System.err.println(e);
 					return;
