@@ -21,7 +21,10 @@ public class Waiting implements Runnable{
 		long time = System.currentTimeMillis();
 		
 		while(true){
-			if(cal.get(Calendar.MINUTE) == 49 && time == 0 /*cal.get(Calendar.SECOND) >= 0 && cal.get(Calendar.SECOND) <= 2*/){
+			cal = Calendar.getInstance();		//현재 시간 갱신
+			
+			//일정 시간이 되면 운동 중 하나가 자동실행
+			if(cal.get(Calendar.MINUTE) == 50 /*&& time == 0 /*cal.get(Calendar.SECOND) >= 0 && cal.get(Calendar.SECOND) <= 2*/){
 	    		switch(cal.get(Calendar.HOUR_OF_DAY)){
 	    		case 0:
 					Thread followMe0 = new Thread(new FollowMe());
@@ -88,7 +91,7 @@ public class Waiting implements Runnable{
 			}
 			
 			try{
-				Thread.sleep(1000);   // 1초마다 실행
+				Thread.sleep(60000);   // 1븐마다 실행
 				if(flag == true){
 					System.out.println("Waiting 종료");
 					return;
