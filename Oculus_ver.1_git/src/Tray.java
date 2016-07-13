@@ -37,7 +37,7 @@ public class Tray implements ActionListener, ItemListener{
 			Close.addActionListener(this);
 			Wait.addItemListener(this);
 
-
+			//팝업에 메뉴 달기
 			popup.add(Open);
 			popup.add(Wait);
 			popup.add(Close);
@@ -62,17 +62,17 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
+	//메뉴를 눌렀을 때 발생하는 이벤트 설정
 	public void actionPerformed(ActionEvent ae){
 		if(ae.getSource() == Open){
 			restart();	
 			tray.remove(icon);			//트레이를 열었을때 트레이 아이콘 삭제
 		} else if(ae.getSource() == Close){
-			showMessage("종료", "종료하겠습니다.");
-			System.out.println("Oclus 종료");
-			System.exit(0);
+			showMessage("종료", "종료하시겠습니까?");		//트레이의 exit를 눌렀을 경우 메시지 창 뜨게 하기
 		}
 	}
-
+	
+	//자동시작 아이템이 true, false가 됐을 때 기능 설정
 	public void itemStateChanged(ItemEvent e){
 		//if(e.getSource() == Wait){
 		if(e.getStateChange() == ItemEvent.SELECTED){
@@ -83,9 +83,23 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-
+	//exit 버튼을 눌렀을 때 나타나는 창 설정
 	private void showMessage(String title, String message){
-		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+		int result = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+		
+		//사용자가 "예"나 "아니오"의 선택 없이 다이얼로그 창을 닫은 경우
+		if(result == JOptionPane.CLOSED_OPTION) {				
+		}
+		
+		//사용자가 "예"를 눌렀을 경우
+		else if(result == JOptionPane.YES_OPTION) {
+			System.out.println("Oculus 종료");
+			System.exit(0);
+		}
+		
+		//사용자가 "아니오"를 눌렀을 경우
+		else {
+		}
 	}
 
 	//창 다시 시작하기
