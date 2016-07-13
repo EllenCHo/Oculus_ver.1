@@ -39,7 +39,11 @@ class MainFrame extends JFrame implements WindowListener{
     public void windowActivated(WindowEvent e) {}
     public void windowClosed(WindowEvent e) {}
     public void windowClosing(WindowEvent e) {
-    	System.exit(0);
+    	new Tray();		//닫았을 때 트레이로 돌아감
+    	DateJLabel.stop();
+    	Thread Waiting = new Thread(new Waiting());			//트레이로 돌려보냈을 시에 지정시간이 되면 자동으로 실행하게 함
+		Waiting.start();
+    	//System.exit(0);
     }
     public void windowDeactivated(WindowEvent e) {
     }
@@ -58,7 +62,7 @@ class MainFrame extends JFrame implements WindowListener{
 		setSize(750, 1000);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addWindowListener(this);
 		cal = Calendar.getInstance();   // 다른 거 망가질까봐 억지로 초기화 함
 
@@ -111,6 +115,7 @@ class MainFrame extends JFrame implements WindowListener{
 		mContainer.add(exercise3);
 		mContainer.add(reference);
 		
+		//기록에 저장된 내용으로 세팅
 		try{
 			DateJLabel.fr = new FileReader("log\\Today.txt");   // 파일 입력 스트림 생성
 			DateJLabel.br = new BufferedReader(DateJLabel.fr);   // 버퍼 파일 입력 스트림 생성, 입력 효율 향상
@@ -269,6 +274,8 @@ public class Main {
 
 		Calendar now = Calendar.getInstance();   // 현재 날짜와 시간 정보를 가져온다.
 		
+		Save.SaveDay();			//날짜가 지나면 기록에 저장
+/*		
 		try{
 			//하루가 넘어갔을 경우 카운트를 초기화하고 기록 저장
 			if(now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day){
@@ -301,6 +308,7 @@ public class Main {
 			System.err.println(e);
 			System.exit(1);
 		}
+		*/
 		
 		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));
 		// DateJLabel dateJLabel = new DateJLabel(now, mFrame.getDate());
@@ -319,6 +327,7 @@ public class Main {
 		mFrame.runReference();
 	}
 
+	//버튼 디자인 바꾸기
 	class StyledButtonUI extends BasicButtonUI {
 
 		@Override
