@@ -40,11 +40,12 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); //전체화면 사이즈 가져오기
 
 	HowToUse htu1;
-
+	
+	//인터페이스를 상속했으므로 다 오버로딩해야함
 	public void windowActivated(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
 	public void windowClosing(WindowEvent e) {
-		finish();
+		finish();				//닫았을 경우 count 안하게 함
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
@@ -61,18 +62,10 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		panel.setBackground(color);
 		contentPane.add(panel); // 패널을 컨텐트팬에 부착
 		this.addWindowListener(this);
-		/*
-		// 전체화면 만들기 그러나 나가는 버튼이 없음
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice gd = ge.getDefaultScreenDevice();
-		setUndecorated(true);
-		gd.setFullScreenWindow(this);
-		 */
 
 		flag = false;		
 
 		btn = new JButton("메뉴"); //버튼 이미지 지정
-		// exit = new JButton("X"); //버튼 이미지 지정
 
 		btn.setSize(50,50); //버튼 사이즈 지정
 		btn.setLocation(res.width-70,30); //버튼 위치 지정
@@ -87,7 +80,6 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 		setting = new Setting(this, "설정");
 		setting.setLocationRelativeTo(null);
-		//setting.setVisible(false);  //처음에 설정창 나올지 설정
 
 		setSize(res.width, res.height);
 		setVisible(true);
@@ -215,10 +207,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 			g.drawString("공 크기 : "+sztext[szset], res.width-170, 50);
 			g.drawString("공 속도 : "+sptext[spset], res.width-170, 70);
 
-			g2d.drawImage(img, xPos, yPos, size[szset], size[szset], this);
-			//g2d.setColor(Color.white);
-			//g2d.setBackground(color);
-			//g2d.fillOval(xPos, yPos, size[szset], size[szset]); //100, 100은 공 크기
+			g2d.drawImage(img, xPos, yPos, size[szset], size[szset], this);			//x, y 위치에 size 만큼의 이미지 그리기
 		}
 	}
 }
@@ -273,10 +262,8 @@ class Setting extends JDialog {
 		ok.setUI(new StyledButtonUI());
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FollowMe.spset = sp;
+				FollowMe.spset = sp;			//공 스피드, 공사이즈 설정
 				FollowMe.szset = sz;
-				System.out.println(sp);
-				System.out.println(sz);
 				setVisible(false);				
 			}
 		});
