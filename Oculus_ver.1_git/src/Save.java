@@ -3,7 +3,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-//import java.util.Calendar;
+import java.util.Calendar;
 
 public class Save {
 	public static synchronized void SaveNow(){
@@ -22,12 +22,12 @@ public class Save {
 		}
 	}
 	
-	/*
-	public void SaveDay(){
+	
+	public static void SaveDay(){
 		Calendar now = Calendar.getInstance();   // 현재 날짜와 시간 정보를 가져온다.
 		
 		try{
-			if(now.get(Calendar.DAY_OF_MONTH) != mFrame.Day){
+			if(now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day){
 				DateJLabel.fw = new FileWriter("log\\Info.txt", true);   // 파일 출력 스트림 생성
 				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
 
@@ -38,9 +38,9 @@ public class Save {
 				// bw.write(String.format("%d,%d,%f\r\n", cal.get(Calendar.MONTH + 1), (cal.get(Calendar.DAY_OF_MONTH) - 1), (double)(MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));   // Info.txt에 오늘 기록 입력
 
 				// mFrame.FM = 9;
-				mFrame.FMC = 0;
+				MainFrame.FMC = 0;
 				// mFrame.FD = 9;
-				mFrame.FDC = 0;
+				MainFrame.FDC = 0;
 
 				DateJLabel.fw = new FileWriter("log\\Today.txt");   // 파일 출력 스트림 생성
 				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
@@ -58,5 +58,5 @@ public class Save {
 			System.exit(1);
 		}
 	}
-	*/
+	
 }
