@@ -47,6 +47,7 @@ public class Tray implements ActionListener, ItemListener{
 			Image image = Toolkit.getDefaultToolkit().getImage("image\\logo.png");
 			icon = new TrayIcon(image, "Oculus", popup);
 			icon.setImageAutoSize(true);
+			
 			//트레이 아이콘 근처로 팝업창 뜨게하기
 			icon.displayMessage("Oculus", "트레이로 이동합니다.", MessageType.INFO);
 

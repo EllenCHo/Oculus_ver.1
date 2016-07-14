@@ -78,15 +78,16 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 5; j++){
 				btn[i][j] = new JButton(icon);
+				btn[i][j].setSize(res.width/15, res.width/15);					//모니터 해상도에 따른 버튼 사이즈 조절
 
 				// 버튼 정렬
 				btn[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				btn[i][j].setVerticalAlignment(SwingConstants.CENTER);
 
 				// 버튼 디자인 정리
-				btn[i][j].setBorderPainted(false); // 버튼 경계선 제거
-				btn[i][j].setFocusPainted(false); // 포커스(선택했던 버튼 표시) 제거
-				btn[i][j].setContentAreaFilled(false);// 버튼영역 배경 제거
+				btn[i][j].setBorderPainted(false); 								// 버튼 경계선 제거
+				btn[i][j].setFocusPainted(false);								// 포커스(선택했던 버튼 표시) 제거
+				btn[i][j].setContentAreaFilled(false);							// 버튼영역 배경 제거
 
 				contentPane.add(btn[i][j]);
 			}

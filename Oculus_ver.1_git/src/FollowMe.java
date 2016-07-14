@@ -15,32 +15,24 @@ import java.util.Random;
 
 
 public class FollowMe extends JFrame implements Runnable, WindowListener{
-	Setting setting;
+	public static int spset = 3;		//공 스피드 디폴트 값(랜덤)
+	public static int szset = 0;		//공 크기 디폴트 값(중)
+	Setting setting;					//설정창
 	Container contentPane;
-	static int spset = 3;
-	static int szset = 0;
-
-	JButton btn; 			//공 설정 버튼
-
-	boolean flag;
-
-	//Color color = new Color(188,229,92);
-	Color color = new Color(206,247,110);
-	//Color color = new Color(152,247,145);
-	//Color color = new Color(50,183,42);
+	boolean flag;	
+	JButton btn; 						//공 설정 버튼
+	HowToUse htu1;						//설명서 설정
+	
+	Color color = new Color(206,247,110);							//백그라운드 색깔 설정
+	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//전체화면 사이즈 가져오기		//http://b-jay.tistory.com/123
 
 	String [] sptext = {"하", "중", "상", "랜덤"};
 	String [] sztext = {"중", "소"};
 
-	int speed2[] = {5, 7, 10, 25};
-	int speed1[]= {5, 10, 15, 40}; //공 스피드
-	int size[] = {70, 50}; //공 크기
+	int speed1[]= {5, 10, 15};			 						//공 스피드(하, 중, 상)
+	int speed2[] = {5, 7, 10, 25};								//랜덤 공 스피드
+	int size[] = {res.width/15, res.width/20};					//컴퓨터 창 크기 따른 상대적인 공 크기(중, 하)
 
-	//http://b-jay.tistory.com/123
-	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); //전체화면 사이즈 가져오기
-
-	HowToUse htu1;
-	
 	//인터페이스를 상속했으므로 다 오버로딩해야함
 	public void windowActivated(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
@@ -55,20 +47,20 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	FollowMe() {
 		super("FolloFollow Me");
 		contentPane = getContentPane();
-		contentPane.setLayout(null); //배치관리자 삭제
+		contentPane.setLayout(null); 								//배치관리자 삭제
 		contentPane.setBackground(color);
-		DrawCircle101 panel = new DrawCircle101(); // 패널을 새로 생성
-		panel.setSize(res.width-100,res.height); //범위 지정
+		DrawCircle101 panel = new DrawCircle101();					// 패널을 새로 생성
+		panel.setSize(res.width-100,res.height); 					//범위 지정
 		panel.setBackground(color);
-		contentPane.add(panel); // 패널을 컨텐트팬에 부착
+		contentPane.add(panel); 									// 패널을 컨텐트팬에 부착
 		this.addWindowListener(this);
 
 		flag = false;		
 
-		btn = new JButton("메뉴"); //버튼 이미지 지정
+		btn = new JButton("메뉴"); 									//버튼 만들기
 
-		btn.setSize(50,50); //버튼 사이즈 지정
-		btn.setLocation(res.width-70,30); //버튼 위치 지정
+		btn.setSize(50,50);											//버튼 사이즈 지정
+		btn.setLocation(res.width-70,30);							//버튼 위치 지정
 		contentPane.add(btn);
 
 		//마우스 리스너 추가
@@ -129,8 +121,10 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		private int xPos=200; //x 좌표
 		private int yPos=100; //y 좌표
 
-		int speedX; //x좌표로의 스피드
-		int speedY; //y좌표로의 스피드
+		int speedX; 	//x좌표로의 스피드
+		int speedY; 	//y좌표로의 스피드
+		int speedx;		//다음 스피드 저장
+		int speedy;
 
 		ImageIcon icon = new ImageIcon("image\\RYAN.png");
 		Image img = icon.getImage();
@@ -152,11 +146,13 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 							int x_rnd = rd.nextInt(4);
 							int y_rnd = rd.nextInt(4);
+							
+							if(spset <3){							//하, 중, 상을 골랐을 경우
+								speedx= speed1[spset];
+								speedy= speed1[spset];
+							}
 
-							int speedx= speed1[spset];
-							int speedy= speed1[spset];
-
-							if(spset ==3){
+							if(spset ==3){							//랜덤을 골랐을 경우
 								speedx = speed2[x_rnd];
 								speedy = speed2[y_rnd];
 							}
@@ -165,7 +161,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 							yPos = yPos + speedY; //y좌표 이동
 
 							if(xPos + size[szset] >=DrawCircle101.this.getWidth() ){
-								//xpos + 50은 공의 크기가 50이므로 더해서 크면 창을 벗어나므로 speedx를 반대로
+								//창의 끝에 닿았으므로 speedx를 반대로
 								speedX = -speedx;
 								speedY = (y_dir == 0 ? speedy : -speedy);
 							}
@@ -278,8 +274,6 @@ class Setting extends JDialog {
 				setVisible(false);				
 			}
 		});
-
-
 
 
 		//공 크기 위치지정
