@@ -1,13 +1,8 @@
 // 06. 모양체 운동 : 15점 트레이닝
 
-
-//import java.util.*;
-//import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import javax.swing.border.EmptyBorder;
-//import javax.swing.plaf.basic.BasicButtonUI;
 
 public class Dots extends JFrame implements Runnable, WindowListener{
 	int row = 0;

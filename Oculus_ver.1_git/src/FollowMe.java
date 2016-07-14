@@ -3,14 +3,8 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
-
 import java.awt.*;
 import java.awt.event.*;
-//import java.io.BufferedReader;
-//import java.io.BufferedWriter;
-//import java.io.FileReader;
-//import java.io.FileWriter;
-//import java.io.IOException;
 import java.util.Random;
 
 
@@ -28,10 +22,10 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 	String [] sptext = {"하", "중", "상", "랜덤"};
 	String [] sztext = {"중", "소"};
-
-	int speed1[]= {5, 10, 15};			 						//공 스피드(하, 중, 상)
-	int speed2[] = {5, 7, 10, 25};								//랜덤 공 스피드
-	int size[] = {res.width/15, res.width/20};					//컴퓨터 창 크기 따른 상대적인 공 크기(중, 하)
+	
+	int speed1[]= {res.width/350, res.width/250, res.width/150};			 					//창크기에 따른 공 스피드(하, 중, 상)
+	int speed2[] = {res.width/350, res.width/250, res.width/200, res.width/50};					//창크기에 따른 랜덤 공 스피드
+	int size[] = {res.width/15, res.width/20};													//컴퓨터 창 크기 따른 상대적인 공 크기(중, 하)
 
 	//인터페이스를 상속했으므로 다 오버로딩해야함
 	public void windowActivated(WindowEvent e) {}
