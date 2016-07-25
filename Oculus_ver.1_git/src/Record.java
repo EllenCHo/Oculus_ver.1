@@ -163,15 +163,6 @@ public class Record extends JFrame implements ActionListener//, Runnable
 			}
 			else{
 				calBtn[i+6+hopping].setForeground(new Color(0,0,0));
-				/*
-				if((i+hopping-1)%7==0){//일요일
-					calBtn[i+6+hopping].setForeground(new Color(255,0,0));
-				}
-
-                           if((i+hopping)%7==0){//토요일
-                                 calBtn[i+6+hopping].setForeground(new Color(0,0,255));
-                           }
-				 */
 			}
 			/*
 			 * 요일을 찍은 다음부터 계산해야 하니 요일을 찍은 버튼의 갯수를 더하고

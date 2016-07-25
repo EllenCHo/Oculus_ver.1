@@ -12,7 +12,7 @@ public class Tray implements ActionListener, ItemListener{
 	private SystemTray tray;
 	private PopupMenu popup;
 	private MenuItem Open, Close; 
-	private CheckboxMenuItem Wait;		//wait은 나중(7.10)에 추가한것
+	private CheckboxMenuItem Wait;					//자동시작 여부를 위한 체크박스
 	private TrayIcon icon;
 
 	public Tray(){
@@ -77,7 +77,7 @@ public class Tray implements ActionListener, ItemListener{
 	public void itemStateChanged(ItemEvent e){
 		//if(e.getSource() == Wait){
 		if(e.getStateChange() == ItemEvent.SELECTED){
-			Thread Waiting = new Thread(new Waiting());			//트레이로 돌려보냈을 시에 지정시간이 되면 자동으로 실행하게 함
+			Thread Waiting = new Thread(new Waiting());						//트레이로 돌려보냈을 시에 지정시간이 되면 자동으로 실행하게 함
 			Waiting.start();		//쓰레드 실행
 		}	else if(e.getStateChange() == ItemEvent.DESELECTED){			//체크박스 해제했을때 Waiting 쓰레드 종료
 			Waiting.finish();

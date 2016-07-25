@@ -31,7 +31,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	public void windowActivated(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
 	public void windowClosing(WindowEvent e) {
-		finish();				//닫았을 경우 count 안하게 함
+		finish();									//창 닫으면 카운트되지않고 종료
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
@@ -248,6 +248,7 @@ class Setting extends JDialog {
 		JButton ok = new JButton("확인");
 		ok.setBackground(new Color(93,93,93));
 		ok.setForeground(Color.white);
+		
 		// customize the button with your own look
 		ok.setUI(new StyledButtonUI());
 		ok.addActionListener(new ActionListener() {
@@ -261,6 +262,7 @@ class Setting extends JDialog {
 		JButton cancel = new JButton("취소");
 		cancel.setBackground(new Color(93,93,93));
 		cancel.setForeground(Color.white);
+		
 		// customize the button with your own look
 		cancel.setUI(new StyledButtonUI());
 		cancel.addActionListener(new ActionListener() {
@@ -308,7 +310,7 @@ class Setting extends JDialog {
 		setSize(350,300);
 		setVisible(true);
 	}
-	//예제 11-6
+
 	class SpListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e){
 			if(e.getStateChange() == ItemEvent.DESELECTED)

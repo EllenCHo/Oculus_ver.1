@@ -22,7 +22,6 @@ public class Goal extends JFrame implements Runnable{
 
 	public void run(){
 		setTitle("Setting");
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = getContentPane();
 		contentPane.setLayout(null); //배치관리자 삭제

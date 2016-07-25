@@ -12,50 +12,46 @@ import javax.swing.plaf.basic.BasicButtonUI;
 class MainFrame extends JFrame implements WindowListener{
 	public static int Month = -1;
 	public static int Day = -1;
-	public static int FM = -1;   // Follow Me 목표 횟수
-	public static int FMC = -1;   // Follow Me 카운트
-	public static int FD = -1;   // Fifteen Dots 목표 횟수
-	public static int FDC = -1;   // Fifteen Dots 카운트
+	public static int FM = -1;   	// Follow Me 목표 횟수
+	public static int FMC = -1;   	// Follow Me 카운트
+	public static int FD = -1;   	// Fifteen Dots 목표 횟수
+	public static int FDC = -1;   	// Fifteen Dots 카운트
 	
 	
-	private JLabel date;   // 현재 날짜, 시각
-	private JButton record;   // 월간/주간 목표 그래프
-	private JButton graph;   // 오늘 목표달성치(%)
+	private JLabel date;   			 // 현재 날짜, 시각
+	private JButton record;    		 // 월간/주간 목표 그래프
+	private JButton graph;   		 // 오늘 목표달성치(%)
 	// private JPanel graph;
-	private JButton goal;   // 목표 설정
-	private JButton exercise1;   // 운동 1 : Follow Me
-	private JButton exercise2;   // 운동 2 : 15 dots
-	private JButton exercise3;   // 운동 3 : Brightness
-	private JButton reference;   // 개발자 및 앱 소개
+	private JButton goal;   		 // 목표 설정
+	private JButton exercise1;  	 // 운동 1 : Follow Me
+	private JButton exercise2;  	 // 운동 2 : 15 dots
+	private JButton exercise3;  	 // 운동 3 : Brightness
+	private JButton reference;  	 // 개발자 및 앱 소개
 	
 	private Calendar cal;
 	
 	String line;
 	String str[];
 	
-	// public static FollowMe finFollowMe;
-	// public static Dots finDots;
-	
     public void windowActivated(WindowEvent e) {}
     public void windowClosed(WindowEvent e) {}
     public void windowClosing(WindowEvent e) {
-    	new Tray();		//닫았을 때 트레이로 돌아감
-    	DateJLabel.stop();
+    	new Tray();											//닫았을 때 트레이로 돌아감
+    	DateJLabel.stop();									//시계 쓰레드 종료
     	Thread Waiting = new Thread(new Waiting());			//트레이로 돌려보냈을 시에 지정시간이 되면 자동으로 실행하게 함
 		Waiting.start();
-    	//System.exit(0);
     }
     public void windowDeactivated(WindowEvent e) {
     }
     public void windowIconified(WindowEvent e) {
-    	// runRun();
-		// Thread waiting = new Thread(new Waiting());
-		// waiting.start();
+		Thread Waiting = new Thread(new Waiting());			//창을 내렸을 경우 지정시간이 되면 운동이 랜덤으로 실행되도록 설정
     }
     public void windowDeiconified(WindowEvent e) {
-    	Waiting.finish();
+    	Waiting.finish();									//창을 다시 올리면 웨이팅 종료
     }
-    public void windowOpened(WindowEvent e) {}
+    public void windowOpened(WindowEvent e) {
+    	Waiting.finish();									//트레이에서 돌아오면 웨이팅 종료
+    }
 	
 	MainFrame(){
 		setTitle("Oclulus");
@@ -146,8 +142,6 @@ class MainFrame extends JFrame implements WindowListener{
 			public void actionPerformed(ActionEvent e){
 				Record record = new Record();
 				record.run();
-				// Thread record = new Thread(new Record());
-				// record.start();
 			}
 		});
 	}
@@ -171,9 +165,7 @@ class MainFrame extends JFrame implements WindowListener{
 	
 	public void runExercise1(){
 		exercise1.addActionListener(new ActionListener() {   // Follow Me 버튼 : 리스너 & 스레드
-			public void actionPerformed(ActionEvent e){
-				// new HowToUse(1);	
-				// new FollowMe();		
+			public void actionPerformed(ActionEvent e){	
 				Thread followMe = new Thread(new FollowMe());
 				followMe.start();
 			}
@@ -183,8 +175,6 @@ class MainFrame extends JFrame implements WindowListener{
 	public void runExercise2(){
 		exercise2.addActionListener(new ActionListener() {   // Dots 버튼 : 리스너 & 스레드
 			public void actionPerformed(ActionEvent e){
-				// new HowToUse(2);
-				// new Dots();
 				Thread dots = new Thread(new Dots());
 				dots.start();
 			}
@@ -194,7 +184,6 @@ class MainFrame extends JFrame implements WindowListener{
 	public void runExercise3(){
 		exercise3.addActionListener(new ActionListener() {   // Brightness 버튼 : 리스너 & 스레드
 			public void actionPerformed(ActionEvent e){
-				// new HowToUse(3);
 				Thread brightness = new Thread(new Brightness());
 				brightness.start();
 			}
@@ -209,13 +198,6 @@ class MainFrame extends JFrame implements WindowListener{
 		});
 	}
 	
-	/*
-	public void runRun(){
-
-    		}
-    	}
-	}
-	*/
 	
 	public void setDate(JLabel date){this.date = date;}
 	public void setRecord(){return;}
@@ -242,55 +224,14 @@ class MainFrame extends JFrame implements WindowListener{
 public class Main {
 	public static void main(String[] args){
 		MainFrame mFrame = new MainFrame();
-		
-		// SyncroObject syncro1 = new SyncroObject();
-		// SyncroObject syncro2 = new SyncroObject();
 
 		Calendar now = Calendar.getInstance();   // 현재 날짜와 시간 정보를 가져온다.
 		
 		Save.SaveDay();			//날짜가 지나면 기록에 저장
-/*		
-		try{
-			//하루가 넘어갔을 경우 카운트를 초기화하고 기록 저장
-			if(now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day){
-				DateJLabel.fw = new FileWriter("log\\Info.txt", true);   // 파일 출력 스트림 생성
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
-
-				// if((cal.get(Calendar.DAY_OF_MONTH)) == 1)   // 새로운 달로 넘어갔을 때
-				DateJLabel.bw.write(String.format("%d,%d,%.2f\r\n", MainFrame.Month, MainFrame.Day, (double)100 * (MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));   // Info.txt에 오늘 기록 입력
-				DateJLabel.bw.flush();
-				// else
-				// bw.write(String.format("%d,%d,%f\r\n", cal.get(Calendar.MONTH + 1), (cal.get(Calendar.DAY_OF_MONTH) - 1), (double)(MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));   // Info.txt에 오늘 기록 입력
-
-				// mFrame.FM = 9;
-				MainFrame.FMC = 0;
-				// mFrame.FD = 9;
-				MainFrame.FDC = 0;
-
-				DateJLabel.fw = new FileWriter("log\\Today.txt");   // 파일 출력 스트림 생성
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
-
-				DateJLabel.bw.write(String.format("%d,%d,%d,0,%d,0", now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH), MainFrame.FM, MainFrame.FD));
-				DateJLabel.bw.flush();
-
-				DateJLabel.br.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
-				DateJLabel.fr.close();
-				DateJLabel.bw.close();
-				DateJLabel.fw.close();
-			}
-		}catch(IOException e){
-			System.err.println(e);
-			System.exit(1);
-		}
-		*/
 		
 		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));
-		// DateJLabel dateJLabel = new DateJLabel(now, mFrame.getDate());
-		// mFrame.setDate(dateJLabel.getDate());
+
 		dateJLabel.start();
-		
-		// Record record = new Record();
-		// record.run();
 		
 		mFrame.runRecord();
 		mFrame.runGraph();

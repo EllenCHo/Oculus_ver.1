@@ -38,7 +38,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	public void windowActivated(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
 	public void windowClosing(WindowEvent e) {
-		finish();
+		finish();									//창 닫으면 카운트되지않고 종료
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
