@@ -92,7 +92,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		setSize(res.width, res.height);
 		setVisible(true);
 
-		htu2 = new HowToUse(1, 2);
+		htu2 = new HowToUse(2);						//운동에 대한 설명서
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}

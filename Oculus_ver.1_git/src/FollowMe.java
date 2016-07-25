@@ -70,7 +70,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		setSize(res.width, res.height);
 		setVisible(true);
 
-		htu1 = new HowToUse(1);
+		htu1 = new HowToUse(1);						//운동에 대한 설명서
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}

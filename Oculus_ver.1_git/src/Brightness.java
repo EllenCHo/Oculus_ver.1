@@ -38,7 +38,7 @@ public class Brightness implements Runnable{
 	}
 
 	public void run(){
-		htu3 = new HowToUse(1, 2, 3);
+		htu3 = new HowToUse(3);						//운동에 대한 설명서
 		int k = -1;
 		
 		//for(k = 0; k < 1; k++){   // 디버깅용

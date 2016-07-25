@@ -133,34 +133,8 @@ class MainFrame extends JFrame implements WindowListener{
 			
 			DateJLabel.br.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
 			DateJLabel.fr.close();
-			/*
-			if(now.get(Calendar.DAY_OF_MONTH) != Day){
-				DateJLabel.fw = new FileWriter("log\\Info.txt", true);   // 파일 출력 스트림 생성
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
-
-				// if((cal.get(Calendar.DAY_OF_MONTH)) == 1)   // 새로운 달로 넘어갔을 때
-				DateJLabel.bw.write(String.format("%d,%d,%.2f\r\n", Month, Day, (double)100 * (FMC + FDC) / (FM + FD)));   // Info.txt에 오늘 기록 입력
-				DateJLabel.bw.flush();
-				// else
-				// bw.write(String.format("%d,%d,%f\r\n", cal.get(Calendar.MONTH + 1), (cal.get(Calendar.DAY_OF_MONTH) - 1), (double)(MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));   // Info.txt에 오늘 기록 입력
-
-				FM = 9;
-				FMC = 0;
-				FD = 9;
-				FDC = 0;
-				
-				DateJLabel.fw = new FileWriter("log\\Today.txt");   // 파일 출력 스트림 생성
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
-
-				DateJLabel.bw.write(String.format("%d,%d,9,0,9,0", cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)));   // Today.txt 초기화
-				DateJLabel.bw.flush();
-
-				DateJLabel.br.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
-				DateJLabel.fr.close();
-				DateJLabel.bw.close();
-				DateJLabel.fw.close();
-			}
-			*/
+		
+			
 		}catch(IOException e){
 			System.err.println(e);
 			System.exit(1);
