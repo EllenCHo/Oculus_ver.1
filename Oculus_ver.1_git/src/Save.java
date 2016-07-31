@@ -8,14 +8,14 @@ import java.util.Calendar;
 public class Save {
 	public static synchronized void SaveNow(){				
 		try{
-			DateJLabel.fw = new FileWriter("log\\Today.txt");   // 파일 출력 스트림 생성
-			DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
+			DateJLabel.fw = new FileWriter("log\\Today.txt");   	// 파일 출력 스트림 생성
+			DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	// 버퍼 파일 출력 스트림 생성, 출력 효율 향상
 
 			//기록 저장
 			DateJLabel.bw.write(String.format("%d,%d,%d,%d,%d,%d", MainFrame.Month, MainFrame.Day, MainFrame.FM, MainFrame.FMC, MainFrame.FD, MainFrame.FDC));
 			DateJLabel.bw.flush();
 
-			DateJLabel.bw.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
+			DateJLabel.bw.close();   								// 파일 입출력 스트림을 닫고 시스템 자원 해제
 			DateJLabel.fw.close();
 		}catch(IOException e){
 			System.err.println(e);
@@ -46,7 +46,7 @@ public class Save {
 				DateJLabel.bw.write(String.format("%d,%d,%d,0,%d,0", now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH), MainFrame.FM, MainFrame.FD));
 				DateJLabel.bw.flush();
 
-				DateJLabel.br.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
+				DateJLabel.br.close();   								// 파일 입출력 스트림을 닫고 시스템 자원 해제
 				DateJLabel.fr.close();
 				DateJLabel.bw.close();
 				DateJLabel.fw.close();

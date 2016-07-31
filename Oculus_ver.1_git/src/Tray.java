@@ -9,9 +9,9 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 public class Tray implements ActionListener, ItemListener{
-	private SystemTray tray;
-	private PopupMenu popup;
-	private MenuItem Open, Close; 
+	private SystemTray tray;						//트레이 생성
+	private PopupMenu popup;						//팝업 메뉴 생성
+	private MenuItem Open, Close; 					//열기 닫기 메뉴 생성
 	private CheckboxMenuItem Wait;					//자동시작 여부를 위한 체크박스
 	private TrayIcon icon;
 
@@ -26,11 +26,11 @@ public class Tray implements ActionListener, ItemListener{
 
 	//트레이 설정
 	public void setup() throws AWTException{
-		if(SystemTray.isSupported()){				//현재 os에서 사용가능한지 확인
+		if(SystemTray.isSupported()){					//현재 os에서 사용가능한지 확인
 			popup = new PopupMenu();
-			Open = new MenuItem("Open");
-			Close = new MenuItem("Exit");
-			Wait = new CheckboxMenuItem("자동실행", true);
+			Open = new MenuItem("Open");				//열기 메뉴 추가
+			Close = new MenuItem("Exit");				//닫기 메뉴 추가
+			Wait = new CheckboxMenuItem("자동실행", true);	//자동실행 메뉴 추가
 
 			//액션 리스너 달기
 			Open.addActionListener(this);
@@ -67,7 +67,7 @@ public class Tray implements ActionListener, ItemListener{
 	public void actionPerformed(ActionEvent ae){
 		if(ae.getSource() == Open){
 			restart();	
-			tray.remove(icon);			//트레이를 열었을때 트레이 아이콘 삭제
+			tray.remove(icon);						//트레이를 열었을때 트레이 아이콘 삭제
 		} else if(ae.getSource() == Close){
 			showMessage("종료", "종료하시겠습니까?");		//트레이의 exit를 눌렀을 경우 메시지 창 뜨게 하기
 		}
@@ -103,7 +103,7 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	//창 다시 시작하기
+	//메인 다시 시작하기
 	public void restart(){
 		MainFrame mFrame = new MainFrame();
 

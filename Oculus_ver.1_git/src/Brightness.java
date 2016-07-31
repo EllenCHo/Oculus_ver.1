@@ -45,10 +45,10 @@ public class Brightness implements Runnable{
 		for(k = 0; k < 10; k++){   // 열 번 반복 후 종료
 			try{
 				try{
-					setBrightness(0);
-					Thread.sleep(5000);
-					setBrightness(100);
-					Thread.sleep(3500);
+					setBrightness(0);				//최저 조명
+					Thread.sleep(5000);				//5초정도 정지
+					setBrightness(100);				//최대 조명
+					Thread.sleep(3500);				//3.5초 정도 정지
 				}catch(IOException e){
 					System.err.println(e);
 					return;
@@ -60,7 +60,7 @@ public class Brightness implements Runnable{
 		}
 		try{
 			setBrightness(80);   // 중간으로 돌려준다.
-			htu3.finish();
+			htu3.finish();		 // 설명서 닫기
 			return;
 		}catch(IOException e){
 			System.err.println(e);
