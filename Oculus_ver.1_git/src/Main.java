@@ -246,6 +246,7 @@ public class Main {
 		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));		//시계 쓰레드 시작
 		dateJLabel.start();
 		
+		//쓰레드 생성
 		mFrame.runRecord();
 		mFrame.runGraph();
 		mFrame.runGoal();
