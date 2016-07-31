@@ -25,25 +25,25 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 	public JButton btn[][] = new JButton[3][5];
 
-	ImageIcon icon;
+	ImageIcon icon;					
 	Container contentPane;
 
 	Color color = new Color(206,247,110);
 
 	//http://b-jay.tistory.com/123
-	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); //전체화면 사이즈 가져오기
+	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//전체화면 사이즈 가져오기
 
 	HowToUse htu2;
 
-	public void windowActivated(WindowEvent e) {}
-	public void windowClosed(WindowEvent e) {}
+	public void windowActivated(WindowEvent e) {}			// 윈도우가 활성화 될 때 호출
+	public void windowClosed(WindowEvent e) {}			// 윈도우가 완전히 닫혀질 때 호출
 	public void windowClosing(WindowEvent e) {
-		finish();									//창 닫으면 카운트되지않고 종료
+		finish();						// 창 닫으면 카운트되지않고 종료
 	}
-	public void windowDeactivated(WindowEvent e) {}
-	public void windowDeiconified(WindowEvent e) {}
-	public void windowIconified(WindowEvent e) {}
-	public void windowOpened(WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}			// 윈도우가 비활성화될 때 호출
+	public void windowDeiconified(WindowEvent e) {}			// 윈도우가 아이콘에서 이전 크기로 될 때 호출
+	public void windowIconified(WindowEvent e) {}			// 윈도우가 아이콘화(최소화)될 떄 호출
+	public void windowOpened(WindowEvent e) {}			// 윈도우가 열릴 때 호출
 
 
 	public void setOn(int i, int[][] j){
@@ -61,11 +61,11 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		super("Fifteen Dots");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		icon = new ImageIcon("image\\RYAN_resize.png");
+		icon = new ImageIcon("image\\RYAN_resize.png");		// 캐릭터 이미지
 
-		contentPane = getContentPane();
-		contentPane.setLayout(new GridLayout(3, 5, 5, 5)); //배치관리자 삭제
-		contentPane.setBackground(color);	
+		contentPane = getContentPane();				// 
+		contentPane.setLayout(new GridLayout(3, 5, 5, 5)); 	// 배치관리자 삭제
+		contentPane.setBackground(color);			// 
 		this.addWindowListener(this);
 
 		flag = false;
@@ -73,28 +73,28 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 5; j++){
 				btn[i][j] = new JButton(icon);
-				btn[i][j].setSize(res.width/15, res.width/15);					//모니터 해상도에 따른 버튼 사이즈 조절
+				btn[i][j].setSize(res.width/15, res.width/15);		// 모니터 해상도에 따른 버튼 사이즈 조절
 
 				// 버튼 정렬
-				btn[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				btn[i][j].setVerticalAlignment(SwingConstants.CENTER);
+				btn[i][j].setHorizontalAlignment(SwingConstants.CENTER);	//
+				btn[i][j].setVerticalAlignment(SwingConstants.CENTER);		// 
 
 				// 버튼 디자인 정리
-				btn[i][j].setBorderPainted(false); 								// 버튼 경계선 제거
-				btn[i][j].setFocusPainted(false);								// 포커스(선택했던 버튼 표시) 제거
-				btn[i][j].setContentAreaFilled(false);							// 버튼영역 배경 제거
+				btn[i][j].setBorderPainted(false); 				// 버튼 경계선 제거
+				btn[i][j].setFocusPainted(false);				// 포커스(선택했던 버튼 표시) 제거
+				btn[i][j].setContentAreaFilled(false);				// 버튼영역 배경 제거
 
-				contentPane.add(btn[i][j]);
+				contentPane.add(btn[i][j]);					// 컨텐트팬에 버튼 부착
 			}
 		}
 
 
-		setSize(res.width, res.height);
-		setVisible(true);
+		setSize(res.width, res.height);							// 크기 설정
+		setVisible(true);								// 창을 보이게 함
 
-		htu2 = new HowToUse(2);						//운동에 대한 설명서
+		htu2 = new HowToUse(2);								// 운동에 대한 설명서
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);				// 닫기 버튼을 눌렀을 때 해당 창만 종료
 	}
 
 	void finish(){
@@ -106,12 +106,12 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 		while(true){
 			try{
-				//Thread.sleep(1000);   // 디버깅용
-				Thread.sleep(2000);   // 2초씩 넘어감
+				//Thread.sleep(1000);   				// 디버깅용
+				Thread.sleep(2000);   					// 2초씩 넘어감
 
 				if(flag == true){
-					htu2.finish();
-					dispose();
+					htu2.finish();					// 
+					dispose();					// 프레임 종료
 					return;
 				}
 
@@ -123,10 +123,10 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 			k++;
 
 			if(k == -1)
-				htu2.finish();		//2초가 지난후 설명이 사라지게 하기
+				htu2.finish();						// 2초가 지난후 설명이 사라지게 하기
 
 			if(k > 0){
-				setOff();				//버튼 모두 끄기
+				setOff();						// 버튼 모두 끄기
 				setOn(row, order);
 
 				row++;
@@ -137,7 +137,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 				if(MainFrame.FDC > MainFrame.FD) MainFrame.FDC = MainFrame.FD;
 				Save.SaveNow();
 
-				dispose();
+				dispose();						// 프레임 종료
 				return;
 			}
 		}
