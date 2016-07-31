@@ -120,6 +120,7 @@ class MainFrame extends JFrame implements WindowListener{
 			for(int i = 0; i < 6; i++){
 				str = line.split(",");
 			}
+			
 			Month = Integer.parseInt(str[0]);
 			Day = Integer.parseInt(str[1]);
 			FM = Integer.parseInt(str[2]);

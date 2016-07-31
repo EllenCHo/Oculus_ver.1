@@ -6,8 +6,8 @@ import javax.swing.*;
 
 class Graph extends JFrame{
 	Container c;
-	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;
-	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;
+	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;			//Follow Me ÆÛ¼¾Æ® 
+	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;			//Fifteen Dots ÆÛ¼¾Æ®
 
 	Graph(){	 //percent1 = FollowMe ´Þ¼º·ü, percent2 = Fifteen Dots ´Þ¼º·ü
 		setTitle("¿À´Ã ¸ñÇ¥´Þ¼º·ü(%)");
