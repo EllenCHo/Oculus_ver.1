@@ -29,6 +29,7 @@ public class HowToUse extends JFrame{
 		setSize(1043, 471);									//설명문 사이즈 조절
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setResizable(false);				//창 크기를 못 늘리게 고정
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}

@@ -115,6 +115,7 @@ public class Goal extends JFrame implements Runnable{
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setResizable(false);				//창 크기를 못 늘리게 고정
 	}
 
 	//횟수 버튼 리스너

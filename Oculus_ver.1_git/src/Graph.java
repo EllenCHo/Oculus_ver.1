@@ -36,7 +36,8 @@ class Graph extends JFrame{
 		setSize(640,460);
 		setLocationRelativeTo(null);
 		setVisible(true);
-
+		setResizable(false);				//창 크기를 못 늘리게 고정
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
