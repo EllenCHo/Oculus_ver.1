@@ -7,15 +7,15 @@ public class Reference extends JFrame{
 	Container c;						// 컨테이너 변수 선언
 	
 	public Reference(){
-		setTitle("소개");				// 창 이름은 "소개"
-		c = getContentPane();				// 프레임에 연결된 컨텐트팬을 알아냄
+		setTitle("소개");							// 창 이름은 "소개"
+		c = getContentPane();					// 프레임에 연결된 컨텐트팬을 알아냄
 		MyPanel panel = new MyPanel();			// MyPanel 객체 생성
 		c.add(panel, BorderLayout.CENTER);		// panel을 BorderLayout의 중앙 위로 배치
 
-		setSize(1084, 1125);				// 창 크기 설정
+		setSize(1084, 1125);					// 창 크기 설정
 		setLocationRelativeTo(null);			// 화면의 가운데에 창을 띄움
-		setVisible(true);   				// 창을 보이게 함
-		setResizable(false);				// 창 크기를 못 늘리게 고정
+		setVisible(true);   					// 창을 보이게 함
+		setResizable(false);					// 창 크기를 못 늘리게 고정
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		// 닫기 버튼을 눌렀을 때 해당 창만 종료
 	}
