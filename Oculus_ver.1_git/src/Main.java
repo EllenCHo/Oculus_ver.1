@@ -44,10 +44,8 @@ class MainFrame extends JFrame implements WindowListener{
     public void windowDeactivated(WindowEvent e) {
     }
     public void windowIconified(WindowEvent e) {
-		Thread Waiting = new Thread(new Waiting());			//창을 내렸을 경우 지정시간이 되면 운동이 랜덤으로 실행되도록 설정
     }
     public void windowDeiconified(WindowEvent e) {
-    	Waiting.finish();									//창을 다시 올리면 웨이팅 종료
     }
     public void windowOpened(WindowEvent e) {
     	Waiting.finish();									//트레이에서 돌아오면 웨이팅 종료

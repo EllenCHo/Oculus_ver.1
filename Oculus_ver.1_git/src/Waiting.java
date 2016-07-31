@@ -21,60 +21,68 @@ public class Waiting implements Runnable{
 		while(true){
 			cal = Calendar.getInstance();		//현재 시간 갱신
 			
-			//운동 별로 쓰레드 생성
-			Thread followMe = new Thread(new FollowMe());
-			Thread dots = new Thread(new Dots());
-			Thread brightness = new Thread(new Brightness());
-			
 			//일정 시간(50분)이 되면 운동 중 하나가 자동실행
 			if(cal.get(Calendar.MINUTE) == 50 ){
 	    		switch(cal.get(Calendar.HOUR_OF_DAY)){						//시간에 따라 운동별로 시작
+	    		
 	    		case 0:
-					followMe.start();
+	    			Thread followMe1 = new Thread(new FollowMe());
+					followMe1.start();
 					break;
 					
 	    		case 1:
-					dots.start();
+	    			Thread dots1 = new Thread(new Dots());
+					dots1.start();
 					break;
 					
 	    		case 2:
-					brightness.start();
+	    			Thread brightness1 = new Thread(new Brightness());
+					brightness1.start();
 					break;
 					
 	    		case 8:
-					followMe.start();
+	    			Thread followMe2 = new Thread(new FollowMe());
+					followMe2.start();
 					break;
 					
 	    		case 11:
-					dots.start();
+	    			Thread dots2 = new Thread(new Dots());
+					dots2.start();
 					break;
 					
 	    		case 13:
-					brightness.start();
+	    			Thread brightness2 = new Thread(new Brightness());
+					brightness2.start();
 					break;
 					
 	    		case 15:
-					followMe.start();
+	    			Thread followMe3 = new Thread(new FollowMe());
+					followMe3.start();
 					break;
 					
 	    		case 17:
-					dots.start();
+	    			Thread dots3 = new Thread(new Dots());
+					dots3.start();
 					break;
 					
 	    		case 19:
-					brightness.start();
+	    			Thread brightness3 = new Thread(new Brightness());
+					brightness3.start();
 					break;
 					
 	    		case 21:
-					followMe.start();
+	    			Thread followMe4 = new Thread(new FollowMe());
+					followMe4.start();
 					break;
 					
 	    		case 22:
-					dots.start();
+	    			Thread dots4 = new Thread(new Dots());
+					dots4.start();
 					break;
 					
 	    		case 23:
-					brightness.start();
+	    			Thread brightness4 = new Thread(new Brightness());
+					brightness4.start();
 					break;
 	    		}
 			}
