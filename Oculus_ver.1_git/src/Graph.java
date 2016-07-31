@@ -6,12 +6,12 @@ import javax.swing.*;
 
 class Graph extends JFrame{
 	Container c;
-	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;			//Follow Me 퍼센트 
-	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;			//Fifteen Dots 퍼센트
+	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;		// Follow Me 퍼센트 
+	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;		// Fifteen Dots 퍼센트
 
-	Graph(){	 //percent1 = FollowMe 달성률, percent2 = Fifteen Dots 달성률
-		setTitle("오늘 목표달성률(%)");
-		c = getContentPane();
+	Graph(){	 							// percent1 = FollowMe 달성률, percent2 = Fifteen Dots 달성률
+		setTitle("오늘 목표달성률(%)");					// 창이름 설정
+		c = getContentPane();						// 
 		c.setLayout(null);
 
 		JLabel FM = new JLabel("Follow Me");
@@ -36,25 +36,25 @@ class Graph extends JFrame{
 		setSize(640,460);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		setResizable(false);				//창 크기를 못 늘리게 고정
+		setResizable(false);						//창 크기를 못 늘리게 고정
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public class CircleGraph extends JPanel{
-		int width, height;			//원 가로 세로 크기
-		double value;				//%값
-		float r;						//반지름 길이
-		double angle;			//각
-		Color lineColor;		//테두리 컬러
-		Color arcColor;			//호 컬러
+		int width, height;						//원 가로 세로 크기
+		double value;							//%값
+		float r;							//반지름 길이
+		double angle;							//각	
+		Color lineColor;						//테두리 컬러
+		Color arcColor;							//호 컬러
 
-		Ellipse2D.Float outCircle;			//외곽 테두리
-		Ellipse2D.Float outFillCircle;		//내부 원 영역
+		Ellipse2D.Float outCircle;					//외곽 테두리
+		Ellipse2D.Float outFillCircle;					//내부 원 영역
 
 		Arc2D.Float inArc;						//호 영역
 
-		int stringX, stringY;					//값 출력 위치
+		int stringX, stringY;						//값 출력 위치
 
 		//원크기 디폴트
 		public CircleGraph(double value){
@@ -136,3 +136,4 @@ class Graph extends JFrame{
 		}
 	}
 }
+
