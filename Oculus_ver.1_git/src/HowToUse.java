@@ -2,37 +2,37 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HowToUse extends JFrame{
-	Container c;							// ÄÁÅ×ÀÌ³Ê º¯¼ö ¼±¾ğ
-	ImageIcon icon;							// ÀÌ¹ÌÁö ¾ÆÀÌÄÜ º¯¼ö ¼±¾ğ
+	Container c;											// ì»¨í…Œì´ë„ˆ ë³€ìˆ˜ ì„ ì–¸
+	ImageIcon icon;											// ì´ë¯¸ì§€ ì•„ì´ì½˜ ë³€ìˆ˜ ì„ ì–¸
 	
-	public HowToUse(int ex){					// Àü´ŞÀÎÀÚ 'ex'´Â ¿îµ¿ Á¾·ù (1: FollowME, 2: 15Á¡, 3: Brightness)
+	public HowToUse(int ex){								// ì „ë‹¬ì¸ì 'ex'ëŠ” ìš´ë™ ì¢…ë¥˜ (1: FollowME, 2: FifteenDots, 3: Brightness)
 		
-		//¿îµ¿Á¾·ù¿¡ µû¶ó ¼³¸í¹® ¹Ù²Ù±â	
+		// ìš´ë™ì¢…ë¥˜ì— ë”°ë¼ ì„¤ëª…ë¬¸ ë°”ê¾¸ê¸°	
 		switch(ex){
-		case 1:							// FollowMe ½ÇÇà ½Ã
-			icon = new ImageIcon("image\\use1.jpg");		// ÀÌ¹ÌÁö´Â 'use1'
+		case 1:												// FollowMe ì‹¤í–‰ ì‹œ
+			icon = new ImageIcon("image\\use1.jpg");		// ì´ë¯¸ì§€ëŠ” 'use1'
 			break;
-		case 2:							// 15 ½ÇÇà ½Ã
-			icon = new ImageIcon("image\\use2.jpg");		// ÀÌ¹ÌÁö´Â 'use2'
+		case 2:												// FifteenDots ì‹¤í–‰ ì‹œ
+			icon = new ImageIcon("image\\use2.jpg");		// ì´ë¯¸ì§€ëŠ” 'use2'
 			break;
-		case 3:							// Brightness ½ÇÇà ½Ã
-			icon = new ImageIcon("image\\use3.jpg");		// ÀÌ¹ÌÁö´Â 'use3'
+		case 3:												// Brightness ì‹¤í–‰ ì‹œ
+			icon = new ImageIcon("image\\use3.jpg");		// ì´ë¯¸ì§€ëŠ” 'use3'
 			break;
 		default :
 			break;
 		}
 		
-		setTitle("How To Use");					// Ã¢ÀÌ¸§Àº "How To Use"
-		c = getContentPane();					// ÇÁ·¹ÀÓ¿¡ ¿¬°áµÈ ÄÁÅÙÆ®ÆÒÀ» ¾Ë¾Æ³¿
-		MyPanel panel = new MyPanel();				// MyPaenl °´Ã¼ »ı¼º
-		c.add(panel, BorderLayout.CENTER);			// panelÀ» BorderLayoutÀÇ Áß¾Ó À§·Î ¹èÄ¡
+		setTitle("How To Use");								// ì°½ì´ë¦„ì€ "How To Use"
+		c = getContentPane();								// í”„ë ˆì„ì— ì—°ê²°ëœ ì»¨í…íŠ¸íŒ¬ì„ ì•Œì•„ëƒ„
+		MyPanel panel = new MyPanel();						// MyPaenl ê°ì²´ ìƒì„±
+		c.add(panel, BorderLayout.CENTER);					// panelì„ BorderLayoutì˜ ì¤‘ì•™ ìœ„ë¡œ ë°°ì¹˜
 		
-		setSize(1043, 471);					// ¼³¸í¹® »çÀÌÁî Á¶Àı
-		setLocationRelativeTo(null);				// È­¸éÀÇ °¡¿îµ¥¿¡ Ã¢À» ¶ç¿ò
-		setVisible(true);					// Ã¢À» º¸ÀÌ°Ô ÇÔ
-		setResizable(false);			 		// Ã¢ Å©±â¸¦ ¸ø ´Ã¸®°Ô °íÁ¤
+		setSize(1043, 471);									// ì„¤ëª…ë¬¸ ì‚¬ì´ì¦ˆ ì¡°ì ˆ
+		setLocationRelativeTo(null);						// í™”ë©´ì˜ ê°€ìš´ë°ì— ì°½ì„ ë„ì›€
+		setVisible(true);									// ì°½ì„ ë³´ì´ê²Œ í•¨
+		setResizable(false);			 					// ì°½ í¬ê¸°ë¥¼ ëª» ëŠ˜ë¦¬ê²Œ ê³ ì •
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	// ´İ±â ¹öÆ°À» ´­·¶À» ¶§ ÇØ´ç Ã¢¸¸ Á¾·á
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	// ë‹«ê¸° ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ í•´ë‹¹ ì°½ë§Œ ì¢…ë£Œ
 	}
 
 	public boolean finish(){				
@@ -41,11 +41,11 @@ public class HowToUse extends JFrame{
 	}
 	
 	class MyPanel extends JPanel{
-		Image img = icon.getImage();				
+		Image img = icon.getImage();							// ì´ë¯¸ì§€ ê°€ì ¸ì˜´			
 
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
-			g.drawImage(img,0,0, getWidth(), getHeight(),this);	// ÀÌ¹ÌÁö ±×¸®±â, ÀÌ¹ÌÁö¸¦ (0,0) ÁÂÇ¥¿¡¼­ ½ÃÀÛÇØ ÇØ´ç ÀÌ¹ÌÁöÀÇ ³Êºñ¿Í ³ôÀÌ¸¸Å­ Ãâ·Â 
+			g.drawImage(img,0,0, getWidth(), getHeight(),this);	// ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°, ì´ë¯¸ì§€ë¥¼ (0,0) ì¢Œí‘œì—ì„œ ì‹œì‘í•´ í•´ë‹¹ ì´ë¯¸ì§€ì˜ ë„ˆë¹„ì™€ ë†’ì´ë§Œí¼ ì¶œë ¥ 
 		}
 	}
 }
