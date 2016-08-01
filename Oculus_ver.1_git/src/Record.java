@@ -97,7 +97,24 @@ public class Record extends JFrame implements ActionListener
 					}
 				}
 			}
-		}catch(IOException e){System.out.println("파일입력실패");}
+		}catch(IOException e){								//log폴더에 Info 파일이 없을 경우
+			try {
+				File src = new File("log\\Info.txt");		//파일 생성
+
+				DateJLabel.fw = new FileWriter(src, true);			// 파일 출력 스트림 생성
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);	// 버퍼 파일 출력 스트림 생성, 출력 효율 향상
+				DateJLabel.bw.write(String.format("%d,%d,%d,0", MainFrame.Year, MainFrame.Month, MainFrame.Day));  
+				DateJLabel.bw.flush();
+
+				DateJLabel.bw.close();								// 파일 입출력 스트림을 닫고 시스템 자원 해제
+				DateJLabel.fw.close();					
+			} catch (IOException e1) {
+				System.err.println(e1);
+				System.exit(1);
+				e1.printStackTrace();
+				System.out.println("파일입력실패");
+			}   
+		}
 
 
 		panNorth = new JPanel();					// JPanel 객체를 생성하여 panNorth에 저장

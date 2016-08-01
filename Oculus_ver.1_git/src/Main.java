@@ -17,8 +17,8 @@ class MainFrame extends JFrame implements WindowListener{
 	public static int FMC = -1;   	// Follow Me 카운트
 	public static int FD = -1;   	// Fifteen Dots 목표 횟수
 	public static int FDC = -1;   	// Fifteen Dots 카운트
-	
-	
+
+
 	private JLabel date;   			 // 현재 날짜, 시각
 	private JButton record;    		 // 월간/주간 목표 그래프
 	private JButton graph;   		 // 오늘 목표달성치(%)
@@ -27,33 +27,36 @@ class MainFrame extends JFrame implements WindowListener{
 	private JButton exercise2;  	 // 운동 2 : 15 dots
 	private JButton exercise3;  	 // 운동 3 : Brightness
 	private JButton reference;  	 // 개발자 및 앱 소개
-	
+
 	private Calendar cal;
-	
+
 	String line;					//달력을 가져올 변수
 	String str[];					//기록을 가져올 변수
-	
-    public void windowActivated(WindowEvent e) {}
-    public void windowClosed(WindowEvent e) {}
-    public void windowClosing(WindowEvent e) {
-    	new Tray();											//닫았을 때 트레이로 돌아감
-    	DateJLabel.stop();									//시계 쓰레드 종료
-    	Thread Waiting = new Thread(new Waiting());			//트레이로 돌려보냈을 시에 지정시간이 되면 자동으로 실행하게 함
+
+	public void windowActivated(WindowEvent e) {
+		Save.SaveDay();										//메인 창이 보일때마다 날짜가 지났는지 확인하고 지났으면 기록 저장
+		
+	}
+	public void windowClosed(WindowEvent e) {}
+	public void windowClosing(WindowEvent e) {
+		new Tray();											//닫았을 때 트레이로 돌아감
+		DateJLabel.stop();									//시계 쓰레드 종료
+		Thread Waiting = new Thread(new Waiting());			//트레이로 돌려보냈을 시에 지정시간이 되면 자동으로 실행하게 함
 		Waiting.start();
-    }
-    public void windowDeactivated(WindowEvent e) {
-    }
-    public void windowIconified(WindowEvent e) {
-    	Thread Waiting = new Thread(new Waiting());		    //창을 내렸을 경우 지정시간이 되면 운동이 랜덤으로 실행되도록 설정 
-    	Waiting.start();
-    }
-    public void windowDeiconified(WindowEvent e) {
-    	Waiting.finish();									//창을 다시 올리면 웨이팅 종료
-    }
-    public void windowOpened(WindowEvent e) {
-    	Waiting.finish();									//트레이에서 돌아오면 웨이팅 종료
-    }
-	
+	}
+	public void windowDeactivated(WindowEvent e) {
+	}
+	public void windowIconified(WindowEvent e) {
+		Thread Waiting = new Thread(new Waiting());		    //창을 내렸을 경우 지정시간이 되면 운동이 랜덤으로 실행되도록 설정 
+		Waiting.start();
+	}
+	public void windowDeiconified(WindowEvent e) {
+		Waiting.finish();									//창을 다시 올리면 웨이팅 종료
+	}
+	public void windowOpened(WindowEvent e) {
+		Waiting.finish();									//트레이에서 돌아오면 웨이팅 종료
+	}
+
 	MainFrame(){
 		setTitle("Oclulus");
 		setSize(750, 1000);
@@ -65,59 +68,59 @@ class MainFrame extends JFrame implements WindowListener{
 
 		//시계 생성
 		date = new JLabel("현재 날짜시각", null, SwingConstants.CENTER);
-		
+
 		//기록 버튼 생성과 버튼 색상 설정
 		record = new JButton("월간 기록 확인");
 		record.setFont(new Font("Gothic", Font.BOLD, 20));
 		record.setBackground(new Color(93,93,93));
 		record.setForeground(Color.white);
 		record.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		//그래프 버튼 생성과 버튼 색상 설정
 		graph = new JButton("오늘 목표달성율(%)");
 		graph.setFont(new Font("Gothic", Font.BOLD, 20));
 		graph.setBackground(new Color(93,93,93));
 		graph.setForeground(Color.white);
 		graph.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		//설정 버튼 생성과 버튼 색상 설정
 		goal = new JButton("설정");
 		goal.setFont(new Font("Gothic", Font.BOLD, 20));
 		goal.setBackground(new Color(93,93,93));
 		goal.setForeground(Color.white);
 		goal.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		//Follow Me 버튼 생성과 버튼 색상 설정
 		exercise1 = new JButton("Follow Me");
 		exercise1.setFont(new Font("Arial", Font.BOLD, 20));
 		exercise1.setBackground(new Color(93,93,93));
 		exercise1.setForeground(Color.white);
 		exercise1.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		//Fifteen Dots 버튼 생성과 버튼 색상 설정
 		exercise2 = new JButton("Fifteen Dots");
 		exercise2.setFont(new Font("Gothic", Font.BOLD, 20));
 		exercise2.setBackground(new Color(93,93,93));
 		exercise2.setForeground(Color.white);
 		exercise2.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		//Brightness 버튼 생성과 버튼 색상 설정
 		exercise3 = new JButton("Brightness");
 		exercise3.setFont(new Font("Gothic", Font.BOLD, 20));
 		exercise3.setBackground(new Color(93,93,93));
 		exercise3.setForeground(Color.white);
 		exercise3.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		//소개 버튼 생성과 버튼 색상 설정
 		reference = new JButton("가천대학교 의용생체공학과 소개");
 		reference.setFont(new Font("Gothic", Font.BOLD, 20));
 		reference.setBackground(new Color(93,93,93));
 		reference.setForeground(Color.white);
 		reference.setUI(new StyledButtonUI());   // customize the button with your own look
-		
+
 		Container mContainer = getContentPane();
 		mContainer.setLayout(new GridLayout(4, 2, 30, 30));				//레이아웃 관리자 설정
-		
+
 		//버튼 추가
 		mContainer.add(date);
 		mContainer.add(record);
@@ -127,17 +130,17 @@ class MainFrame extends JFrame implements WindowListener{
 		mContainer.add(exercise2);
 		mContainer.add(exercise3);
 		mContainer.add(reference);
-		
+
 		//기록에 저장된 내용으로 월, 일, 목표횟수, 카운트 세팅
 		try{
 			DateJLabel.fr = new FileReader("log\\Today.txt");   // 파일 입력 스트림 생성
 			DateJLabel.br = new BufferedReader(DateJLabel.fr);   // 버퍼 파일 입력 스트림 생성, 입력 효율 향상
-			
+
 			line = DateJLabel.br.readLine();
 			for(int i = 0; i < 7; i++){
 				str = line.split(",");
 			}
-			
+
 			Year = Integer.parseInt(str[0]);
 			Month = Integer.parseInt(str[1]);
 			Day = Integer.parseInt(str[2]);
@@ -145,14 +148,37 @@ class MainFrame extends JFrame implements WindowListener{
 			FMC = Integer.parseInt(str[4]);
 			FD = Integer.parseInt(str[5]);
 			FDC = Integer.parseInt(str[6]);
-			
+
 			DateJLabel.br.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
 			DateJLabel.fr.close();
-		
-			
-		}catch(IOException e){
-			System.err.println(e);
-			System.exit(1);
+
+
+		}catch(IOException e){					//log폴더에 Today 파일이 없을 경우 파일 생성
+			try{
+				File src = new File("log\\Today.txt");					 //파일 생성
+				DateJLabel.fw = new FileWriter(src);   	 				 // 파일 출력 스트림 생성
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	 // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
+
+				DateJLabel.bw.write(String.format("%d,%d,%d,9,0,9,0", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)));
+				DateJLabel.bw.flush();
+
+				DateJLabel.bw.close();									// 파일 입출력 스트림을 닫고 시스템 자원 해제
+				DateJLabel.fw.close();
+
+				//변수 초기화
+				Year = cal.get(Calendar.YEAR);
+				Month = cal.get(Calendar.MONTH) + 1;
+				Day = cal.get(Calendar.DAY_OF_MONTH);
+				FM = 9;
+				FMC = 0;
+				FD = 9;
+				FDC = 0;
+
+			}catch(IOException ie){
+				System.err.println(e);
+				System.exit(1);
+				System.out.println("파일 읽기 실패");
+			}
 		}
 	}
 
@@ -181,7 +207,7 @@ class MainFrame extends JFrame implements WindowListener{
 			}
 		});
 	}
-	
+
 	public void runExercise1(){
 		exercise1.addActionListener(new ActionListener() {   // Follow Me 버튼 : 리스너 & 스레드
 			public void actionPerformed(ActionEvent e){	
@@ -190,7 +216,7 @@ class MainFrame extends JFrame implements WindowListener{
 			}
 		});
 	}
-	
+
 	public void runExercise2(){
 		exercise2.addActionListener(new ActionListener() {   // Dots 버튼 : 리스너 & 스레드
 			public void actionPerformed(ActionEvent e){
@@ -199,7 +225,7 @@ class MainFrame extends JFrame implements WindowListener{
 			}
 		});
 	}
-	
+
 	public void runExercise3(){
 		exercise3.addActionListener(new ActionListener() {   // Brightness 버튼 : 리스너 & 스레드
 			public void actionPerformed(ActionEvent e){
@@ -208,7 +234,7 @@ class MainFrame extends JFrame implements WindowListener{
 			}
 		});
 	}
-	
+
 	public void runReference(){
 		reference.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -216,8 +242,8 @@ class MainFrame extends JFrame implements WindowListener{
 			}
 		});
 	}
-	
-	
+
+
 	public void setDate(JLabel date){this.date = date;}
 	public void setRecord(){return;}
 	public void setGraph(){return;}
@@ -242,12 +268,12 @@ public class Main {
 		MainFrame mFrame = new MainFrame();
 
 		Calendar now = Calendar.getInstance();   // 현재 날짜와 시간 정보를 가져온다.
-		
+
 		Save.SaveDay();							 //날짜가 지나면 기록에 저장
-		
+
 		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));		//시계 쓰레드 시작
 		dateJLabel.start();
-		
+
 		//쓰레드 생성
 		mFrame.runRecord();
 		mFrame.runGraph();

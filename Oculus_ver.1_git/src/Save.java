@@ -1,6 +1,7 @@
 //파일 저장 동기화
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
@@ -22,11 +23,11 @@ public class Save {
 			System.exit(1);
 		}
 	}
-	
-	
+
+
 	public static void SaveDay(){
 		Calendar now = Calendar.getInstance();   // 현재 날짜와 시간 정보를 가져온다.
-		
+
 		try{
 			if(now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day){
 				DateJLabel.fw = new FileWriter("log\\Info.txt", true);   // 파일 출력 스트림 생성
@@ -35,7 +36,7 @@ public class Save {
 				// Info.txt에 오늘 기록 입력
 				DateJLabel.bw.write(String.format("%d,%d,%d,%.2f\r\n", MainFrame.Year, MainFrame.Month, MainFrame.Day, (double)100 * (MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));   
 				DateJLabel.bw.flush();									 //버퍼에 남은 것 출력
-	
+
 				MainFrame.FMC = 0;
 				MainFrame.FDC = 0;
 
@@ -52,9 +53,22 @@ public class Save {
 				DateJLabel.fw.close();
 			}
 		}catch(IOException e){
-			System.err.println(e);
-			System.exit(1);
+			try {
+				File src = new File("log\\Info.txt");		//파일 생성
+
+				DateJLabel.fw = new FileWriter(src, true);			// 파일 출력 스트림 생성
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);	// 버퍼 파일 출력 스트림 생성, 출력 효율 향상
+				DateJLabel.bw.write(String.format("%d,%d,%d,0", MainFrame.Year, MainFrame.Month, MainFrame.Day));  
+				DateJLabel.bw.flush();
+
+				DateJLabel.bw.close();								// 파일 입출력 스트림을 닫고 시스템 자원 해제
+				DateJLabel.fw.close();					
+			} catch (IOException e1) {
+				System.err.println(e1);
+				System.exit(1);
+				e1.printStackTrace();
+				System.out.println("파일 저장 실패");
+			}   
 		}
 	}
-	
 }
