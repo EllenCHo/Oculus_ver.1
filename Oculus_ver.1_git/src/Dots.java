@@ -1,4 +1,4 @@
-// 06. ¸ğ¾çÃ¼ ¿îµ¿ : 15Á¡ Æ®·¹ÀÌ´×
+// 06. ëª¨ì–‘ì²´ ìš´ë™ : 15ì  íŠ¸ë ˆì´ë‹
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	String[] str;
 	boolean flag;
 	
-	//¹öÆ°ÀÌ ³ªÅ¸³ª´Â ¼ø¼­
+	//ë²„íŠ¼ì´ ë‚˜íƒ€ë‚˜ëŠ” ìˆœì„œ
 	int[][] order = {
 			{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4},
 			{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4},
@@ -31,19 +31,19 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	Color color = new Color(206,247,110);
 
 	//http://b-jay.tistory.com/123
-	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//ÀüÃ¼È­¸é »çÀÌÁî °¡Á®¿À±â
+	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//ì „ì²´í™”ë©´ ì‚¬ì´ì¦ˆ ê°€ì ¸ì˜¤ê¸°
 
 	HowToUse htu2;
 
-	public void windowActivated(WindowEvent e) {}			// À©µµ¿ì°¡ È°¼ºÈ­ µÉ ¶§ È£Ãâ
-	public void windowClosed(WindowEvent e) {}			// À©µµ¿ì°¡ ¿ÏÀüÈ÷ ´İÇôÁú ¶§ È£Ãâ
+	public void windowActivated(WindowEvent e) {}			// ìœˆë„ìš°ê°€ í™œì„±í™” ë  ë•Œ í˜¸ì¶œ
+	public void windowClosed(WindowEvent e) {}			// ìœˆë„ìš°ê°€ ì™„ì „íˆ ë‹«í˜€ì§ˆ ë•Œ í˜¸ì¶œ
 	public void windowClosing(WindowEvent e) {
-		finish();						// Ã¢ ´İÀ¸¸é Ä«¿îÆ®µÇÁö¾Ê°í Á¾·á
+		finish();						// ì°½ ë‹«ìœ¼ë©´ ì¹´ìš´íŠ¸ë˜ì§€ì•Šê³  ì¢…ë£Œ
 	}
-	public void windowDeactivated(WindowEvent e) {}			// À©µµ¿ì°¡ ºñÈ°¼ºÈ­µÉ ¶§ È£Ãâ
-	public void windowDeiconified(WindowEvent e) {}			// À©µµ¿ì°¡ ¾ÆÀÌÄÜ¿¡¼­ ÀÌÀü Å©±â·Î µÉ ¶§ È£Ãâ
-	public void windowIconified(WindowEvent e) {}			// À©µµ¿ì°¡ ¾ÆÀÌÄÜÈ­(ÃÖ¼ÒÈ­)µÉ ‹š È£Ãâ
-	public void windowOpened(WindowEvent e) {}			// À©µµ¿ì°¡ ¿­¸± ¶§ È£Ãâ
+	public void windowDeactivated(WindowEvent e) {}			// ìœˆë„ìš°ê°€ ë¹„í™œì„±í™”ë  ë•Œ í˜¸ì¶œ
+	public void windowDeiconified(WindowEvent e) {}			// ìœˆë„ìš°ê°€ ì•„ì´ì½˜ì—ì„œ ì´ì „ í¬ê¸°ë¡œ ë  ë•Œ í˜¸ì¶œ
+	public void windowIconified(WindowEvent e) {}			// ìœˆë„ìš°ê°€ ì•„ì´ì½˜í™”(ìµœì†Œí™”)ë  ë–„ í˜¸ì¶œ
+	public void windowOpened(WindowEvent e) {}			// ìœˆë„ìš°ê°€ ì—´ë¦´ ë•Œ í˜¸ì¶œ
 
 
 	public void setOn(int i, int[][] j){
@@ -61,10 +61,10 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		super("Fifteen Dots");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		icon = new ImageIcon("image\\RYAN_resize.png");		// Ä³¸¯ÅÍ ÀÌ¹ÌÁö
+		icon = new ImageIcon("image\\RYAN_resize.png");		// ìºë¦­í„° ì´ë¯¸ì§€
 
 		contentPane = getContentPane();				// 
-		contentPane.setLayout(new GridLayout(3, 5, 5, 5)); 	// ¹èÄ¡°ü¸®ÀÚ »èÁ¦
+		contentPane.setLayout(new GridLayout(3, 5, 5, 5)); 	// ë°°ì¹˜ê´€ë¦¬ì ì‚­ì œ
 		contentPane.setBackground(color);			// 
 		this.addWindowListener(this);
 
@@ -73,28 +73,28 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 5; j++){
 				btn[i][j] = new JButton(icon);
-				btn[i][j].setSize(res.width/15, res.width/15);		// ¸ğ´ÏÅÍ ÇØ»óµµ¿¡ µû¸¥ ¹öÆ° »çÀÌÁî Á¶Àı
+				btn[i][j].setSize(res.width/15, res.width/15);		// ëª¨ë‹ˆí„° í•´ìƒë„ì— ë”°ë¥¸ ë²„íŠ¼ ì‚¬ì´ì¦ˆ ì¡°ì ˆ
 
-				// ¹öÆ° Á¤·Ä
+				// ë²„íŠ¼ ì •ë ¬
 				btn[i][j].setHorizontalAlignment(SwingConstants.CENTER);	//
 				btn[i][j].setVerticalAlignment(SwingConstants.CENTER);		// 
 
-				// ¹öÆ° µğÀÚÀÎ Á¤¸®
-				btn[i][j].setBorderPainted(false); 				// ¹öÆ° °æ°è¼± Á¦°Å
-				btn[i][j].setFocusPainted(false);				// Æ÷Ä¿½º(¼±ÅÃÇß´ø ¹öÆ° Ç¥½Ã) Á¦°Å
-				btn[i][j].setContentAreaFilled(false);				// ¹öÆ°¿µ¿ª ¹è°æ Á¦°Å
+				// ë²„íŠ¼ ë””ìì¸ ì •ë¦¬
+				btn[i][j].setBorderPainted(false); 				// ë²„íŠ¼ ê²½ê³„ì„  ì œê±°
+				btn[i][j].setFocusPainted(false);				// í¬ì»¤ìŠ¤(ì„ íƒí–ˆë˜ ë²„íŠ¼ í‘œì‹œ) ì œê±°
+				btn[i][j].setContentAreaFilled(false);				// ë²„íŠ¼ì˜ì—­ ë°°ê²½ ì œê±°
 
-				contentPane.add(btn[i][j]);					// ÄÁÅÙÆ®ÆÒ¿¡ ¹öÆ° ºÎÂø
+				contentPane.add(btn[i][j]);					// ì»¨í…íŠ¸íŒ¬ì— ë²„íŠ¼ ë¶€ì°©
 			}
 		}
 
 
-		setSize(res.width, res.height);							// Å©±â ¼³Á¤
-		setVisible(true);								// Ã¢À» º¸ÀÌ°Ô ÇÔ
+		setSize(res.width, res.height);							// í¬ê¸° ì„¤ì •
+		setVisible(true);								// ì°½ì„ ë³´ì´ê²Œ í•¨
 
-		htu2 = new HowToUse(2);								// ¿îµ¿¿¡ ´ëÇÑ ¼³¸í¼­
+		htu2 = new HowToUse(2);								// ìš´ë™ì— ëŒ€í•œ ì„¤ëª…ì„œ
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);				// ´İ±â ¹öÆ°À» ´­·¶À» ¶§ ÇØ´ç Ã¢¸¸ Á¾·á
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);				// ë‹«ê¸° ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ í•´ë‹¹ ì°½ë§Œ ì¢…ë£Œ
 	}
 
 	void finish(){
@@ -106,12 +106,12 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 		while(true){
 			try{
-				//Thread.sleep(1000);   				// µğ¹ö±ë¿ë
-				Thread.sleep(2000);   					// 2ÃÊ¾¿ ³Ñ¾î°¨
+				//Thread.sleep(1000);   				// ë””ë²„ê¹…ìš©
+				Thread.sleep(2000);   					// 2ì´ˆì”© ë„˜ì–´ê°
 
 				if(flag == true){
 					htu2.finish();					// 
-					dispose();					// ÇÁ·¹ÀÓ Á¾·á
+					dispose();					// í”„ë ˆì„ ì¢…ë£Œ
 					return;
 				}
 
@@ -123,10 +123,10 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 			k++;
 
 			if(k == -1)
-				htu2.finish();						// 2ÃÊ°¡ Áö³­ÈÄ ¼³¸íÀÌ »ç¶óÁö°Ô ÇÏ±â
+				htu2.finish();						// 2ì´ˆê°€ ì§€ë‚œí›„ ì„¤ëª…ì´ ì‚¬ë¼ì§€ê²Œ í•˜ê¸°
 
 			if(k > 0){
-				setOff();						// ¹öÆ° ¸ğµÎ ²ô±â
+				setOff();						// ë²„íŠ¼ ëª¨ë‘ ë„ê¸°
 				setOn(row, order);
 
 				row++;
@@ -137,7 +137,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 				if(MainFrame.FDC > MainFrame.FD) MainFrame.FDC = MainFrame.FD;
 				Save.SaveNow();
 
-				dispose();						// ÇÁ·¹ÀÓ Á¾·á
+				dispose();						// í”„ë ˆì„ ì¢…ë£Œ
 				return;
 			}
 		}

@@ -1,4 +1,4 @@
-// 05. ¾È±¸ÀÌµ¿±Ù ¿îµ¿ : ¿òÁ÷ÀÌ´Â Á¡ Æ®·¹ÀÌ´×
+// 05. ì•ˆêµ¬ì´ë™ê·¼ ìš´ë™ : ì›€ì§ì´ëŠ” ì  íŠ¸ë ˆì´ë‹
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,29 +9,29 @@ import java.util.Random;
 
 
 public class FollowMe extends JFrame implements Runnable, WindowListener{
-	public static int spset = 3;		//°ø ½ºÇÇµå µğÆúÆ® °ª(·£´ı)
-	public static int szset = 0;		//°ø Å©±â µğÆúÆ® °ª(Áß)
-	Setting setting;					//¼³Á¤Ã¢
+	public static int spset = 3;		//ê³µ ìŠ¤í”¼ë“œ ë””í´íŠ¸ ê°’(ëœë¤)
+	public static int szset = 0;		//ê³µ í¬ê¸° ë””í´íŠ¸ ê°’(ì¤‘)
+	Setting setting;					//ì„¤ì •ì°½
 	Container contentPane;
 	boolean flag;	
-	JButton btn; 						//°ø ¼³Á¤ ¹öÆ°
-	HowToUse htu1;						//¼³¸í¼­ ¼³Á¤
+	JButton btn; 						//ê³µ ì„¤ì • ë²„íŠ¼
+	HowToUse htu1;						//ì„¤ëª…ì„œ ì„¤ì •
 	
-	Color color = new Color(206,247,110);							//¹é±×¶ó¿îµå »ö±ò ¼³Á¤
-	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//ÀüÃ¼È­¸é »çÀÌÁî °¡Á®¿À±â
+	Color color = new Color(206,247,110);							//ë°±ê·¸ë¼ìš´ë“œ ìƒ‰ê¹” ì„¤ì •
+	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//ì „ì²´í™”ë©´ ì‚¬ì´ì¦ˆ ê°€ì ¸ì˜¤ê¸°
 
-	String [] sptext = {"ÇÏ", "Áß", "»ó", "·£´ı"};
-	String [] sztext = {"Áß", "¼Ò"};
+	String [] sptext = {"í•˜", "ì¤‘", "ìƒ", "ëœë¤"};
+	String [] sztext = {"ì¤‘", "ì†Œ"};
 	
-	int speed1[]= {res.width/350, res.width/250, res.width/150};			 					//Ã¢Å©±â¿¡ µû¸¥ °ø ½ºÇÇµå(ÇÏ, Áß, »ó)
-	int speed2[] = {res.width/350, res.width/250, res.width/200, res.width/50};					//Ã¢Å©±â¿¡ µû¸¥ ·£´ı °ø ½ºÇÇµå
-	int size[] = {res.width/15, res.width/20};													//ÄÄÇ»ÅÍ Ã¢ Å©±â µû¸¥ »ó´ëÀûÀÎ °ø Å©±â(Áß, ÇÏ)
+	int speed1[]= {res.width/350, res.width/250, res.width/150};			 					//ì°½í¬ê¸°ì— ë”°ë¥¸ ê³µ ìŠ¤í”¼ë“œ(í•˜, ì¤‘, ìƒ)
+	int speed2[] = {res.width/350, res.width/250, res.width/200, res.width/50};					//ì°½í¬ê¸°ì— ë”°ë¥¸ ëœë¤ ê³µ ìŠ¤í”¼ë“œ
+	int size[] = {res.width/15, res.width/20};													//ì»´í“¨í„° ì°½ í¬ê¸° ë”°ë¥¸ ìƒëŒ€ì ì¸ ê³µ í¬ê¸°(ì¤‘, í•˜)
 
-	//ÀÎÅÍÆäÀÌ½º¸¦ »ó¼ÓÇßÀ¸¹Ç·Î ´Ù ¿À¹ö·ÎµùÇØ¾ßÇÔ
+	//ì¸í„°í˜ì´ìŠ¤ë¥¼ ìƒì†í–ˆìœ¼ë¯€ë¡œ ë‹¤ ì˜¤ë²„ë¡œë”©í•´ì•¼í•¨
 	public void windowActivated(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
 	public void windowClosing(WindowEvent e) {
-		finish();									//Ã¢ ´İÀ¸¸é Ä«¿îÆ®µÇÁö¾Ê°í Á¾·á
+		finish();									//ì°½ ë‹«ìœ¼ë©´ ì¹´ìš´íŠ¸ë˜ì§€ì•Šê³  ì¢…ë£Œ
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
@@ -41,35 +41,35 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	FollowMe() {
 		super("FolloFollow Me");
 		contentPane = getContentPane();
-		contentPane.setLayout(null); 								//¹èÄ¡°ü¸®ÀÚ »èÁ¦
-		contentPane.setBackground(color);							//¹é±×¶ó¿îµå »ö±ò Àû¿ë
-		DrawCircle panel = new DrawCircle();					//°øÀÌ ¿òÁ÷ÀÌ´Â ÆĞ³Î »ı¼º
-		panel.setSize(res.width-100,res.height); 					//¹üÀ§ ÁöÁ¤
-		panel.setBackground(color);									//ÆĞ³Î ¹é±×¶ó¿îµå »ö±ò Àû¿ë
-		contentPane.add(panel); 									// ÆĞ³ÎÀ» ÄÁÅÙÆ®ÆÒ¿¡ ºÎÂø
+		contentPane.setLayout(null); 								//ë°°ì¹˜ê´€ë¦¬ì ì‚­ì œ
+		contentPane.setBackground(color);							//ë°±ê·¸ë¼ìš´ë“œ ìƒ‰ê¹” ì ìš©
+		DrawCircle panel = new DrawCircle();					//ê³µì´ ì›€ì§ì´ëŠ” íŒ¨ë„ ìƒì„±
+		panel.setSize(res.width-100,res.height); 					//ë²”ìœ„ ì§€ì •
+		panel.setBackground(color);									//íŒ¨ë„ ë°±ê·¸ë¼ìš´ë“œ ìƒ‰ê¹” ì ìš©
+		contentPane.add(panel); 									// íŒ¨ë„ì„ ì»¨í…íŠ¸íŒ¬ì— ë¶€ì°©
 		this.addWindowListener(this);
 
 		flag = false;		
 
-		btn = new JButton("¸Ş´º"); 									//¹öÆ° ¸¸µé±â
+		btn = new JButton("ë©”ë‰´"); 									//ë²„íŠ¼ ë§Œë“¤ê¸°
 
-		btn.setSize(50,50);											//¹öÆ° »çÀÌÁî ÁöÁ¤
-		btn.setLocation(res.width-70,30);							//¹öÆ° À§Ä¡ ÁöÁ¤
+		btn.setSize(50,50);											//ë²„íŠ¼ ì‚¬ì´ì¦ˆ ì§€ì •
+		btn.setLocation(res.width-70,30);							//ë²„íŠ¼ ìœ„ì¹˜ ì§€ì •
 		contentPane.add(btn);
 
-		btn.addActionListener(new ActionListener() {				//¹öÆ° ¸¶¿ì½º ¸®½º³Ê Ãß°¡
+		btn.addActionListener(new ActionListener() {				//ë²„íŠ¼ ë§ˆìš°ìŠ¤ ë¦¬ìŠ¤ë„ˆ ì¶”ê°€
 			public void actionPerformed(ActionEvent e){
-				setting.setVisible(true);							//¼³Á¤ Ã¢ º¸ÀÌ±â
+				setting.setVisible(true);							//ì„¤ì • ì°½ ë³´ì´ê¸°
 			}
 		});
 
-		setting = new Setting(this, "¼³Á¤");							//¼³Á¤Ã¢ »ı¼º
-		setting.setLocationRelativeTo(null);						//¼³Á¤Ã¢ÀÌ È­¸é Áß¾Ó¿¡ ³ª¿Àµµ·Ï ¼³Á¤
+		setting = new Setting(this, "ì„¤ì •");							//ì„¤ì •ì°½ ìƒì„±
+		setting.setLocationRelativeTo(null);						//ì„¤ì •ì°½ì´ í™”ë©´ ì¤‘ì•™ì— ë‚˜ì˜¤ë„ë¡ ì„¤ì •
 
-		setSize(res.width, res.height);								//¸ğ´ÏÅÍ Å©±â¸¸Å­ Ã¢ Å©±â ¼³Á¤
+		setSize(res.width, res.height);								//ëª¨ë‹ˆí„° í¬ê¸°ë§Œí¼ ì°½ í¬ê¸° ì„¤ì •
 		setVisible(true);
 
-		htu1 = new HowToUse(1);										//¿îµ¿¿¡ ´ëÇÑ ¼³¸í¼­
+		htu1 = new HowToUse(1);										//ìš´ë™ì— ëŒ€í•œ ì„¤ëª…ì„œ
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
@@ -82,12 +82,12 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		int k = -10;
 		while(true){
 			try{
-				//Thread.sleep(100);   // µğ¹ö±ë¿ë
-				Thread.sleep(1000);   // 60ÃÊ ÈÄ Á¾·á
+				//Thread.sleep(100);   // ë””ë²„ê¹…ìš©
+				Thread.sleep(1000);   // 60ì´ˆ í›„ ì¢…ë£Œ
 
 				if(flag == true){
-					htu1.finish();			//¼³¸í¼­ ´İ±â
-					dispose();				//Follow Me Ã¢ ´İ±â
+					htu1.finish();			//ì„¤ëª…ì„œ ë‹«ê¸°
+					dispose();				//Follow Me ì°½ ë‹«ê¸°
 					return;
 				}
 			}catch(InterruptedException e){
@@ -98,87 +98,87 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 			k++;
 			
 			if(k == -5)
-				htu1.finish();			//5ÃÊ°¡ Áö³ª¸é ¼³¸í¹® »ç¶óÁö°Ô ÇÏ±â
+				htu1.finish();			//5ì´ˆê°€ ì§€ë‚˜ë©´ ì„¤ëª…ë¬¸ ì‚¬ë¼ì§€ê²Œ í•˜ê¸°
 
-			if(k == 60){				//¿îµ¿À» ´ÙÇßÀ» °æ¿ì Ä«¿îÆ®
+			if(k == 60){				//ìš´ë™ì„ ë‹¤í–ˆì„ ê²½ìš° ì¹´ìš´íŠ¸
 				MainFrame.FMC++;
-				if(MainFrame.FMC > MainFrame.FM) MainFrame.FMC = MainFrame.FM;		//Ä«¿îÆ®°¡ ¼³Á¤ÇÑ ¸ñÇ¥À» ´õ ³ÑÁö ¸øÇÏµµ·Ï ¼³Á¤
-				Save.SaveNow();			//±â·Ï ÀúÀå
+				if(MainFrame.FMC > MainFrame.FM) MainFrame.FMC = MainFrame.FM;		//ì¹´ìš´íŠ¸ê°€ ì„¤ì •í•œ ëª©í‘œì„ ë” ë„˜ì§€ ëª»í•˜ë„ë¡ ì„¤ì •
+				Save.SaveNow();			//ê¸°ë¡ ì €ì¥
 				
-				dispose();				//Follow Me Ã¢ ´İ±â
+				dispose();				//Follow Me ì°½ ë‹«ê¸°
 				return;
 			}
 		}
 	}
 
-	public class DrawCircle extends JPanel {						//°øÀÌ ¿òÁ÷ÀÌ´Â ÆĞ³ÎÀ» Æ÷ÇÔÇÑ Å¬·¡½º
-		private int xPos=200; 				//x ÁÂÇ¥
-		private int yPos=100; 				//y ÁÂÇ¥
+	public class DrawCircle extends JPanel {						//ê³µì´ ì›€ì§ì´ëŠ” íŒ¨ë„ì„ í¬í•¨í•œ í´ë˜ìŠ¤
+		private int xPos=200; 				//x ì¢Œí‘œ
+		private int yPos=100; 				//y ì¢Œí‘œ
 
-		int speedX; 						//xÁÂÇ¥·ÎÀÇ ½ºÇÇµå
-		int speedY; 						//yÁÂÇ¥·ÎÀÇ ½ºÇÇµå
-		int speedx;							//xÁÂÇ¥ÀÇ ´ÙÀ½ ½ºÇÇµå ÀúÀå
-		int speedy;							//yÁÂÇ¥ÀÇ ´ÙÀ½ ½ºÇÇµå ÀúÀå
+		int speedX; 						//xì¢Œí‘œë¡œì˜ ìŠ¤í”¼ë“œ
+		int speedY; 						//yì¢Œí‘œë¡œì˜ ìŠ¤í”¼ë“œ
+		int speedx;							//xì¢Œí‘œì˜ ë‹¤ìŒ ìŠ¤í”¼ë“œ ì €ì¥
+		int speedy;							//yì¢Œí‘œì˜ ë‹¤ìŒ ìŠ¤í”¼ë“œ ì €ì¥
 
-		ImageIcon icon = new ImageIcon("image\\RYAN.png");			//°ø ÀÌ¹ÌÁö ¼³Á¤
+		ImageIcon icon = new ImageIcon("image\\RYAN.png");			//ê³µ ì´ë¯¸ì§€ ì„¤ì •
 		Image img = icon.getImage();
 
 		boolean play = true;
 
 		public DrawCircle() {
-			speedX = speedY = 10;			//ÃÊ±â ½ºÇÇµå 10
+			speedX = speedY = 10;			//ì´ˆê¸° ìŠ¤í”¼ë“œ 10
 			try {
 				new Thread(){
 					public void run(){
 						while(play){
 							Random rd = new Random();
-							//Random.nextInt():intÇüÀÇ ³­¼ö¸¦ ¹ß»ı
-							//Random.nextInt(int n) : 0°ú (n-1)»çÀÌÀÇ intÇüÀÇ ³­¼ö¸¦ ¹ß»ıÇÑ´Ù.
+							//Random.nextInt():intí˜•ì˜ ë‚œìˆ˜ë¥¼ ë°œìƒ
+							//Random.nextInt(int n) : 0ê³¼ (n-1)ì‚¬ì´ì˜ intí˜•ì˜ ë‚œìˆ˜ë¥¼ ë°œìƒí•œë‹¤.
 
-							int x_dir = rd.nextInt(2);  			//0~1 ³­¼ö ¹ß»ı (½ºÇÇµå¸¦ À½¼ö·Î ÇÒÁö ¾ç¼ö·Î ÇÒÁö ·£´ıÀ¸·Î ÇÏ±âÀ§ÇØ)
+							int x_dir = rd.nextInt(2);  			//0~1 ë‚œìˆ˜ ë°œìƒ (ìŠ¤í”¼ë“œë¥¼ ìŒìˆ˜ë¡œ í• ì§€ ì–‘ìˆ˜ë¡œ í• ì§€ ëœë¤ìœ¼ë¡œ í•˜ê¸°ìœ„í•´)
 							int y_dir = rd.nextInt(2);
 
-							int x_rnd = rd.nextInt(4);				//0~3 ³­¼ö ¹ß»ı (·£´ı ½ºÇÇµå¸¦ °ñ¶úÀ» °æ¿ì ½ºÇÇµå¸¦ ¹Ù²Ù±â À§ÇØ)
+							int x_rnd = rd.nextInt(4);				//0~3 ë‚œìˆ˜ ë°œìƒ (ëœë¤ ìŠ¤í”¼ë“œë¥¼ ê³¨ëì„ ê²½ìš° ìŠ¤í”¼ë“œë¥¼ ë°”ê¾¸ê¸° ìœ„í•´)
 							int y_rnd = rd.nextInt(4);
 							
-							if(spset <3){							//ÇÏ, Áß, »óÀ» °ñ¶úÀ» °æ¿ì
+							if(spset <3){							//í•˜, ì¤‘, ìƒì„ ê³¨ëì„ ê²½ìš°
 								speedx= speed1[spset];
 								speedy= speed1[spset];
 							}
 
-							if(spset ==3){							//·£´ıÀ» °ñ¶úÀ» °æ¿ì
+							if(spset ==3){							//ëœë¤ì„ ê³¨ëì„ ê²½ìš°
 								speedx = speed2[x_rnd];
 								speedy = speed2[y_rnd];
 							}
 
-							xPos = xPos + speedX; 					//xÁÂÇ¥ ÀÌµ¿
-							yPos = yPos + speedY; 					//yÁÂÇ¥ ÀÌµ¿
+							xPos = xPos + speedX; 					//xì¢Œí‘œ ì´ë™
+							yPos = yPos + speedY; 					//yì¢Œí‘œ ì´ë™
 
 							if(xPos + size[szset] >=DrawCircle.this.getWidth() ){
-								//ÆĞ³Î Ã¢ÀÇ ³¡¿¡ ´ê¾ÒÀ¸¹Ç·Î xÁÂÇ¥¸¦ ¿ŞÂÊÀ¸·Î °¡µµ·Ï ¼Óµµ·Î À½¼ö·Î ¼³Á¤
+								//íŒ¨ë„ ì°½ì˜ ëì— ë‹¿ì•˜ìœ¼ë¯€ë¡œ xì¢Œí‘œë¥¼ ì™¼ìª½ìœ¼ë¡œ ê°€ë„ë¡ ì†ë„ë¡œ ìŒìˆ˜ë¡œ ì„¤ì •
 								speedX = -speedx;
-								speedY = (y_dir == 0 ? speedy : -speedy);	//y_dirÀÌ 0ÀÌ¸é y¹æÇâÀÌ ±×´ë·Î
+								speedY = (y_dir == 0 ? speedy : -speedy);	//y_dirì´ 0ì´ë©´ yë°©í–¥ì´ ê·¸ëŒ€ë¡œ
 							}
 
 							if( yPos+ size[szset] >=DrawCircle.this.getHeight()){
-								//ÆĞ³Î Ã¢ÀÇ ³¡¿¡ ´ê¾ÒÀ¸¹Ç·Î yÁÂÇ¥¸¦ ¾Æ·¡ÂÊÀ¸·Î °¡µµ·Ï ¼Óµµ·Î À½¼ö·Î ¼³Á¤
+								//íŒ¨ë„ ì°½ì˜ ëì— ë‹¿ì•˜ìœ¼ë¯€ë¡œ yì¢Œí‘œë¥¼ ì•„ë˜ìª½ìœ¼ë¡œ ê°€ë„ë¡ ì†ë„ë¡œ ìŒìˆ˜ë¡œ ì„¤ì •
 								speedY = -speedy;
-								speedX = (x_dir == 0 ? speedx : -speedx);	//x_dirÀÌ 0ÀÌ¸é x¹æÇâÀÌ ±×´ë·Î
+								speedX = (x_dir == 0 ? speedx : -speedx);	//x_dirì´ 0ì´ë©´ xë°©í–¥ì´ ê·¸ëŒ€ë¡œ
 							}
 
 							if(xPos < 0){
-								//ÆĞ³Î Ã¢ÀÇ ³¡¿¡ ´ê¾ÒÀ¸¹Ç·Î xÁÂÇ¥¸¦ ¿À¸¥ÂÊÀ¸·Î °¡µµ·Ï ¼Óµµ·Î ¾ç¼ö·Î ¼³Á¤
+								//íŒ¨ë„ ì°½ì˜ ëì— ë‹¿ì•˜ìœ¼ë¯€ë¡œ xì¢Œí‘œë¥¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë„ë¡ ì†ë„ë¡œ ì–‘ìˆ˜ë¡œ ì„¤ì •
 								speedX = speedx;
 								speedY = (y_dir == 0 ? speedy : -speedy);
 							}
 
 							if(yPos < 0){
-								//ÆĞ³Î Ã¢ÀÇ ³¡¿¡ ´ê¾ÒÀ¸¹Ç·Î yÁÂÇ¥¸¦ À§ÂÊÀ¸·Î °¡µµ·Ï ¼Óµµ·Î ¾ç¼ö·Î ¼³Á¤
+								//íŒ¨ë„ ì°½ì˜ ëì— ë‹¿ì•˜ìœ¼ë¯€ë¡œ yì¢Œí‘œë¥¼ ìœ„ìª½ìœ¼ë¡œ ê°€ë„ë¡ ì†ë„ë¡œ ì–‘ìˆ˜ë¡œ ì„¤ì •
 								speedY = speedy;
 								speedX = (x_dir == 0 ? speedx : -speedx);
 							}
 
-							repaint(); 										//°øÀÌ ¿òÁ÷ÀÌ±â¶§¹®¿¡ ´Ù½Ã ±×¸®±â
+							repaint(); 										//ê³µì´ ì›€ì§ì´ê¸°ë•Œë¬¸ì— ë‹¤ì‹œ ê·¸ë¦¬ê¸°
 							try {
 								Thread.sleep(10);
 							} catch (InterruptedException e) {
@@ -193,33 +193,33 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 			}
 		}
 
-		public void paintComponent(Graphics g) {									//°ø ±×¸®±â
+		public void paintComponent(Graphics g) {									//ê³µ ê·¸ë¦¬ê¸°
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D)g;
 
-			g.drawString("°ø Å©±â : "+sztext[szset], res.width-170, 50);				//°ø¿¡ ´ëÇÑ ¼³Á¤À» ÆĞ³Î ¿À¸¥ À§ÂÊ¿¡ ±×¸®±â
-			g.drawString("°ø ¼Óµµ : "+sptext[spset], res.width-170, 70);
+			g.drawString("ê³µ í¬ê¸° : "+sztext[szset], res.width-170, 50);				//ê³µì— ëŒ€í•œ ì„¤ì •ì„ íŒ¨ë„ ì˜¤ë¥¸ ìœ„ìª½ì— ê·¸ë¦¬ê¸°
+			g.drawString("ê³µ ì†ë„ : "+sptext[spset], res.width-170, 70);
 
-			g2d.drawImage(img, xPos, yPos, size[szset], size[szset], this);			//x, y À§Ä¡¿¡ size ¸¸Å­ÀÇ ÀÌ¹ÌÁö ±×¸®±â
+			g2d.drawImage(img, xPos, yPos, size[szset], size[szset], this);			//x, y ìœ„ì¹˜ì— size ë§Œí¼ì˜ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
 		}
 	}
 }
 
 
-class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
+class Setting extends JDialog {												//ì„¤ì • í´ë˜ìŠ¤
 	Container cp;
 
-	int sp=3;				//°ø ½ºÇÇµå ÃÊ±â°ª : ·£´ı
-	int sz=0;				//°ø Å©±â ÃÊ±â°ª : Áß
+	int sp=3;				//ê³µ ìŠ¤í”¼ë“œ ì´ˆê¸°ê°’ : ëœë¤
+	int sz=0;				//ê³µ í¬ê¸° ì´ˆê¸°ê°’ : ì¤‘
 
-	JLabel csize = new JLabel("°ø Å©±â");
-	JLabel cspeed = new JLabel("°ø ¼Óµµ");
+	JLabel csize = new JLabel("ê³µ í¬ê¸°");
+	JLabel cspeed = new JLabel("ê³µ ì†ë„");
 
-	JRadioButton [] speed = new JRadioButton[4];		//°ø ½ºÇÇµå ¶óµğ¿À ¹öÆ° »ı¼º
-	JRadioButton [] size = new JRadioButton[2];			//°ø Å©±â ¶óÀÌµµ ¹öÆ° »ı¼º
+	JRadioButton [] speed = new JRadioButton[4];		//ê³µ ìŠ¤í”¼ë“œ ë¼ë””ì˜¤ ë²„íŠ¼ ìƒì„±
+	JRadioButton [] size = new JRadioButton[2];			//ê³µ í¬ê¸° ë¼ì´ë„ ë²„íŠ¼ ìƒì„±
 
-	String [] sptext = {"ÇÏ", "Áß", "»ó", "·£´ı"};
-	String [] sztext = {"Áß", "¼Ò"};
+	String [] sptext = {"í•˜", "ì¤‘", "ìƒ", "ëœë¤"};
+	String [] sztext = {"ì¤‘", "ì†Œ"};
 
 	public Setting(JFrame frame, String title) {
 		super(frame, title);
@@ -228,45 +228,45 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 		cp.setLayout(null);
 
 		
-		ButtonGroup gspeed = new ButtonGroup();			//¼Óµµ ¼±ÅÃ ±×·ì
+		ButtonGroup gspeed = new ButtonGroup();			//ì†ë„ ì„ íƒ ê·¸ë£¹
 		for(int i=0; i<speed.length; i++){
-			speed[i] = new JRadioButton(sptext[i]);		//¶óµğ¿À ¹öÆ°¿¡ ÅØ½ºÆ® Ãß°¡
-			gspeed.add(speed[i]);						//¹öÆ° ±×·ì¿¡ Ãß°¡
-			speed[i].addItemListener(new SpListener()); //¹öÆ° ¼±ÅÃµÆ´ÂÁö ¾Ë±â À§ÇØ ¸®½º³Ê ´Ş±â
+			speed[i] = new JRadioButton(sptext[i]);		//ë¼ë””ì˜¤ ë²„íŠ¼ì— í…ìŠ¤íŠ¸ ì¶”ê°€
+			gspeed.add(speed[i]);						//ë²„íŠ¼ ê·¸ë£¹ì— ì¶”ê°€
+			speed[i].addItemListener(new SpListener()); //ë²„íŠ¼ ì„ íƒëëŠ”ì§€ ì•Œê¸° ìœ„í•´ ë¦¬ìŠ¤ë„ˆ ë‹¬ê¸°
 		}
-		speed[sp].setSelected(true); 					//ÃÊ±âÁ¶°Ç : ·£´ı
+		speed[sp].setSelected(true); 					//ì´ˆê¸°ì¡°ê±´ : ëœë¤
 
 
-		ButtonGroup gsize = new ButtonGroup();			//°ø Å©±â ¼±ÅÃ ±×·ì
+		ButtonGroup gsize = new ButtonGroup();			//ê³µ í¬ê¸° ì„ íƒ ê·¸ë£¹
 		for(int i=0; i<size.length; i++){
-			size[i] = new JRadioButton(sztext[i]);		//¶óµğ¿À ¹öÆ°¿¡ ÅØ½ºÆ® Ãß°¡
-			gsize.add(size[i]);							//¹öÆ° ±×·ì¿¡ Ãß°¡
-			size[i].addItemListener(new SzListener());	//¹öÆ° ¼±ÅÃµÆ´ÂÁö ¾Ë±â À§ÇØ ¸®½º³Ê ´Ş±â
+			size[i] = new JRadioButton(sztext[i]);		//ë¼ë””ì˜¤ ë²„íŠ¼ì— í…ìŠ¤íŠ¸ ì¶”ê°€
+			gsize.add(size[i]);							//ë²„íŠ¼ ê·¸ë£¹ì— ì¶”ê°€
+			size[i].addItemListener(new SzListener());	//ë²„íŠ¼ ì„ íƒëëŠ”ì§€ ì•Œê¸° ìœ„í•´ ë¦¬ìŠ¤ë„ˆ ë‹¬ê¸°
 		}
-		size[sz].setSelected(true); 					//ÃÊ±âÁ¶°Ç : Áß
+		size[sz].setSelected(true); 					//ì´ˆê¸°ì¡°ê±´ : ì¤‘
 
 
-		//È®ÀÎ ¹öÆ°
-		JButton ok = new JButton("È®ÀÎ");
+		//í™•ì¸ ë²„íŠ¼
+		JButton ok = new JButton("í™•ì¸");
 		ok.setBackground(new Color(93,93,93));
 		ok.setForeground(Color.white);
 		
-		//¹öÆ° UI ¼³Á¤
+		//ë²„íŠ¼ UI ì„¤ì •
 		ok.setUI(new StyledButtonUI());
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FollowMe.spset = sp;			//¼±ÅÃµÈ °ø ½ºÇÇµå·Î ¼³Á¤
-				FollowMe.szset = sz;			//¼±ÅÃµÈ °ø »çÀÌÁî·Î ¼³Á¤
+				FollowMe.spset = sp;			//ì„ íƒëœ ê³µ ìŠ¤í”¼ë“œë¡œ ì„¤ì •
+				FollowMe.szset = sz;			//ì„ íƒëœ ê³µ ì‚¬ì´ì¦ˆë¡œ ì„¤ì •
 				setVisible(false);				
 			}
 		});
 		
-		//Ãë¼Ò ¹öÆ°
-		JButton cancel = new JButton("Ãë¼Ò");
+		//ì·¨ì†Œ ë²„íŠ¼
+		JButton cancel = new JButton("ì·¨ì†Œ");
 		cancel.setBackground(new Color(93,93,93));
 		cancel.setForeground(Color.white);
 		
-		//¹öÆ° UI ¼³Á¤
+		//ë²„íŠ¼ UI ì„¤ì •
 		cancel.setUI(new StyledButtonUI());
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,7 +275,7 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 		});
 
 
-		//°ø Å©±â ÅØ½ºÆ®¿Í ¶óµğ¿À ¹öÆ° À§Ä¡ÁöÁ¤
+		//ê³µ í¬ê¸° í…ìŠ¤íŠ¸ì™€ ë¼ë””ì˜¤ ë²„íŠ¼ ìœ„ì¹˜ì§€ì •
 		csize.setLocation(135,20);
 		csize.setSize(200,30);
 		size[0].setLocation(55,50);
@@ -283,7 +283,7 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 		size[1].setLocation(185,50);
 		size[1].setSize(75,30);
 
-		//°ø ¼Óµµ ÅØ½ºÆ®¿Í ¶óµğ¿À ¹öÆ° À§Ä¡ÁöÁ¤
+		//ê³µ ì†ë„ í…ìŠ¤íŠ¸ì™€ ë¼ë””ì˜¤ ë²„íŠ¼ ìœ„ì¹˜ì§€ì •
 		cspeed.setLocation(135,120);
 		cspeed.setSize(200,30);
 		for(int i=0; i<speed.length; i++){
@@ -291,13 +291,13 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 			speed[i].setSize(60,30);
 		}
 
-		//È®ÀÎ Ãë¼Ò ¹öÆ° À§Ä¡ ÁöÁ¤
+		//í™•ì¸ ì·¨ì†Œ ë²„íŠ¼ ìœ„ì¹˜ ì§€ì •
 		ok.setLocation(55,220);
 		ok.setSize(75,30);
 		cancel.setLocation(185,220);
 		cancel.setSize(75,30);
 
-		//¹öÆ° Ãß°¡
+		//ë²„íŠ¼ ì¶”ê°€
 		cp.add(csize);
 		cp.add(cspeed);
 		cp.add(ok);
@@ -311,13 +311,13 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 
 		setSize(350,300);
 		setVisible(true);
-		setResizable(false);				//Ã¢ Å©±â¸¦ ¸ø ´Ã¸®°Ô °íÁ¤
+		setResizable(false);				//ì°½ í¬ê¸°ë¥¼ ëª» ëŠ˜ë¦¬ê²Œ ê³ ì •
 	}
 
-	class SpListener implements ItemListener {						//°ø ½ºÇÇµå ¹öÆ° ¸®½º³Ê
+	class SpListener implements ItemListener {						//ê³µ ìŠ¤í”¼ë“œ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
 		public void itemStateChanged(ItemEvent e){
 			if(e.getStateChange() == ItemEvent.DESELECTED)
-				return; //¼±ÅÃ ÇØÁ¦µÈ °æ¿ì ±×³É ¸®ÅÏ
+				return; //ì„ íƒ í•´ì œëœ ê²½ìš° ê·¸ëƒ¥ ë¦¬í„´
 			
 			if(speed[0].isSelected())
 				sp = 0;
@@ -330,10 +330,10 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 		}
 	}
 
-	class SzListener implements ItemListener {						//°ø »çÀÌÁî ¹öÆ° ¸®½º³Ê
+	class SzListener implements ItemListener {						//ê³µ ì‚¬ì´ì¦ˆ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
 		public void itemStateChanged(ItemEvent e){
 			if(e.getStateChange() == ItemEvent.DESELECTED)
-				return; //¼±ÅÃ ÇØÁ¦µÈ °æ¿ì ±×³É ¸®ÅÏ
+				return; //ì„ íƒ í•´ì œëœ ê²½ìš° ê·¸ëƒ¥ ë¦¬í„´
 			
 			if(size[0].isSelected())
 				sz = 0;
@@ -343,7 +343,7 @@ class Setting extends JDialog {												//¼³Á¤ Å¬·¡½º
 	}
 }
 
-class StyledButtonUI extends BasicButtonUI {						//¹öÆ° UI¼³Á¤ ¸Ş¼Òµå
+class StyledButtonUI extends BasicButtonUI {						//ë²„íŠ¼ UIì„¤ì • ë©”ì†Œë“œ
 
 	@Override
 	public void installUI (JComponent c) {

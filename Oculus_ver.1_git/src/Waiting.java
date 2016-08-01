@@ -1,4 +1,4 @@
-// MainFrame ºñÈ°¼ºÈ­ ½Ã ÀÚµ¿À¸·Î ¿îµ¿ ¶ç¿ò.
+// MainFrame ë¹„í™œì„±í™” ì‹œ ìë™ìœ¼ë¡œ ìš´ë™ ë„ì›€.
 
 import java.util.Calendar;
 
@@ -16,14 +16,14 @@ public class Waiting implements Runnable{
 	}
 	
 	public void run(){
-		System.out.println("Waiting ½ÇÇà Áß");
+		System.out.println("Waiting ì‹¤í–‰ ì¤‘");
 		
 		while(true){
-			cal = Calendar.getInstance();		//ÇöÀç ½Ã°£ °»½Å
+			cal = Calendar.getInstance();		//í˜„ì¬ ì‹œê°„ ê°±ì‹ 
 			
-			//ÀÏÁ¤ ½Ã°£(50ºĞ)ÀÌ µÇ¸é ¿îµ¿ Áß ÇÏ³ª°¡ ÀÚµ¿½ÇÇà
+			//ì¼ì • ì‹œê°„(50ë¶„)ì´ ë˜ë©´ ìš´ë™ ì¤‘ í•˜ë‚˜ê°€ ìë™ì‹¤í–‰
 			if(cal.get(Calendar.MINUTE) == 50 ){
-	    		switch(cal.get(Calendar.HOUR_OF_DAY)){						//½Ã°£¿¡ µû¶ó ¿îµ¿º°·Î ½ÃÀÛ
+	    		switch(cal.get(Calendar.HOUR_OF_DAY)){						//ì‹œê°„ì— ë”°ë¼ ìš´ë™ë³„ë¡œ ì‹œì‘
 	    		
 	    		case 0:
 	    			Thread followMe1 = new Thread(new FollowMe());
@@ -88,9 +88,9 @@ public class Waiting implements Runnable{
 			}
 			
 			try{
-				Thread.sleep(60000);   // 1ºĞ¸¶´Ù ½ÇÇà
+				Thread.sleep(60000);   // 1ë¶„ë§ˆë‹¤ ì‹¤í–‰
 				if(flag == true){
-					System.out.println("Waiting Á¾·á");
+					System.out.println("Waiting ì¢…ë£Œ");
 					return;
 				}
 			}catch(InterruptedException e){

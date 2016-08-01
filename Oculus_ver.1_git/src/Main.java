@@ -13,45 +13,45 @@ class MainFrame extends JFrame implements WindowListener{
 	public static int Year = -1;
 	public static int Month = -1;
 	public static int Day = -1;
-	public static int FM = -1;   	// Follow Me ¸ñÇ¥ È½¼ö
-	public static int FMC = -1;   	// Follow Me Ä«¿îÆ®
-	public static int FD = -1;   	// Fifteen Dots ¸ñÇ¥ È½¼ö
-	public static int FDC = -1;   	// Fifteen Dots Ä«¿îÆ®
+	public static int FM = -1;   	// Follow Me ëª©í‘œ íšŸìˆ˜
+	public static int FMC = -1;   	// Follow Me ì¹´ìš´íŠ¸
+	public static int FD = -1;   	// Fifteen Dots ëª©í‘œ íšŸìˆ˜
+	public static int FDC = -1;   	// Fifteen Dots ì¹´ìš´íŠ¸
 	
 	
-	private JLabel date;   			 // ÇöÀç ³¯Â¥, ½Ã°¢
-	private JButton record;    		 // ¿ù°£/ÁÖ°£ ¸ñÇ¥ ±×·¡ÇÁ
-	private JButton graph;   		 // ¿À´Ã ¸ñÇ¥´Ş¼ºÄ¡(%)
-	private JButton goal;   		 // ¸ñÇ¥ ¼³Á¤
-	private JButton exercise1;  	 // ¿îµ¿ 1 : Follow Me
-	private JButton exercise2;  	 // ¿îµ¿ 2 : 15 dots
-	private JButton exercise3;  	 // ¿îµ¿ 3 : Brightness
-	private JButton reference;  	 // °³¹ßÀÚ ¹× ¾Û ¼Ò°³
+	private JLabel date;   			 // í˜„ì¬ ë‚ ì§œ, ì‹œê°
+	private JButton record;    		 // ì›”ê°„/ì£¼ê°„ ëª©í‘œ ê·¸ë˜í”„
+	private JButton graph;   		 // ì˜¤ëŠ˜ ëª©í‘œë‹¬ì„±ì¹˜(%)
+	private JButton goal;   		 // ëª©í‘œ ì„¤ì •
+	private JButton exercise1;  	 // ìš´ë™ 1 : Follow Me
+	private JButton exercise2;  	 // ìš´ë™ 2 : 15 dots
+	private JButton exercise3;  	 // ìš´ë™ 3 : Brightness
+	private JButton reference;  	 // ê°œë°œì ë° ì•± ì†Œê°œ
 	
 	private Calendar cal;
 	
-	String line;					//´Ş·ÂÀ» °¡Á®¿Ã º¯¼ö
-	String str[];					//±â·ÏÀ» °¡Á®¿Ã º¯¼ö
+	String line;					//ë‹¬ë ¥ì„ ê°€ì ¸ì˜¬ ë³€ìˆ˜
+	String str[];					//ê¸°ë¡ì„ ê°€ì ¸ì˜¬ ë³€ìˆ˜
 	
     public void windowActivated(WindowEvent e) {}
     public void windowClosed(WindowEvent e) {}
     public void windowClosing(WindowEvent e) {
-    	new Tray();											//´İ¾ÒÀ» ¶§ Æ®·¹ÀÌ·Î µ¹¾Æ°¨
-    	DateJLabel.stop();									//½Ã°è ¾²·¹µå Á¾·á
-    	Thread Waiting = new Thread(new Waiting());			//Æ®·¹ÀÌ·Î µ¹·Áº¸³ÂÀ» ½Ã¿¡ ÁöÁ¤½Ã°£ÀÌ µÇ¸é ÀÚµ¿À¸·Î ½ÇÇàÇÏ°Ô ÇÔ
+    	new Tray();											//ë‹«ì•˜ì„ ë•Œ íŠ¸ë ˆì´ë¡œ ëŒì•„ê°
+    	DateJLabel.stop();									//ì‹œê³„ ì“°ë ˆë“œ ì¢…ë£Œ
+    	Thread Waiting = new Thread(new Waiting());			//íŠ¸ë ˆì´ë¡œ ëŒë ¤ë³´ëƒˆì„ ì‹œì— ì§€ì •ì‹œê°„ì´ ë˜ë©´ ìë™ìœ¼ë¡œ ì‹¤í–‰í•˜ê²Œ í•¨
 		Waiting.start();
     }
     public void windowDeactivated(WindowEvent e) {
     }
     public void windowIconified(WindowEvent e) {
-    	Thread Waiting = new Thread(new Waiting());		    //Ã¢À» ³»·ÈÀ» °æ¿ì ÁöÁ¤½Ã°£ÀÌ µÇ¸é ¿îµ¿ÀÌ ·£´ıÀ¸·Î ½ÇÇàµÇµµ·Ï ¼³Á¤ 
+    	Thread Waiting = new Thread(new Waiting());		    //ì°½ì„ ë‚´ë ¸ì„ ê²½ìš° ì§€ì •ì‹œê°„ì´ ë˜ë©´ ìš´ë™ì´ ëœë¤ìœ¼ë¡œ ì‹¤í–‰ë˜ë„ë¡ ì„¤ì • 
     	Waiting.start();
     }
     public void windowDeiconified(WindowEvent e) {
-    	Waiting.finish();									//Ã¢À» ´Ù½Ã ¿Ã¸®¸é ¿şÀÌÆÃ Á¾·á
+    	Waiting.finish();									//ì°½ì„ ë‹¤ì‹œ ì˜¬ë¦¬ë©´ ì›¨ì´íŒ… ì¢…ë£Œ
     }
     public void windowOpened(WindowEvent e) {
-    	Waiting.finish();									//Æ®·¹ÀÌ¿¡¼­ µ¹¾Æ¿À¸é ¿şÀÌÆÃ Á¾·á
+    	Waiting.finish();									//íŠ¸ë ˆì´ì—ì„œ ëŒì•„ì˜¤ë©´ ì›¨ì´íŒ… ì¢…ë£Œ
     }
 	
 	MainFrame(){
@@ -61,64 +61,64 @@ class MainFrame extends JFrame implements WindowListener{
 		setVisible(true);
 
 		this.addWindowListener(this);
-		cal = Calendar.getInstance();   				   //´Ş·Â ÃÊ±âÈ­
+		cal = Calendar.getInstance();   				   //ë‹¬ë ¥ ì´ˆê¸°í™”
 
-		//½Ã°è »ı¼º
-		date = new JLabel("ÇöÀç ³¯Â¥½Ã°¢", null, SwingConstants.CENTER);
+		//ì‹œê³„ ìƒì„±
+		date = new JLabel("í˜„ì¬ ë‚ ì§œì‹œê°", null, SwingConstants.CENTER);
 		
-		//±â·Ï ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
-		record = new JButton("¿ù°£ ±â·Ï È®ÀÎ");
+		//ê¸°ë¡ ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
+		record = new JButton("ì›”ê°„ ê¸°ë¡ í™•ì¸");
 		record.setFont(new Font("Gothic", Font.BOLD, 20));
 		record.setBackground(new Color(93,93,93));
 		record.setForeground(Color.white);
 		record.setUI(new StyledButtonUI());   // customize the button with your own look
 		
-		//±×·¡ÇÁ ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
-		graph = new JButton("¿À´Ã ¸ñÇ¥´Ş¼ºÀ²(%)");
+		//ê·¸ë˜í”„ ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
+		graph = new JButton("ì˜¤ëŠ˜ ëª©í‘œë‹¬ì„±ìœ¨(%)");
 		graph.setFont(new Font("Gothic", Font.BOLD, 20));
 		graph.setBackground(new Color(93,93,93));
 		graph.setForeground(Color.white);
 		graph.setUI(new StyledButtonUI());   // customize the button with your own look
 		
-		//¼³Á¤ ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
-		goal = new JButton("¼³Á¤");
+		//ì„¤ì • ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
+		goal = new JButton("ì„¤ì •");
 		goal.setFont(new Font("Gothic", Font.BOLD, 20));
 		goal.setBackground(new Color(93,93,93));
 		goal.setForeground(Color.white);
 		goal.setUI(new StyledButtonUI());   // customize the button with your own look
 		
-		//Follow Me ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
+		//Follow Me ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
 		exercise1 = new JButton("Follow Me");
 		exercise1.setFont(new Font("Arial", Font.BOLD, 20));
 		exercise1.setBackground(new Color(93,93,93));
 		exercise1.setForeground(Color.white);
 		exercise1.setUI(new StyledButtonUI());   // customize the button with your own look
 		
-		//Fifteen Dots ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
+		//Fifteen Dots ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
 		exercise2 = new JButton("Fifteen Dots");
 		exercise2.setFont(new Font("Gothic", Font.BOLD, 20));
 		exercise2.setBackground(new Color(93,93,93));
 		exercise2.setForeground(Color.white);
 		exercise2.setUI(new StyledButtonUI());   // customize the button with your own look
 		
-		//Brightness ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
+		//Brightness ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
 		exercise3 = new JButton("Brightness");
 		exercise3.setFont(new Font("Gothic", Font.BOLD, 20));
 		exercise3.setBackground(new Color(93,93,93));
 		exercise3.setForeground(Color.white);
 		exercise3.setUI(new StyledButtonUI());   // customize the button with your own look
 		
-		//¼Ò°³ ¹öÆ° »ı¼º°ú ¹öÆ° »ö»ó ¼³Á¤
-		reference = new JButton("°¡Ãµ´ëÇĞ±³ ÀÇ¿ë»ıÃ¼°øÇĞ°ú ¼Ò°³");
+		//ì†Œê°œ ë²„íŠ¼ ìƒì„±ê³¼ ë²„íŠ¼ ìƒ‰ìƒ ì„¤ì •
+		reference = new JButton("ê°€ì²œëŒ€í•™êµ ì˜ìš©ìƒì²´ê³µí•™ê³¼ ì†Œê°œ");
 		reference.setFont(new Font("Gothic", Font.BOLD, 20));
 		reference.setBackground(new Color(93,93,93));
 		reference.setForeground(Color.white);
 		reference.setUI(new StyledButtonUI());   // customize the button with your own look
 		
 		Container mContainer = getContentPane();
-		mContainer.setLayout(new GridLayout(4, 2, 30, 30));				//·¹ÀÌ¾Æ¿ô °ü¸®ÀÚ ¼³Á¤
+		mContainer.setLayout(new GridLayout(4, 2, 30, 30));				//ë ˆì´ì•„ì›ƒ ê´€ë¦¬ì ì„¤ì •
 		
-		//¹öÆ° Ãß°¡
+		//ë²„íŠ¼ ì¶”ê°€
 		mContainer.add(date);
 		mContainer.add(record);
 		mContainer.add(graph);
@@ -128,10 +128,10 @@ class MainFrame extends JFrame implements WindowListener{
 		mContainer.add(exercise3);
 		mContainer.add(reference);
 		
-		//±â·Ï¿¡ ÀúÀåµÈ ³»¿ëÀ¸·Î ¿ù, ÀÏ, ¸ñÇ¥È½¼ö, Ä«¿îÆ® ¼¼ÆÃ
+		//ê¸°ë¡ì— ì €ì¥ëœ ë‚´ìš©ìœ¼ë¡œ ì›”, ì¼, ëª©í‘œíšŸìˆ˜, ì¹´ìš´íŠ¸ ì„¸íŒ…
 		try{
-			DateJLabel.fr = new FileReader("log\\Today.txt");   // ÆÄÀÏ ÀÔ·Â ½ºÆ®¸² »ı¼º
-			DateJLabel.br = new BufferedReader(DateJLabel.fr);   // ¹öÆÛ ÆÄÀÏ ÀÔ·Â ½ºÆ®¸² »ı¼º, ÀÔ·Â È¿À² Çâ»ó
+			DateJLabel.fr = new FileReader("log\\Today.txt");   // íŒŒì¼ ì…ë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±
+			DateJLabel.br = new BufferedReader(DateJLabel.fr);   // ë²„í¼ íŒŒì¼ ì…ë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±, ì…ë ¥ íš¨ìœ¨ í–¥ìƒ
 			
 			line = DateJLabel.br.readLine();
 			for(int i = 0; i < 7; i++){
@@ -146,7 +146,7 @@ class MainFrame extends JFrame implements WindowListener{
 			FD = Integer.parseInt(str[5]);
 			FDC = Integer.parseInt(str[6]);
 			
-			DateJLabel.br.close();   // ÆÄÀÏ ÀÔÃâ·Â ½ºÆ®¸²À» ´İ°í ½Ã½ºÅÛ ÀÚ¿ø ÇØÁ¦
+			DateJLabel.br.close();   // íŒŒì¼ ì…ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì„ ë‹«ê³  ì‹œìŠ¤í…œ ìì› í•´ì œ
 			DateJLabel.fr.close();
 		
 			
@@ -157,7 +157,7 @@ class MainFrame extends JFrame implements WindowListener{
 	}
 
 	public void runRecord(){
-		record.addActionListener(new ActionListener() {   // Record ¹öÆ° : ¸®½º³Ê & ½º·¹µå
+		record.addActionListener(new ActionListener() {   // Record ë²„íŠ¼ : ë¦¬ìŠ¤ë„ˆ & ìŠ¤ë ˆë“œ
 			public void actionPerformed(ActionEvent e){
 				Record record = new Record();
 				record.run();
@@ -174,7 +174,7 @@ class MainFrame extends JFrame implements WindowListener{
 	}
 
 	public void runGoal(){
-		goal.addActionListener(new ActionListener() {   // Goal ¹öÆ° : ¸®½º³Ê & ½º·¹µå
+		goal.addActionListener(new ActionListener() {   // Goal ë²„íŠ¼ : ë¦¬ìŠ¤ë„ˆ & ìŠ¤ë ˆë“œ
 			public void actionPerformed(ActionEvent e){
 				Thread goal = new Thread(new Goal());
 				goal.start();
@@ -183,7 +183,7 @@ class MainFrame extends JFrame implements WindowListener{
 	}
 	
 	public void runExercise1(){
-		exercise1.addActionListener(new ActionListener() {   // Follow Me ¹öÆ° : ¸®½º³Ê & ½º·¹µå
+		exercise1.addActionListener(new ActionListener() {   // Follow Me ë²„íŠ¼ : ë¦¬ìŠ¤ë„ˆ & ìŠ¤ë ˆë“œ
 			public void actionPerformed(ActionEvent e){	
 				Thread followMe = new Thread(new FollowMe());
 				followMe.start();
@@ -192,7 +192,7 @@ class MainFrame extends JFrame implements WindowListener{
 	}
 	
 	public void runExercise2(){
-		exercise2.addActionListener(new ActionListener() {   // Dots ¹öÆ° : ¸®½º³Ê & ½º·¹µå
+		exercise2.addActionListener(new ActionListener() {   // Dots ë²„íŠ¼ : ë¦¬ìŠ¤ë„ˆ & ìŠ¤ë ˆë“œ
 			public void actionPerformed(ActionEvent e){
 				Thread dots = new Thread(new Dots());
 				dots.start();
@@ -201,7 +201,7 @@ class MainFrame extends JFrame implements WindowListener{
 	}
 	
 	public void runExercise3(){
-		exercise3.addActionListener(new ActionListener() {   // Brightness ¹öÆ° : ¸®½º³Ê & ½º·¹µå
+		exercise3.addActionListener(new ActionListener() {   // Brightness ë²„íŠ¼ : ë¦¬ìŠ¤ë„ˆ & ìŠ¤ë ˆë“œ
 			public void actionPerformed(ActionEvent e){
 				Thread brightness = new Thread(new Brightness());
 				brightness.start();
@@ -241,14 +241,14 @@ public class Main {
 	public static void main(String[] args){
 		MainFrame mFrame = new MainFrame();
 
-		Calendar now = Calendar.getInstance();   // ÇöÀç ³¯Â¥¿Í ½Ã°£ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		Calendar now = Calendar.getInstance();   // í˜„ì¬ ë‚ ì§œì™€ ì‹œê°„ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 		
-		Save.SaveDay();							 //³¯Â¥°¡ Áö³ª¸é ±â·Ï¿¡ ÀúÀå
+		Save.SaveDay();							 //ë‚ ì§œê°€ ì§€ë‚˜ë©´ ê¸°ë¡ì— ì €ì¥
 		
-		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));		//½Ã°è ¾²·¹µå ½ÃÀÛ
+		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));		//ì‹œê³„ ì“°ë ˆë“œ ì‹œì‘
 		dateJLabel.start();
 		
-		//¾²·¹µå »ı¼º
+		//ì“°ë ˆë“œ ìƒì„±
 		mFrame.runRecord();
 		mFrame.runGraph();
 		mFrame.runGoal();
@@ -258,7 +258,7 @@ public class Main {
 		mFrame.runReference();
 	}
 
-	//¹öÆ° µğÀÚÀÎ ¹Ù²Ù±â
+	//ë²„íŠ¼ ë””ìì¸ ë°”ê¾¸ê¸°
 	class StyledButtonUI extends BasicButtonUI {
 
 		@Override

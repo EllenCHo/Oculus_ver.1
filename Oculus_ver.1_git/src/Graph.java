@@ -1,4 +1,4 @@
-// 03. ¿À´Ã ¸ñÇ¥´Þ¼ºÄ¡
+// 03. ì˜¤ëŠ˜ ëª©í‘œë‹¬ì„±ì¹˜
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
@@ -6,11 +6,11 @@ import javax.swing.*;
 
 class Graph extends JFrame{
 	Container c;
-	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;		// Follow Me ÆÛ¼¾Æ® 
-	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;		// Fifteen Dots ÆÛ¼¾Æ®
+	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;		// Follow Me í¼ì„¼íŠ¸ 
+	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;		// Fifteen Dots í¼ì„¼íŠ¸
 
-	Graph(){	 							// percent1 = FollowMe ´Þ¼º·ü, percent2 = Fifteen Dots ´Þ¼º·ü
-		setTitle("¿À´Ã ¸ñÇ¥´Þ¼º·ü(%)");					// Ã¢ÀÌ¸§ ¼³Á¤
+	Graph(){	 							// percent1 = FollowMe ë‹¬ì„±ë¥ , percent2 = Fifteen Dots ë‹¬ì„±ë¥ 
+		setTitle("ì˜¤ëŠ˜ ëª©í‘œë‹¬ì„±ë¥ (%)");					// ì°½ì´ë¦„ ì„¤ì •
 		c = getContentPane();						// 
 		c.setLayout(null);
 
@@ -36,57 +36,57 @@ class Graph extends JFrame{
 		setSize(640,460);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		setResizable(false);						//Ã¢ Å©±â¸¦ ¸ø ´Ã¸®°Ô °íÁ¤
+		setResizable(false);						//ì°½ í¬ê¸°ë¥¼ ëª» ëŠ˜ë¦¬ê²Œ ê³ ì •
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public class CircleGraph extends JPanel{
-		int width, height;						//¿ø °¡·Î ¼¼·Î Å©±â
-		double value;							//%°ª
-		float r;							//¹ÝÁö¸§ ±æÀÌ
-		double angle;							//°¢	
-		Color lineColor;						//Å×µÎ¸® ÄÃ·¯
-		Color arcColor;							//È£ ÄÃ·¯
+		int width, height;						//ì› ê°€ë¡œ ì„¸ë¡œ í¬ê¸°
+		double value;							//%ê°’
+		float r;							//ë°˜ì§€ë¦„ ê¸¸ì´
+		double angle;							//ê°	
+		Color lineColor;						//í…Œë‘ë¦¬ ì»¬ëŸ¬
+		Color arcColor;							//í˜¸ ì»¬ëŸ¬
 
-		Ellipse2D.Float outCircle;					//¿Ü°û Å×µÎ¸®
-		Ellipse2D.Float outFillCircle;					//³»ºÎ ¿ø ¿µ¿ª
+		Ellipse2D.Float outCircle;					//ì™¸ê³½ í…Œë‘ë¦¬
+		Ellipse2D.Float outFillCircle;					//ë‚´ë¶€ ì› ì˜ì—­
 
-		Arc2D.Float inArc;						//È£ ¿µ¿ª
+		Arc2D.Float inArc;						//í˜¸ ì˜ì—­
 
-		int stringX, stringY;						//°ª Ãâ·Â À§Ä¡
+		int stringX, stringY;						//ê°’ ì¶œë ¥ ìœ„ì¹˜
 
-		//¿øÅ©±â µðÆúÆ®
+		//ì›í¬ê¸° ë””í´íŠ¸
 		public CircleGraph(double value){
 			this(100,100,value, 1);
 		}
 		public CircleGraph(int width, int height, double value, int ex){ 	
-			//ex = ¿îµ¿Á¾·ù (1 = FollowMe, 2 = Fifteen Dots
+			//ex = ìš´ë™ì¢…ë¥˜ (1 = FollowMe, 2 = Fifteen Dots
 			this.width = width;
 			this.height = height;
 			this.r = (width > height)? width/2f: height/2f;
 			this.lineColor = Color.black;
 			if(ex==1){
-				this.arcColor = new Color(255, 0, 0, 50); 			//¾ËÆÄ = »ö ¸í¾Ï Á¶Àý
+				this.arcColor = new Color(255, 0, 0, 50); 			//ì•ŒíŒŒ = ìƒ‰ ëª…ì•” ì¡°ì ˆ
 			}
 			else{
-				this.arcColor = new Color(0, 0, 255, 50); 			//¾ËÆÄ = »ö ¸í¾Ï Á¶Àý
+				this.arcColor = new Color(0, 0, 255, 50); 			//ì•ŒíŒŒ = ìƒ‰ ëª…ì•” ì¡°ì ˆ
 			}
 
-			this.outCircle = new Ellipse2D.Float(1,1,2*r,2*r);	//Ellipse2D(x, y, Á÷°æ, Á÷°æ)
+			this.outCircle = new Ellipse2D.Float(1,1,2*r,2*r);	//Ellipse2D(x, y, ì§ê²½, ì§ê²½)
 			this.outFillCircle = new Ellipse2D.Float((int)outCircle.getX()+1,(int)outCircle.getY()+1,(int)outCircle.getWidth()-1,(int)outCircle.getHeight()-1);
-			//outcircleº¸´Ù Á÷°æÀÌ ÀÛ¾Æ¾ßÁö ¿Ü°û¼±ÀÌ º¸ÀÓ
+			//outcircleë³´ë‹¤ ì§ê²½ì´ ìž‘ì•„ì•¼ì§€ ì™¸ê³½ì„ ì´ ë³´ìž„
 			setValue(value);
 		}
 
-		//ÆÛ¼¾Æ®°ª ¼³Á¤ (100³Ñ¾îµµ 100À¸·Î µÇ°Ô ¼³Á¤)
+		//í¼ì„¼íŠ¸ê°’ ì„¤ì • (100ë„˜ì–´ë„ 100ìœ¼ë¡œ ë˜ê²Œ ì„¤ì •)
 		public void setValue(double value){
 			if(value > 100) value=100;
 			if(value < 0) value = 0;
 
 			this.value = value;
 
-			this.angle = 3.6 * value;		//1%´ç 3.6µµ <-(360/100)
+			this.angle = 3.6 * value;		//1%ë‹¹ 3.6ë„ <-(360/100)
 			inArc = new Arc2D.Float(2,2,2*r-1,2*r-1,0,(int)angle,2);
 			repaint();
 		}
@@ -100,13 +100,13 @@ class Graph extends JFrame{
 
 			Graphics2D g2 = (Graphics2D)g;
 
-			//¾ÈÆ¼¾Ù¸®¾î½Ì È°¼ºÈ­ (°è´ÜÇö»ó Á¦°ÅÇÏ±â. Áï ¿øÀÌ »ç°¢Çü¸ð¾çÀ¸·Î »ß¶Ô»ß¶Ô »ßÁ®³ª¿À´Â°Å Á¦°Å)
+			//ì•ˆí‹°ì•¨ë¦¬ì–´ì‹± í™œì„±í™” (ê³„ë‹¨í˜„ìƒ ì œê±°í•˜ê¸°. ì¦‰ ì›ì´ ì‚¬ê°í˜•ëª¨ì–‘ìœ¼ë¡œ ì‚ëš¤ì‚ëš¤ ì‚ì ¸ë‚˜ì˜¤ëŠ”ê±° ì œê±°)
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-			//¼±µÎ²² 1·Î ¼³Á¤
+			//ì„ ë‘ê»˜ 1ë¡œ ì„¤ì •
 			g2.setStroke(new BasicStroke(1));
 
-			//¿Ü°¢¿ø ±×¸®±â
+			//ì™¸ê°ì› ê·¸ë¦¬ê¸°
 			g2.draw(outCircle);
 
 			g.setColor(arcColor);
@@ -115,17 +115,17 @@ class Graph extends JFrame{
 			FontMetrics fm = g.getFontMetrics();
 			int offX = fm.stringWidth(value+"%") /3;
 
-			//»ï°¢ÇÔ¼ö¸¦ ÅëÇÏ¿© ÇØ´çµÇ´Â °¢µµÀÇ x,y ÁÂÇ¥ ±¸ÇÔ
+			//ì‚¼ê°í•¨ìˆ˜ë¥¼ í†µí•˜ì—¬ í•´ë‹¹ë˜ëŠ” ê°ë„ì˜ x,y ì¢Œí‘œ êµ¬í•¨
 			stringX = (int)(Math.cos(Math.toRadians(angle/2d))*(r/2)) + (int)r - offX;
 			stringY = (int)(Math.sin(Math.toRadians(angle/2d))*(r/2)) * -1 + (int)r + 5;
 
-			//°ª Ãâ·Â »ö»ó
+			//ê°’ ì¶œë ¥ ìƒ‰ìƒ
 			g.setColor(Color.black);
 
-			//°ª(¹®ÀÚ¿­) Ãâ·Â
+			//ê°’(ë¬¸ìžì—´) ì¶œë ¥
 			g2.drawString(String.format("%.2f", value)+"%",stringX,stringY);
 		}
-		public Dimension getPreferredSize(){	//ÄÄÆ÷³ÍÆ®ÀÇ Æø°ú Å©±â Á¤ÇÏ±â
+		public Dimension getPreferredSize(){	//ì»´í¬ë„ŒíŠ¸ì˜ í­ê³¼ í¬ê¸° ì •í•˜ê¸°
 			return new Dimension(width+4,height+4);
 		}
 		public Dimension getMinimumSize(){

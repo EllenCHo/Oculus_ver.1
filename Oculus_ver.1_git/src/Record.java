@@ -1,4 +1,4 @@
-// 02. ¿ù°£ ±â·Ï È®ÀÎ Ä¶¸°´õ
+// 02. ì›”ê°„ ê¸°ë¡ í™•ì¸ ìº˜ë¦°ë”
 
 import java.util.*;
 import java.io.*;
@@ -8,26 +8,26 @@ import javax.swing.*;
 
 public class Record extends JFrame implements ActionListener
 {
-	String [] days = {"ÀÏ","¿ù","È­","¼ö","¸ñ","±İ","Åä"};		 // ¿äÀÏ¿¡ ÇØ´çÇÏ´Â ¹®ÀÚ¿­ ¹è¿­ ¼±¾ğ
+	String [] days = {"ì¼","ì›”","í™”","ìˆ˜","ëª©","ê¸ˆ","í† "};		 // ìš”ì¼ì— í•´ë‹¹í•˜ëŠ” ë¬¸ìì—´ ë°°ì—´ ì„ ì–¸
 	int year,month,day,todays,memoday=0;	
 	Font f;
 	Color bc,fc;
 	Calendar today;
 	Calendar cal;
 	JButton btnBefore,btnAfter;
-	JButton[] calBtn = new JButton[49]; 				// ÀÏ ¼ö¸¦ 49ÀÏ·Î ¼³Á¤
+	JButton[] calBtn = new JButton[49]; 				// ì¼ ìˆ˜ë¥¼ 49ì¼ë¡œ ì„¤ì •
 	JLabel thing;
 	JLabel time;
 	JLabel Explain;
-	JPanel panWest; 						// ´Ş·ÂÀÇ ÀÏ ºÎºĞ
-	JPanel panSouth;						// ´Ş·ÂÀÇ ¾Æ·¡ÂÊ ¿µ¿ª
-	JPanel panNorth; 						// ´Ş·ÂÀÇ À§ÂÊ ¿µ¿ª
+	JPanel panWest; 						// ë‹¬ë ¥ì˜ ì¼ ë¶€ë¶„
+	JPanel panSouth;						// ë‹¬ë ¥ì˜ ì•„ë˜ìª½ ì˜ì—­
+	JPanel panNorth; 						// ë‹¬ë ¥ì˜ ìœ„ìª½ ì˜ì—­
 	JTextField txtMonth,txtYear;
 	JTextField txtTime;
 
 	BorderLayout bLayout= new BorderLayout();     
 
-	int target; 							// ¸ñÇ¥Ä¡
+	int target; 							// ëª©í‘œì¹˜
 
 	FileReader fr = null;
 	BufferedReader br = null;
@@ -39,54 +39,54 @@ public class Record extends JFrame implements ActionListener
 	int setmonth;
 	int c;
 	public static double Date[][] = new double [12][31];   // 
-	public static int Target[][] = new int [12][31];   // µî±Ş
+	public static int Target[][] = new int [12][31];   // ë“±ê¸‰
 
 	public Record(){
-		for(int i =0; i<12; i++){					// ±â·Ï ÃÊ±âÈ­
+		for(int i =0; i<12; i++){					// ê¸°ë¡ ì´ˆê¸°í™”
 			for(int j =0; j<31; j++){
 				Date[i][j] = 0;
 			}
 		}
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		// ´İ±â ¹öÆ°À» ´­·¶À» ¶§ ÇØ´ç Ã¢¸¸ Á¾·á
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		// ë‹«ê¸° ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ í•´ë‹¹ ì°½ë§Œ ì¢…ë£Œ
 	}
 
 	public void run(){
 
 
-		today = Calendar.getInstance(); 				// ÇöÀç ½Ã½ºÅÛÀÇ ½Ã°£ Á¤º¸¸¦ ¾ò´Â Calendar Å¬·¡½º °´Ã¼¸¦ »ı¼º,µğÆúÆ®ÀÇ Å¸ÀÓ Á¸ ¹× ·ÎÄÉÀÏÀ» »ç¿ëÇØ ´Ş·ÂÀ» °¡Á®¿È
-		cal = new GregorianCalendar();					// GregorianCalendar °´Ã¼ »ı¼º
-		year = today.get(Calendar.YEAR);				// ³âµµ Á¤º¸
-		month = today.get(Calendar.MONTH)+1;				// ¿ù Á¤º¸, 1¿ùÀÇ °ªÀÌ 0ÀÌ¹Ç·Î +1 
+		today = Calendar.getInstance(); 				// í˜„ì¬ ì‹œìŠ¤í…œì˜ ì‹œê°„ ì •ë³´ë¥¼ ì–»ëŠ” Calendar í´ë˜ìŠ¤ ê°ì²´ë¥¼ ìƒì„±,ë””í´íŠ¸ì˜ íƒ€ì„ ì¡´ ë° ë¡œì¼€ì¼ì„ ì‚¬ìš©í•´ ë‹¬ë ¥ì„ ê°€ì ¸ì˜´
+		cal = new GregorianCalendar();					// GregorianCalendar ê°ì²´ ìƒì„±
+		year = today.get(Calendar.YEAR);				// ë…„ë„ ì •ë³´
+		month = today.get(Calendar.MONTH)+1;				// ì›” ì •ë³´, 1ì›”ì˜ ê°’ì´ 0ì´ë¯€ë¡œ +1 
 
-		// ÆÄÀÏ ÀÔ·Â
+		// íŒŒì¼ ì…ë ¥
 		try{
 			fr = new FileReader("log\\Info.txt");
 			br = new BufferedReader(fr);
 
-			while((line = br.readLine()) != null){  			// ÇÑ ÁÙ¾¿ ÀĞ¾î¿È
-				str = line.split(",");   				// ½°Ç¥·Î ºĞ¸®
+			while((line = br.readLine()) != null){  			// í•œ ì¤„ì”© ì½ì–´ì˜´
+				str = line.split(",");   				// ì‰¼í‘œë¡œ ë¶„ë¦¬
 				year_ck = Integer.parseInt(str[0]);
 
-				if(year_ck == year){				//±â·ÏµÈ ¿¬µµ°¡ ¿ÃÇØ¶ó¸é
-					setmonth = Integer.parseInt(str[1]); 			// ÀÌ¹ø ´Ş¸¸ ±â·Ï
-					date = Integer.parseInt(str[2]);   			// intÇüÀ¸·Î º¯È¯ÇÏ¿© ÀúÀå : Ã¹ ¹øÂ° ¼ıÀÚ´Â ³¯Â¥, µÎ ¹øÂ° ¼ıÀÚ´Â 
-					Date[setmonth-1][date-1] = Double.parseDouble(str[3]);  // ¹è¿­Àº 0ºÎÅÍ ½ÃÀÛ
+				if(year_ck == year){				//ê¸°ë¡ëœ ì—°ë„ê°€ ì˜¬í•´ë¼ë©´
+					setmonth = Integer.parseInt(str[1]); 			// ì´ë²ˆ ë‹¬ë§Œ ê¸°ë¡
+					date = Integer.parseInt(str[2]);   			// intí˜•ìœ¼ë¡œ ë³€í™˜í•˜ì—¬ ì €ì¥ : ì²« ë²ˆì§¸ ìˆ«ìëŠ” ë‚ ì§œ, ë‘ ë²ˆì§¸ ìˆ«ìëŠ” 
+					Date[setmonth-1][date-1] = Double.parseDouble(str[3]);  // ë°°ì—´ì€ 0ë¶€í„° ì‹œì‘
 
 					for(int i =0; i<12; i++){
 						for(int j =0; j<31; j++){
 
-							//µî±Ş³ª´©±â
-							if(Date[i][j]<26 && Date[i][j]>0)		// ±â·ÏÀÌ 0 ÃÊ°ú 26 ¹Ì¸¸ÀÌ¸é
-								Target[i][j] = 1;			// ¸ñÇ¥Ä¡´Â 1
-							else if(Date[i][j]<51 && Date[i][j]>=26)	// ±â·ÏÀÌ 26 ÀÌ»ó 51 ¹Ì¸¸ÀÌ¸é
-								Target[i][j] = 2;			// ¸ñÇ¥Ä¡´Â 2
-							else if(Date[i][j]<76 && Date[i][j]>=51)	// ±â·ÏÀÌ 51 ÀÌ»ó 76 ¹Ì¸¸ÀÌ¸é
-								Target[i][j] = 3;			// ¸ñÇ¥Ä¡´Â 3
-							else if(Date[i][j]>=76)				// ±â·ÏÀÌ 76 ÀÌ»óÀÌ¸é
-								Target[i][j] = 4;			// ¸ñÇ¥Ä¡´Â 4
-							else if(Date[i][j]==0)				// ±â·ÏÀÌ 0ÀÌ¸é
-								Target[i][j] = 0;			// ¸ñÇ¥Ä¡´Â 0
+							//ë“±ê¸‰ë‚˜ëˆ„ê¸°
+							if(Date[i][j]<26 && Date[i][j]>0)		// ê¸°ë¡ì´ 0 ì´ˆê³¼ 26 ë¯¸ë§Œì´ë©´
+								Target[i][j] = 1;			// ëª©í‘œì¹˜ëŠ” 1
+							else if(Date[i][j]<51 && Date[i][j]>=26)	// ê¸°ë¡ì´ 26 ì´ìƒ 51 ë¯¸ë§Œì´ë©´
+								Target[i][j] = 2;			// ëª©í‘œì¹˜ëŠ” 2
+							else if(Date[i][j]<76 && Date[i][j]>=51)	// ê¸°ë¡ì´ 51 ì´ìƒ 76 ë¯¸ë§Œì´ë©´
+								Target[i][j] = 3;			// ëª©í‘œì¹˜ëŠ” 3
+							else if(Date[i][j]>=76)				// ê¸°ë¡ì´ 76 ì´ìƒì´ë©´
+								Target[i][j] = 4;			// ëª©í‘œì¹˜ëŠ” 4
+							else if(Date[i][j]==0)				// ê¸°ë¡ì´ 0ì´ë©´
+								Target[i][j] = 0;			// ëª©í‘œì¹˜ëŠ” 0
 						}
 					}
 				}else {
@@ -97,76 +97,76 @@ public class Record extends JFrame implements ActionListener
 					}
 				}
 			}
-		}catch(IOException e){System.out.println("ÆÄÀÏÀÔ·Â½ÇÆĞ");}
+		}catch(IOException e){System.out.println("íŒŒì¼ì…ë ¥ì‹¤íŒ¨");}
 
 
-		panNorth = new JPanel();					// JPanel °´Ã¼¸¦ »ı¼ºÇÏ¿© panNorth¿¡ ÀúÀå
-		panNorth.add(btnBefore = new JButton("Before"));		// "Before" ¹öÆ°À» panNorth¿¡ »ğÀÔ    
-		panNorth.add(txtYear = new JTextField(year+"³â"));		// ³âµµ¸¦ ³ªÅ¸³»´Â ÅØ½ºÆ®ÇÊµå¸¦ panNorth¿¡ »ğÀÔ
-		panNorth.add(txtMonth = new JTextField( month+"¿ù",3));		// ¿ùÀ» ³ªÅ¸³»´Â ÅØ½ºÆ®ÇÊµå¸¦ panNorth¿¡ »ğÀÔ
-		txtYear.setEnabled(false); 					// ¹Ù²Ü¼ö ¾ø°Ô °íÁ¤
-		txtMonth.setEnabled(false);					// ¹Ù²Ü¼ö ¾ø°Ô °íÁ¤
-		panNorth.add(btnAfter = new JButton("After"));			// "After" ¹öÆ°À» panNorth¿¡ »ğÀÔ
-		f=new Font("Sherif",Font.BOLD,18); 				// ÆùÆ® ¼³Á¤
-		txtYear.setFont(f);						// txtYear ÅØ½ºÆ®ÇÊµå¿¡ ÆùÆ® Àû¿ë
-		txtMonth.setFont(f);       					// txtMonth ÅØ½ºÆ®ÇÊµå¿¡ ÆùÆ® Àû¿ë
-		add(panNorth,"North"); 						// panNorthÀ» À§¿¡ »ğÀÔ
+		panNorth = new JPanel();					// JPanel ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ panNorthì— ì €ì¥
+		panNorth.add(btnBefore = new JButton("Before"));		// "Before" ë²„íŠ¼ì„ panNorthì— ì‚½ì…    
+		panNorth.add(txtYear = new JTextField(year+"ë…„"));		// ë…„ë„ë¥¼ ë‚˜íƒ€ë‚´ëŠ” í…ìŠ¤íŠ¸í•„ë“œë¥¼ panNorthì— ì‚½ì…
+		panNorth.add(txtMonth = new JTextField( month+"ì›”",3));		// ì›”ì„ ë‚˜íƒ€ë‚´ëŠ” í…ìŠ¤íŠ¸í•„ë“œë¥¼ panNorthì— ì‚½ì…
+		txtYear.setEnabled(false); 					// ë°”ê¿€ìˆ˜ ì—†ê²Œ ê³ ì •
+		txtMonth.setEnabled(false);					// ë°”ê¿€ìˆ˜ ì—†ê²Œ ê³ ì •
+		panNorth.add(btnAfter = new JButton("After"));			// "After" ë²„íŠ¼ì„ panNorthì— ì‚½ì…
+		f=new Font("Sherif",Font.BOLD,18); 				// í°íŠ¸ ì„¤ì •
+		txtYear.setFont(f);						// txtYear í…ìŠ¤íŠ¸í•„ë“œì— í°íŠ¸ ì ìš©
+		txtMonth.setFont(f);       					// txtMonth í…ìŠ¤íŠ¸í•„ë“œì— í°íŠ¸ ì ìš©
+		add(panNorth,"North"); 						// panNorthì„ ìœ„ì— ì‚½ì…
 
-		panSouth = new JPanel();					// JPanel °´Ã¼¸¦ »ı¼ºÇÏ¿© panSouth¿¡ ÀúÀå
-		panSouth.add(Explain = new JLabel("»¡°­ : 1 ~ 25%, ÁÖÈ² : 26 ~ 50%, ÆÄ¶û : 51 ~ 75%, ÃÊ·Ï : 76 ~ 100%"));  	// ¹®ÀÚ¿­ ·¹ÀÌºí ÄÄÆ÷³ÍÆ® »ı¼º
-		f=new Font("Sherif",Font.BOLD,12); 				// ÆùÆ® ¼³Á¤
-		Explain.setFont(f);						// Explain ·¹ÀÌºí¿¡ ÆùÆ® Àû¿ë
-		add(panSouth,"South");						// panSouth¸¦ ¾Æ·¡¿¡ »ğÀÔ
+		panSouth = new JPanel();					// JPanel ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ panSouthì— ì €ì¥
+		panSouth.add(Explain = new JLabel("ë¹¨ê°• : 1 ~ 25%, ì£¼í™© : 26 ~ 50%, íŒŒë‘ : 51 ~ 75%, ì´ˆë¡ : 76 ~ 100%"));  	// ë¬¸ìì—´ ë ˆì´ë¸” ì»´í¬ë„ŒíŠ¸ ìƒì„±
+		f=new Font("Sherif",Font.BOLD,12); 				// í°íŠ¸ ì„¤ì •
+		Explain.setFont(f);						// Explain ë ˆì´ë¸”ì— í°íŠ¸ ì ìš©
+		add(panSouth,"South");						// panSouthë¥¼ ì•„ë˜ì— ì‚½ì…
 
-		// ´Ş·Â¿¡ ³¯¿¡ ÇØ´çÇÏ´Â ºÎºĞ
-		panWest = new JPanel(new GridLayout(7,7));			// 7X7 ºĞÇÒ·Î ÄÄÆ÷³ÍÆ® ¹èÄ¡
-		f=new Font("Sherif",Font.BOLD,12);				// ÆùÆ® ¼³Á¤
+		// ë‹¬ë ¥ì— ë‚ ì— í•´ë‹¹í•˜ëŠ” ë¶€ë¶„
+		panWest = new JPanel(new GridLayout(7,7));			// 7X7 ë¶„í• ë¡œ ì»´í¬ë„ŒíŠ¸ ë°°ì¹˜
+		f=new Font("Sherif",Font.BOLD,12);				// í°íŠ¸ ì„¤ì •
 		gridInit();
 		calSet();
 		hideInit();
-		add(panWest,"Center"); 						// panWest¸¦ °¡¿îµ¥¿¡ »ğÀÔ
+		add(panWest,"Center"); 						// panWestë¥¼ ê°€ìš´ë°ì— ì‚½ì…
 
 		btnBefore.addActionListener(this);
 		btnAfter.addActionListener(this);       
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Calendar");						// Ã¢ÀÌ¸§Àº "Calendar"
-		setBounds(300,300,445,350);					// (300,300) °¡·Î 445, ¼¼·Î 350 Å©±â·Î À§Ä¡ ½ÃÅ´
-		setLocationRelativeTo(null);					// ´İ±â ¹öÆ°À» ´­·¶À» ¶§ ÇØ´ç Ã¢¸¸ Á¾·á
-		setVisible(true);						// Ã¢À» º¸ÀÌ°Ô ÇÔ
+		setTitle("Calendar");						// ì°½ì´ë¦„ì€ "Calendar"
+		setBounds(300,300,445,350);					// (300,300) ê°€ë¡œ 445, ì„¸ë¡œ 350 í¬ê¸°ë¡œ ìœ„ì¹˜ ì‹œí‚´
+		setLocationRelativeTo(null);					// ë‹«ê¸° ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ í•´ë‹¹ ì°½ë§Œ ì¢…ë£Œ
+		setVisible(true);						// ì°½ì„ ë³´ì´ê²Œ í•¨
 	}
 
-	//´Ş·Â ¼³Á¤
+	//ë‹¬ë ¥ ì„¤ì •
 	public void calSet(){
-		cal.set(Calendar.YEAR,year);					// ³âµµ ÁöÁ¤
-		cal.set(Calendar.MONTH,(month-1));				// ¿ù ÁöÁ¤
-		cal.set(Calendar.DATE,1);					// ÀÏ ÁöÁ¤
-		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);			// ¿äÀÏ °¡Á®¿È
+		cal.set(Calendar.YEAR,year);					// ë…„ë„ ì§€ì •
+		cal.set(Calendar.MONTH,(month-1));				// ì›” ì§€ì •
+		cal.set(Calendar.DATE,1);					// ì¼ ì§€ì •
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);			// ìš”ì¼ ê°€ì ¸ì˜´
 		/*
-		 * get ¹× set ¸¦ À§ÇÑ ÇÊµåÄ¡·Î, ¿äÀÏÀ» ³ªÅ¸³À´Ï´Ù.
-		 * ÀÌ ÇÊµåÀÇ °ªÀº,SUNDAY,MONDAY,TUESDAY,WEDNESDAY
-		 * ,THURSDAY,FRIDAY, ¹× SATURDAY °¡ µË´Ï´Ù. 
-		 * get()¸Ş¼ÒµåÀÇ ÀÇÇØ ¿äÀÏÀÌ ¼ıÀÚ·Î ¹İÈ¯
+		 * get ë° set ë¥¼ ìœ„í•œ í•„ë“œì¹˜ë¡œ, ìš”ì¼ì„ ë‚˜íƒ€ëƒ…ë‹ˆë‹¤.
+		 * ì´ í•„ë“œì˜ ê°’ì€,SUNDAY,MONDAY,TUESDAY,WEDNESDAY
+		 * ,THURSDAY,FRIDAY, ë° SATURDAY ê°€ ë©ë‹ˆë‹¤. 
+		 * get()ë©”ì†Œë“œì˜ ì˜í•´ ìš”ì¼ì´ ìˆ«ìë¡œ ë°˜í™˜
 		 */
 		int j=0;
 		int hopping=0;
 
-		//ÀÏ¿äÀÏ, Åä¿äÀÏ ¹öÆ° ¼ıÀÚ »ö±ò ¼³Á¤
-		calBtn[0].setForeground(new Color(255,0,0));			//ÀÏ¿äÀÏ "ÀÏ"
-		calBtn[6].setForeground(new Color(0,0,255));			//Åä¿äÀÏ "Åä"
-		for(int i=cal.getFirstDayOfWeek();i<dayOfWeek;i++){  j++;  } 	//Ã¹ÁÖÀÎ ÀÏ¿äÀÏ(1)ºÎÅÍ ±× ´ŞÀÇ ½ÃÀÛ ¿äÀÏ±îÁö j++
+		//ì¼ìš”ì¼, í† ìš”ì¼ ë²„íŠ¼ ìˆ«ì ìƒ‰ê¹” ì„¤ì •
+		calBtn[0].setForeground(new Color(255,0,0));			//ì¼ìš”ì¼ "ì¼"
+		calBtn[6].setForeground(new Color(0,0,255));			//í† ìš”ì¼ "í† "
+		for(int i=cal.getFirstDayOfWeek();i<dayOfWeek;i++){  j++;  } 	//ì²«ì£¼ì¸ ì¼ìš”ì¼(1)ë¶€í„° ê·¸ ë‹¬ì˜ ì‹œì‘ ìš”ì¼ê¹Œì§€ j++
 		/*
-		 * ÀÏ¿äÀÏºÎÅÍ ±×´ŞÀÇ Ã¹½ÃÀÛ ¿äÀÏ±îÁö ºóÄ­À¸·Î ¼ÂÆÃÇÏ±â À§ÇØ 
+		 * ì¼ìš”ì¼ë¶€í„° ê·¸ë‹¬ì˜ ì²«ì‹œì‘ ìš”ì¼ê¹Œì§€ ë¹ˆì¹¸ìœ¼ë¡œ ì…‹íŒ…í•˜ê¸° ìœ„í•´ 
 		 */
 		hopping=j;
 		for(int kk=0;kk<hopping;kk++){
-			calBtn[kk+7].setText(""); //+7ÀÎ ÀÌÀ¯´Â ±× À­ÁÙ¿¡ ¿äÀÏÀ» ½è±â ¶§¹®ÀÌ ¾Æ´Ò±î?
+			calBtn[kk+7].setText(""); //+7ì¸ ì´ìœ ëŠ” ê·¸ ìœ—ì¤„ì— ìš”ì¼ì„ ì¼ê¸° ë•Œë¬¸ì´ ì•„ë‹ê¹Œ?
 		}
 
-		//¿ùÀÇ ÃÖÀú°ª(1)°ú ¿ùÀÇ ÃÖ°í°ªÀ» ÀÌ¿ëÇÏ¿© for¹® µ¹¸®±â
+		//ì›”ì˜ ìµœì €ê°’(1)ê³¼ ì›”ì˜ ìµœê³ ê°’ì„ ì´ìš©í•˜ì—¬ forë¬¸ ëŒë¦¬ê¸°
 		for(int i=cal.getMinimum(Calendar.DAY_OF_MONTH);
 				i<=cal.getMaximum(Calendar.DAY_OF_MONTH);i++){
 			cal.set(Calendar.DATE,i);
-			if(cal.get(Calendar.MONTH) !=month-1){ //´ŞÀÌ ÀÏÄ¡ÇÏÁö¾ÊÀ¸¸é break
+			if(cal.get(Calendar.MONTH) !=month-1){ //ë‹¬ì´ ì¼ì¹˜í•˜ì§€ì•Šìœ¼ë©´ break
 				break;
 			}
 
@@ -178,15 +178,15 @@ public class Record extends JFrame implements ActionListener
 				calBtn[i+6+hopping].setForeground(new Color(0,0,0));
 			}
 			/*
-			 * ¿äÀÏÀ» ÂïÀº ´ÙÀ½ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï ¿äÀÏÀ» ÂïÀº ¹öÆ°ÀÇ °¹¼ö¸¦ ´õÇÏ°í
-			 * ÀÎµ¦½º°¡ 0ºÎÅÍ ½ÃÀÛÀÌ´Ï -1À» ÇØÁØ °ªÀ¸·Î ¿¬»êÀ» ÇØÁÖ°í
-			 * ¹öÆ°ÀÇ »ö±òÀ» º¯°æÇØÁØ´Ù. 
+			 * ìš”ì¼ì„ ì°ì€ ë‹¤ìŒë¶€í„° ê³„ì‚°í•´ì•¼ í•˜ë‹ˆ ìš”ì¼ì„ ì°ì€ ë²„íŠ¼ì˜ ê°¯ìˆ˜ë¥¼ ë”í•˜ê³ 
+			 * ì¸ë±ìŠ¤ê°€ 0ë¶€í„° ì‹œì‘ì´ë‹ˆ -1ì„ í•´ì¤€ ê°’ìœ¼ë¡œ ì—°ì‚°ì„ í•´ì£¼ê³ 
+			 * ë²„íŠ¼ì˜ ìƒ‰ê¹”ì„ ë³€ê²½í•´ì¤€ë‹¤. 
 			 */
-			calBtn[i+6+hopping].setText((i)+""); //""À» ºÙÀÌ´Â ÀÌÀ¯´Â i¸¦ ¹®ÀÚ·Î ¹Ù²Ù±â À§ÇØ¼­
+			calBtn[i+6+hopping].setText((i)+""); //""ì„ ë¶™ì´ëŠ” ì´ìœ ëŠ” ië¥¼ ë¬¸ìë¡œ ë°”ê¾¸ê¸° ìœ„í•´ì„œ
 
 			for(j=0; j<12; j++){
 				if(month == j+1){
-					//µî±Ş¿¡ µû¶ó »ö±ò ³ª´©±â
+					//ë“±ê¸‰ì— ë”°ë¼ ìƒ‰ê¹” ë‚˜ëˆ„ê¸°
 					switch(Target[j][i-1]){
 					case 1 :
 						calBtn[i+6+hopping].setBackground(Color.red);
@@ -220,8 +220,8 @@ public class Record extends JFrame implements ActionListener
 			panelInit();               
 			calSet();
 			hideInit();
-			this.txtYear.setText(year+"³â");
-			this.txtMonth.setText(month+"¿ù");                   
+			this.txtYear.setText(year+"ë…„");
+			this.txtMonth.setText(month+"ì›”");                   
 		}                   
 		else if(ae.getSource() == btnAfter){
 			this.panWest.removeAll();
@@ -230,14 +230,14 @@ public class Record extends JFrame implements ActionListener
 			panelInit();
 			calSet();
 			hideInit();
-			this.txtYear.setText(year+"³â");
-			this.txtMonth.setText(month+"¿ù");                                       
+			this.txtYear.setText(year+"ë…„");
+			this.txtMonth.setText(month+"ì›”");                                       
 		}
-		//³¯Â¥¸¦ ´­·¶À»¶§
+		//ë‚ ì§œë¥¼ ëˆŒë €ì„ë•Œ
 		else if(Integer.parseInt(ae.getActionCommand()) >= 1 && 
 				Integer.parseInt(ae.getActionCommand()) <=31){
 			day = Integer.parseInt(ae.getActionCommand());
-			//¹öÆ°ÀÇ ¹ë·ù Áï 1,2,3.... ¹®ÀÚ¸¦ Á¤¼öÇüÀ¸·Î º¯È¯ÇÏ¿© Å¬¸¯ÇÑ ³¯Â¥¸¦ ¹Ù²ãÁØ´Ù.
+			//ë²„íŠ¼ì˜ ë°¸ë¥˜ ì¦‰ 1,2,3.... ë¬¸ìë¥¼ ì •ìˆ˜í˜•ìœ¼ë¡œ ë³€í™˜í•˜ì—¬ í´ë¦­í•œ ë‚ ì§œë¥¼ ë°”ê¿”ì¤€ë‹¤.
 			System.out.println(+year+"-"+month+"-"+day);
 			calSet();
 		}      
@@ -247,16 +247,16 @@ public class Record extends JFrame implements ActionListener
 		for(int i = 0 ; i < calBtn.length;i++){
 			if((calBtn[i].getText()).equals(""))
 				calBtn[i].setEnabled(false);
-			//ÀÏÀÌ ÂïÈ÷Áö ¾ÊÀº ³ª¸ÓÁö ¹öÆ°À» ºñÈ°¼ºÈ­ ½ÃÅ²´Ù. 
+			//ì¼ì´ ì°íˆì§€ ì•Šì€ ë‚˜ë¨¸ì§€ ë²„íŠ¼ì„ ë¹„í™œì„±í™” ì‹œí‚¨ë‹¤. 
 		}//end for
 	}//end hideInit()
 
 	public void gridInit(){
-		//jPanel3¿¡ ¹öÆ° ºÙÀÌ±â
+		//jPanel3ì— ë²„íŠ¼ ë¶™ì´ê¸°
 		for(int i = 0 ; i < days.length;i++) //0<=i<7
 		{
 			panWest.add(calBtn[i] = new JButton(days[i]));
-			calBtn[i].setContentAreaFilled(false); //¹öÆ°ÀÇ ¹è°æ»öÀ» Ä¥ÇÒÁö ¸»Áö °áÁ¤, ¿ù,È­,¼ö,¸ñ,±İ¿¡´Â ¹è°æ»ö ÁöÁ¤ x
+			calBtn[i].setContentAreaFilled(false); //ë²„íŠ¼ì˜ ë°°ê²½ìƒ‰ì„ ì¹ í• ì§€ ë§ì§€ ê²°ì •, ì›”,í™”,ìˆ˜,ëª©,ê¸ˆì—ëŠ” ë°°ê²½ìƒ‰ ì§€ì • x
 			calBtn[i].setBorderPainted(false);
 		}	
 		for(int i = days.length ; i < 49;i++){                
@@ -265,18 +265,18 @@ public class Record extends JFrame implements ActionListener
 		}              
 	}//end gridInit()
 
-	//ÆÒ ·¹ÀÌ¾Æ¿ô ¼³Á¤
+	//íŒ¬ ë ˆì´ì•„ì›ƒ ì„¤ì •
 	public void panelInit(){
 		GridLayout gridLayout1 = new GridLayout(7,7);
 		panWest.setLayout(gridLayout1);   
 	}//end panelInit()
 
-	//¿ù,³âµµ ¿Å±â±â
+	//ì›”,ë…„ë„ ì˜®ê¸°ê¸°
 	public void calInput(int gap){
 		month+=(gap);		
 		if (month<=0){
 			month = 12;
-			//year  =year- 1; //³âµµ¸¦ ¿Å±ä´Â °ÍÀÌÁö¸¸ ¹è¿­ÀÌ Ä¿Áö¹Ç·Î »èÁ¦
+			//year  =year- 1; //ë…„ë„ë¥¼ ì˜®ê¸´ëŠ” ê²ƒì´ì§€ë§Œ ë°°ì—´ì´ ì»¤ì§€ë¯€ë¡œ ì‚­ì œ
 		}else if (month>=13){
 			month = 1;
 			//year =year+ 1;

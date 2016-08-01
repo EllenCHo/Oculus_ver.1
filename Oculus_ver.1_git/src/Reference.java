@@ -1,32 +1,32 @@
-// 08. °³¹ßÀÚ ¹× ÇĞ±³ & ÇĞ°ú ¼Ò°³
+// 08. ê°œë°œì ë° í•™êµ & í•™ê³¼ ì†Œê°œ
 
 import java.awt.*;
 import javax.swing.*;
 
 public class Reference extends JFrame{
-	Container c;						// ÄÁÅ×ÀÌ³Ê º¯¼ö ¼±¾ğ
+	Container c;						// ì»¨í…Œì´ë„ˆ ë³€ìˆ˜ ì„ ì–¸
 	
 	public Reference(){
-		setTitle("¼Ò°³");							// Ã¢ ÀÌ¸§Àº "¼Ò°³"
-		c = getContentPane();					// ÇÁ·¹ÀÓ¿¡ ¿¬°áµÈ ÄÁÅÙÆ®ÆÒÀ» ¾Ë¾Æ³¿
-		MyPanel panel = new MyPanel();			// MyPanel °´Ã¼ »ı¼º
-		c.add(panel, BorderLayout.CENTER);		// panelÀ» BorderLayoutÀÇ Áß¾Ó À§·Î ¹èÄ¡
+		setTitle("ì†Œê°œ");							// ì°½ ì´ë¦„ì€ "ì†Œê°œ"
+		c = getContentPane();					// í”„ë ˆì„ì— ì—°ê²°ëœ ì»¨í…íŠ¸íŒ¬ì„ ì•Œì•„ëƒ„
+		MyPanel panel = new MyPanel();			// MyPanel ê°ì²´ ìƒì„±
+		c.add(panel, BorderLayout.CENTER);		// panelì„ BorderLayoutì˜ ì¤‘ì•™ ìœ„ë¡œ ë°°ì¹˜
 
-		setSize(1084, 1125);					// Ã¢ Å©±â ¼³Á¤
-		setLocationRelativeTo(null);			// È­¸éÀÇ °¡¿îµ¥¿¡ Ã¢À» ¶ç¿ò
-		setVisible(true);   					// Ã¢À» º¸ÀÌ°Ô ÇÔ
-		setResizable(false);					// Ã¢ Å©±â¸¦ ¸ø ´Ã¸®°Ô °íÁ¤
+		setSize(1084, 1125);					// ì°½ í¬ê¸° ì„¤ì •
+		setLocationRelativeTo(null);			// í™”ë©´ì˜ ê°€ìš´ë°ì— ì°½ì„ ë„ì›€
+		setVisible(true);   					// ì°½ì„ ë³´ì´ê²Œ í•¨
+		setResizable(false);					// ì°½ í¬ê¸°ë¥¼ ëª» ëŠ˜ë¦¬ê²Œ ê³ ì •
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		// ´İ±â ¹öÆ°À» ´­·¶À» ¶§ ÇØ´ç Ã¢¸¸ Á¾·á
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		// ë‹«ê¸° ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ í•´ë‹¹ ì°½ë§Œ ì¢…ë£Œ
 	}
 	
 	class MyPanel extends JPanel{
-		ImageIcon icon = new ImageIcon("image\\Ref.jpg");		// ImageIcon °´Ã¼ »ı¼º
+		ImageIcon icon = new ImageIcon("image\\Ref.jpg");		// ImageIcon ê°ì²´ ìƒì„±
 		Image img = icon.getImage();
 
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
-			g.drawImage(img,0,0, getWidth(), getHeight(),this);	// ÀÌ¹ÌÁö ±×¸®±â, ÀÌ¹ÌÁö¸¦ (0,0) ÁÂÇ¥¿¡¼­ ½ÃÀÛÇØ ÇØ´ç ÀÌ¹ÌÁöÀÇ ³Êºñ¿Í ³ôÀÌ¸¸Å­ Ãâ·Â
+			g.drawImage(img,0,0, getWidth(), getHeight(),this);	// ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°, ì´ë¯¸ì§€ë¥¼ (0,0) ì¢Œí‘œì—ì„œ ì‹œì‘í•´ í•´ë‹¹ ì´ë¯¸ì§€ì˜ ë„ˆë¹„ì™€ ë†’ì´ë§Œí¼ ì¶œë ¥
 		}
 	}
 }

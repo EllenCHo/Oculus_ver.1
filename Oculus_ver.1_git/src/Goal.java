@@ -1,4 +1,4 @@
-// 04. ¸ñÇ¥ ¼³Á¤
+// 04. ëª©í‘œ ì„¤ì •
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,10 +11,10 @@ import javax.swing.*;
 public class Goal extends JFrame implements Runnable{
 	Container contentPane;
 
-	JRadioButton[] FDSet= new JRadioButton[2];			//Fifteen Dots ¸ñÇ¥ È½¼ö ¹öÆ°
-	JRadioButton[] FMSet = new JRadioButton[2];			//Follow Me ¸ñÇ¥ È½¼ö ¹öÆ°
+	JRadioButton[] FDSet= new JRadioButton[2];			//Fifteen Dots ëª©í‘œ íšŸìˆ˜ ë²„íŠ¼
+	JRadioButton[] FMSet = new JRadioButton[2];			//Follow Me ëª©í‘œ íšŸìˆ˜ ë²„íŠ¼
 
-	int yet [] = new int[2];							//¼³Á¤µÈ °ªÀ» Àû¿ëÇÏ±â ÀüÀÇ °ªÀ» º¸°üÇÏ´Â º¯¼ö
+	int yet [] = new int[2];							//ì„¤ì •ëœ ê°’ì„ ì ìš©í•˜ê¸° ì „ì˜ ê°’ì„ ë³´ê´€í•˜ëŠ” ë³€ìˆ˜
 
 	Goal(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -24,66 +24,66 @@ public class Goal extends JFrame implements Runnable{
 		setTitle("Setting");
 
 		contentPane = getContentPane();
-		contentPane.setLayout(null); 					//¹èÄ¡°ü¸®ÀÚ »èÁ¦
+		contentPane.setLayout(null); 					//ë°°ì¹˜ê´€ë¦¬ì ì‚­ì œ
 
-		ButtonGroup GFD = new ButtonGroup();			//Fifteen Dots ¹öÆ° ±×·ì »ı¼º
-		ButtonGroup GFM = new ButtonGroup();			//Follow Me ¹öÆ° ±×·ì »ı¼º
+		ButtonGroup GFD = new ButtonGroup();			//Fifteen Dots ë²„íŠ¼ ê·¸ë£¹ ìƒì„±
+		ButtonGroup GFM = new ButtonGroup();			//Follow Me ë²„íŠ¼ ê·¸ë£¹ ìƒì„±
 
-		FDSet[0]=new JRadioButton("9È¸");				//Fifteen Dots ¹öÆ°  »ı¼º
-		FDSet[1]=new JRadioButton("15È¸");	
-		FDSet[0].addItemListener(new SetFDListener());	//Fifteen Dots ¹öÆ°¿¡ ¸®½º³Ê ´Ş±â
+		FDSet[0]=new JRadioButton("9íšŒ");				//Fifteen Dots ë²„íŠ¼  ìƒì„±
+		FDSet[1]=new JRadioButton("15íšŒ");	
+		FDSet[0].addItemListener(new SetFDListener());	//Fifteen Dots ë²„íŠ¼ì— ë¦¬ìŠ¤ë„ˆ ë‹¬ê¸°
 		FDSet[1].addItemListener(new SetFDListener());
 		
-		//±×·ì¿¡ ¹öÆ° Ãß°¡
+		//ê·¸ë£¹ì— ë²„íŠ¼ ì¶”ê°€
 		GFD.add(FDSet[0]);
 		GFD.add(FDSet[1]);
 
 		if(MainFrame.FD == 9)
-			FDSet[0].setSelected(true); 				//Fifteen Dots ¸ñÇ¥È½¼ö°¡ 9È¸ÀÌ¸é Ã¹¹øÂ° ¶óµğ¿À ¹öÆ°ÀÌ ¼±ÅÃµÈ »óÅÂ·Î ³ª¿À°Ô ÇÏ±â
+			FDSet[0].setSelected(true); 				//Fifteen Dots ëª©í‘œíšŸìˆ˜ê°€ 9íšŒì´ë©´ ì²«ë²ˆì§¸ ë¼ë””ì˜¤ ë²„íŠ¼ì´ ì„ íƒëœ ìƒíƒœë¡œ ë‚˜ì˜¤ê²Œ í•˜ê¸°
 		else
-			FDSet[1].setSelected(true);					//Fifteen Dots ¸ñÇ¥È½¼ö°¡ 15È¸ÀÌ¸é µÎ¹øÂ° ¶óµğ¿À ¹öÆ°ÀÌ ¼±ÅÃµÈ »óÅÂ·Î ³ª¿À°Ô ÇÏ±â
+			FDSet[1].setSelected(true);					//Fifteen Dots ëª©í‘œíšŸìˆ˜ê°€ 15íšŒì´ë©´ ë‘ë²ˆì§¸ ë¼ë””ì˜¤ ë²„íŠ¼ì´ ì„ íƒëœ ìƒíƒœë¡œ ë‚˜ì˜¤ê²Œ í•˜ê¸°
 
 
-		FMSet[0]=new JRadioButton("9È¸");				//Follow Me ¹öÆ°  »ı¼º
-		FMSet[1]=new JRadioButton("15È¸");
-		FMSet[0].addItemListener(new SetFMListener());	//Follow Me ¹öÆ°¿¡ ¸®½º³Ê ´Ş±â
+		FMSet[0]=new JRadioButton("9íšŒ");				//Follow Me ë²„íŠ¼  ìƒì„±
+		FMSet[1]=new JRadioButton("15íšŒ");
+		FMSet[0].addItemListener(new SetFMListener());	//Follow Me ë²„íŠ¼ì— ë¦¬ìŠ¤ë„ˆ ë‹¬ê¸°
 		FMSet[1].addItemListener(new SetFMListener());
 		
-		//±×·ì¿¡ ¹öÆ° Ãß°¡
+		//ê·¸ë£¹ì— ë²„íŠ¼ ì¶”ê°€
 		GFM.add(FMSet[0]);
 		GFM.add(FMSet[1]);
 
 		if(MainFrame.FM ==9)
-			FMSet[0].setSelected(true);					//Follow Me ¸ñÇ¥È½¼ö°¡ 9È¸ÀÌ¸é Ã¹¹øÂ° ¶óµğ¿À ¹öÆ°ÀÌ ¼±ÅÃµÈ »óÅÂ·Î ³ª¿À°Ô ÇÏ±â
+			FMSet[0].setSelected(true);					//Follow Me ëª©í‘œíšŸìˆ˜ê°€ 9íšŒì´ë©´ ì²«ë²ˆì§¸ ë¼ë””ì˜¤ ë²„íŠ¼ì´ ì„ íƒëœ ìƒíƒœë¡œ ë‚˜ì˜¤ê²Œ í•˜ê¸°
 		else
-			FMSet[1].setSelected(true);					//Follow Me ¸ñÇ¥È½¼ö°¡ 15È¸ÀÌ¸é µÎ¹øÂ° ¶óµğ¿À ¹öÆ°ÀÌ ¼±ÅÃµÈ »óÅÂ·Î ³ª¿À°Ô ÇÏ±â
+			FMSet[1].setSelected(true);					//Follow Me ëª©í‘œíšŸìˆ˜ê°€ 15íšŒì´ë©´ ë‘ë²ˆì§¸ ë¼ë””ì˜¤ ë²„íŠ¼ì´ ì„ íƒëœ ìƒíƒœë¡œ ë‚˜ì˜¤ê²Œ í•˜ê¸°
 
-		//È®ÀÎ ¹öÆ°À» ´­·¶À» ¶§
-		JButton ok = new JButton("È®ÀÎ");
+		//í™•ì¸ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ
+		JButton ok = new JButton("í™•ì¸");
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.FM = yet[0];					//Follow Me ¸ñÇ¥È½¼ö ¼³Á¤
-				MainFrame.FD = yet[1];					//Fifteen Dots ¸ñÇ¥È½¼ö ¼³Á¤
+				MainFrame.FM = yet[0];					//Follow Me ëª©í‘œíšŸìˆ˜ ì„¤ì •
+				MainFrame.FD = yet[1];					//Fifteen Dots ëª©í‘œíšŸìˆ˜ ì„¤ì •
 
-				Save.SaveNow();							//Today.txt¿¡ ´Ù½Ã ¼³Á¤µÈ ¸ñÇ¥È½¼ö ±â·ÏÇÏ±â
+				Save.SaveNow();							//Today.txtì— ë‹¤ì‹œ ì„¤ì •ëœ ëª©í‘œíšŸìˆ˜ ê¸°ë¡í•˜ê¸°
 				
-				dispose();								//¼³Á¤ Ã¢ ´İ±â
+				dispose();								//ì„¤ì • ì°½ ë‹«ê¸°
 			}
 		});
 
-		//Ãë¼Ò ¹öÆ°À» ´­·¶À» ¶§
-		JButton cancel = new JButton("Ãë¼Ò");
+		//ì·¨ì†Œ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ
+		JButton cancel = new JButton("ì·¨ì†Œ");
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();								//¼³Á¤ Ã¢ ´İ±â
+				dispose();								//ì„¤ì • ì°½ ë‹«ê¸°
 			}
 		});
 
-		//Ç×¸ñ ¼³Á¤
+		//í•­ëª© ì„¤ì •
 		JLabel Eye1 = new JLabel("Follow Me");
 		JLabel Eye2 = new JLabel("Fifteen Dots");
 
-		//¹öÆ°°ú Ç×¸ñ »çÀÌÁî, À§Ä¡ ¼³Á¤
+		//ë²„íŠ¼ê³¼ í•­ëª© ì‚¬ì´ì¦ˆ, ìœ„ì¹˜ ì„¤ì •
 		Eye1.setSize(70,20);
 		Eye2.setSize(70,20);
 		ok.setSize(75,30);
@@ -118,16 +118,16 @@ public class Goal extends JFrame implements Runnable{
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		setResizable(false);				//Ã¢ Å©±â¸¦ ¸ø ´Ã¸®°Ô °íÁ¤
+		setResizable(false);				//ì°½ í¬ê¸°ë¥¼ ëª» ëŠ˜ë¦¬ê²Œ ê³ ì •
 	}
 
-	//È½¼ö ¹öÆ° ¸®½º³Ê
+	//íšŸìˆ˜ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ
 	class SetFMListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e){	
 			if(e.getStateChange() == ItemEvent.DESELECTED)
-				return; //¼±ÅÃ ÇØÁ¦µÈ °æ¿ì ±×³É ¸®ÅÏ
+				return; //ì„ íƒ í•´ì œëœ ê²½ìš° ê·¸ëƒ¥ ë¦¬í„´
 
-			if(FMSet[0].isSelected())				//È®ÀÎÀ» ´©¸£±â Àü ÀÓ½Ã·Î ¼³Á¤µÈ º¯¼ö ÀúÀå
+			if(FMSet[0].isSelected())				//í™•ì¸ì„ ëˆ„ë¥´ê¸° ì „ ì„ì‹œë¡œ ì„¤ì •ëœ ë³€ìˆ˜ ì €ì¥
 				yet[0] = 9;
 			else 
 				yet[0] = 15;
@@ -137,9 +137,9 @@ public class Goal extends JFrame implements Runnable{
 	class SetFDListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e){	
 			if(e.getStateChange() == ItemEvent.DESELECTED)
-				return; //¼±ÅÃ ÇØÁ¦µÈ °æ¿ì ±×³É ¸®ÅÏ
+				return; //ì„ íƒ í•´ì œëœ ê²½ìš° ê·¸ëƒ¥ ë¦¬í„´
 
-			if(FDSet[0].isSelected())				//È®ÀÎÀ» ´©¸£±â Àü ÀÓ½Ã·Î ¼³Á¤µÈ º¯¼ö ÀúÀå
+			if(FDSet[0].isSelected())				//í™•ì¸ì„ ëˆ„ë¥´ê¸° ì „ ì„ì‹œë¡œ ì„¤ì •ëœ ë³€ìˆ˜ ì €ì¥
 				yet[1] = 9;
 			else 
 				yet[1] = 15;

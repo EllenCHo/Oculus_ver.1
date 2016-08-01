@@ -1,4 +1,4 @@
-//ÆÄÀÏ ÀúÀå µ¿±âÈ­
+//íŒŒì¼ ì €ì¥ ë™ê¸°í™”
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,14 +8,14 @@ import java.util.Calendar;
 public class Save {
 	public static synchronized void SaveNow(){				
 		try{
-			DateJLabel.fw = new FileWriter("log\\Today.txt");   	// ÆÄÀÏ Ãâ·Â ½ºÆ®¸² »ı¼º
-			DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	// ¹öÆÛ ÆÄÀÏ Ãâ·Â ½ºÆ®¸² »ı¼º, Ãâ·Â È¿À² Çâ»ó
+			DateJLabel.fw = new FileWriter("log\\Today.txt");   	// íŒŒì¼ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±
+			DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	// ë²„í¼ íŒŒì¼ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±, ì¶œë ¥ íš¨ìœ¨ í–¥ìƒ
 
-			//±â·Ï ÀúÀå
+			//ê¸°ë¡ ì €ì¥
 			DateJLabel.bw.write(String.format("%d,%d,%d,%d,%d,%d,%d", MainFrame.Year, MainFrame.Month, MainFrame.Day, MainFrame.FM, MainFrame.FMC, MainFrame.FD, MainFrame.FDC));
 			DateJLabel.bw.flush();
 
-			DateJLabel.bw.close();   								// ÆÄÀÏ ÀÔÃâ·Â ½ºÆ®¸²À» ´İ°í ½Ã½ºÅÛ ÀÚ¿ø ÇØÁ¦
+			DateJLabel.bw.close();   								// íŒŒì¼ ì…ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì„ ë‹«ê³  ì‹œìŠ¤í…œ ìì› í•´ì œ
 			DateJLabel.fw.close();
 		}catch(IOException e){
 			System.err.println(e);
@@ -25,28 +25,28 @@ public class Save {
 	
 	
 	public static void SaveDay(){
-		Calendar now = Calendar.getInstance();   // ÇöÀç ³¯Â¥¿Í ½Ã°£ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		Calendar now = Calendar.getInstance();   // í˜„ì¬ ë‚ ì§œì™€ ì‹œê°„ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 		
 		try{
 			if(now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day){
-				DateJLabel.fw = new FileWriter("log\\Info.txt", true);   // ÆÄÀÏ Ãâ·Â ½ºÆ®¸² »ı¼º
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	 // ¹öÆÛ ÆÄÀÏ Ãâ·Â ½ºÆ®¸² »ı¼º, Ãâ·Â È¿À² Çâ»ó
+				DateJLabel.fw = new FileWriter("log\\Info.txt", true);   // íŒŒì¼ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	 // ë²„í¼ íŒŒì¼ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±, ì¶œë ¥ íš¨ìœ¨ í–¥ìƒ
 
-				// Info.txt¿¡ ¿À´Ã ±â·Ï ÀÔ·Â
+				// Info.txtì— ì˜¤ëŠ˜ ê¸°ë¡ ì…ë ¥
 				DateJLabel.bw.write(String.format("%d,%d,%d,%.2f\r\n", MainFrame.Year, MainFrame.Month, MainFrame.Day, (double)100 * (MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));   
-				DateJLabel.bw.flush();									 //¹öÆÛ¿¡ ³²Àº °Í Ãâ·Â
+				DateJLabel.bw.flush();									 //ë²„í¼ì— ë‚¨ì€ ê²ƒ ì¶œë ¥
 	
 				MainFrame.FMC = 0;
 				MainFrame.FDC = 0;
 
-				DateJLabel.fw = new FileWriter("log\\Today.txt");   	 // ÆÄÀÏ Ãâ·Â ½ºÆ®¸² »ı¼º
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	 // ¹öÆÛ ÆÄÀÏ Ãâ·Â ½ºÆ®¸² »ı¼º, Ãâ·Â È¿À² Çâ»ó
+				DateJLabel.fw = new FileWriter("log\\Today.txt");   	 // íŒŒì¼ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw);   	 // ë²„í¼ íŒŒì¼ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±, ì¶œë ¥ íš¨ìœ¨ í–¥ìƒ
 
-				//Today ±â·ÏÀ» ÃÊ±âÈ­ÇØ¼­ ±â·Ï
+				//Today ê¸°ë¡ì„ ì´ˆê¸°í™”í•´ì„œ ê¸°ë¡
 				DateJLabel.bw.write(String.format("%d,%d,%d,%d,0,%d,0", now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH), MainFrame.FM, MainFrame.FD));
 				DateJLabel.bw.flush();
 
-				DateJLabel.br.close();   								// ÆÄÀÏ ÀÔÃâ·Â ½ºÆ®¸²À» ´İ°í ½Ã½ºÅÛ ÀÚ¿ø ÇØÁ¦
+				DateJLabel.br.close();   								// íŒŒì¼ ì…ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì„ ë‹«ê³  ì‹œìŠ¤í…œ ìì› í•´ì œ
 				DateJLabel.fr.close();
 				DateJLabel.bw.close();
 				DateJLabel.fw.close();

@@ -1,4 +1,4 @@
-//Æ®·¹ÀÌ
+//íŠ¸ë ˆì´
 
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
@@ -9,10 +9,10 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 public class Tray implements ActionListener, ItemListener{
-	private SystemTray tray;						//Æ®·¹ÀÌ »ı¼º
-	private PopupMenu popup;						//ÆË¾÷ ¸Ş´º »ı¼º
-	private MenuItem Open, Close; 					//¿­±â ´İ±â ¸Ş´º »ı¼º
-	private CheckboxMenuItem Wait;					//ÀÚµ¿½ÃÀÛ ¿©ºÎ¸¦ À§ÇÑ Ã¼Å©¹Ú½º
+	private SystemTray tray;						//íŠ¸ë ˆì´ ìƒì„±
+	private PopupMenu popup;						//íŒì—… ë©”ë‰´ ìƒì„±
+	private MenuItem Open, Close; 					//ì—´ê¸° ë‹«ê¸° ë©”ë‰´ ìƒì„±
+	private CheckboxMenuItem Wait;					//ìë™ì‹œì‘ ì—¬ë¶€ë¥¼ ìœ„í•œ ì²´í¬ë°•ìŠ¤
 	private TrayIcon icon;
 
 	public Tray(){
@@ -24,37 +24,37 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	//Æ®·¹ÀÌ ¼³Á¤
+	//íŠ¸ë ˆì´ ì„¤ì •
 	public void setup() throws AWTException{
-		if(SystemTray.isSupported()){					//ÇöÀç os¿¡¼­ »ç¿ë°¡´ÉÇÑÁö È®ÀÎ
+		if(SystemTray.isSupported()){					//í˜„ì¬ osì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•œì§€ í™•ì¸
 			popup = new PopupMenu();
-			Open = new MenuItem("Open");				//¿­±â ¸Ş´º Ãß°¡
-			Close = new MenuItem("Exit");				//´İ±â ¸Ş´º Ãß°¡
-			Wait = new CheckboxMenuItem("ÀÚµ¿½ÇÇà", true);	//ÀÚµ¿½ÇÇà ¸Ş´º Ãß°¡
+			Open = new MenuItem("Open");				//ì—´ê¸° ë©”ë‰´ ì¶”ê°€
+			Close = new MenuItem("Exit");				//ë‹«ê¸° ë©”ë‰´ ì¶”ê°€
+			Wait = new CheckboxMenuItem("ìë™ì‹¤í–‰", true);	//ìë™ì‹¤í–‰ ë©”ë‰´ ì¶”ê°€
 
-			//¾×¼Ç ¸®½º³Ê ´Ş±â
+			//ì•¡ì…˜ ë¦¬ìŠ¤ë„ˆ ë‹¬ê¸°
 			Open.addActionListener(this);
 			Close.addActionListener(this);
 			Wait.addItemListener(this);
 
-			//ÆË¾÷¿¡ ¸Ş´º ´Ş±â
+			//íŒì—…ì— ë©”ë‰´ ë‹¬ê¸°
 			popup.add(Open);
 			popup.add(Wait);
 			popup.add(Close);
 
 
-			//Æ®·¹ÀÌ¾ÆÀÌÄÜ ¼³Á¤
+			//íŠ¸ë ˆì´ì•„ì´ì½˜ ì„¤ì •
 			Image image = Toolkit.getDefaultToolkit().getImage("image\\logo.png");
 			icon = new TrayIcon(image, "Oculus", popup);
 			icon.setImageAutoSize(true);
 			
-			//Æ®·¹ÀÌ ¾ÆÀÌÄÜ ±ÙÃ³·Î ÆË¾÷Ã¢ ¶ß°ÔÇÏ±â
-			icon.displayMessage("Oculus", "Æ®·¹ÀÌ·Î ÀÌµ¿ÇÕ´Ï´Ù.", MessageType.INFO);
+			//íŠ¸ë ˆì´ ì•„ì´ì½˜ ê·¼ì²˜ë¡œ íŒì—…ì°½ ëœ¨ê²Œí•˜ê¸°
+			icon.displayMessage("Oculus", "íŠ¸ë ˆì´ë¡œ ì´ë™í•©ë‹ˆë‹¤.", MessageType.INFO);
 
-			//´õºíÅ¬¸¯ÇßÀ» ½Ã¿¡ ¸ŞÀÎ Ã¢ÀÌ ¶ßµµ·Ï ÇÔ.(ÀÇ¹®Á¡ : MousePressed¸¦ ÀÌ¿ëÇßÀ» ¶§´Â ½ÇÇàÀÌ ¾ÈµÊ, ´õºíÅ¬¸¯½Ã¿¡ ½ÇÇàµÊ)
+			//ë”ë¸”í´ë¦­í–ˆì„ ì‹œì— ë©”ì¸ ì°½ì´ ëœ¨ë„ë¡ í•¨.(ì˜ë¬¸ì  : MousePressedë¥¼ ì´ìš©í–ˆì„ ë•ŒëŠ” ì‹¤í–‰ì´ ì•ˆë¨, ë”ë¸”í´ë¦­ì‹œì— ì‹¤í–‰ë¨)
 			icon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					tray.remove(icon);			//Æ®·¹ÀÌ¸¦ ¿­¾úÀ»¶§ Æ®·¹ÀÌ ¾ÆÀÌÄÜ »èÁ¦
+					tray.remove(icon);			//íŠ¸ë ˆì´ë¥¼ ì—´ì—ˆì„ë•Œ íŠ¸ë ˆì´ ì•„ì´ì½˜ ì‚­ì œ
 					restart();
 				}
 			});
@@ -63,51 +63,51 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	//¸Ş´º¸¦ ´­·¶À» ¶§ ¹ß»ıÇÏ´Â ÀÌº¥Æ® ¼³Á¤
+	//ë©”ë‰´ë¥¼ ëˆŒë €ì„ ë•Œ ë°œìƒí•˜ëŠ” ì´ë²¤íŠ¸ ì„¤ì •
 	public void actionPerformed(ActionEvent ae){
 		if(ae.getSource() == Open){
 			restart();	
-			tray.remove(icon);						//Æ®·¹ÀÌ¸¦ ¿­¾úÀ»¶§ Æ®·¹ÀÌ ¾ÆÀÌÄÜ »èÁ¦
+			tray.remove(icon);						//íŠ¸ë ˆì´ë¥¼ ì—´ì—ˆì„ë•Œ íŠ¸ë ˆì´ ì•„ì´ì½˜ ì‚­ì œ
 		} else if(ae.getSource() == Close){
-			showMessage("Á¾·á", "Á¾·áÇÏ½Ã°Ú½À´Ï±î?");		//Æ®·¹ÀÌÀÇ exit¸¦ ´­·¶À» °æ¿ì ¸Ş½ÃÁö Ã¢ ¶ß°Ô ÇÏ±â
+			showMessage("ì¢…ë£Œ", "ì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");		//íŠ¸ë ˆì´ì˜ exitë¥¼ ëˆŒë €ì„ ê²½ìš° ë©”ì‹œì§€ ì°½ ëœ¨ê²Œ í•˜ê¸°
 		}
 	}
 	
-	//ÀÚµ¿½ÃÀÛ ¾ÆÀÌÅÛÀÌ true, false°¡ µÆÀ» ¶§ ±â´É ¼³Á¤
+	//ìë™ì‹œì‘ ì•„ì´í…œì´ true, falseê°€ ëì„ ë•Œ ê¸°ëŠ¥ ì„¤ì •
 	public void itemStateChanged(ItemEvent e){
 		//if(e.getSource() == Wait){
 		if(e.getStateChange() == ItemEvent.SELECTED){
-			Thread Waiting = new Thread(new Waiting());						//Æ®·¹ÀÌ·Î µ¹·Áº¸³ÂÀ» ½Ã¿¡ ÁöÁ¤½Ã°£ÀÌ µÇ¸é ÀÚµ¿À¸·Î ½ÇÇàÇÏ°Ô ÇÔ
-			Waiting.start();		//¾²·¹µå ½ÇÇà
-		}	else if(e.getStateChange() == ItemEvent.DESELECTED){			//Ã¼Å©¹Ú½º ÇØÁ¦ÇßÀ»¶§ Waiting ¾²·¹µå Á¾·á
+			Thread Waiting = new Thread(new Waiting());						//íŠ¸ë ˆì´ë¡œ ëŒë ¤ë³´ëƒˆì„ ì‹œì— ì§€ì •ì‹œê°„ì´ ë˜ë©´ ìë™ìœ¼ë¡œ ì‹¤í–‰í•˜ê²Œ í•¨
+			Waiting.start();		//ì“°ë ˆë“œ ì‹¤í–‰
+		}	else if(e.getStateChange() == ItemEvent.DESELECTED){			//ì²´í¬ë°•ìŠ¤ í•´ì œí–ˆì„ë•Œ Waiting ì“°ë ˆë“œ ì¢…ë£Œ
 			Waiting.finish();
 		}
 	}
 
-	//exit ¹öÆ°À» ´­·¶À» ¶§ ³ªÅ¸³ª´Â Ã¢ ¼³Á¤
+	//exit ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ ë‚˜íƒ€ë‚˜ëŠ” ì°½ ì„¤ì •
 	private void showMessage(String title, String message){
 		int result = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
 		
-		//»ç¿ëÀÚ°¡ "¿¹"³ª "¾Æ´Ï¿À"ÀÇ ¼±ÅÃ ¾øÀÌ ´ÙÀÌ¾ó·Î±× Ã¢À» ´İÀº °æ¿ì
+		//ì‚¬ìš©ìê°€ "ì˜ˆ"ë‚˜ "ì•„ë‹ˆì˜¤"ì˜ ì„ íƒ ì—†ì´ ë‹¤ì´ì–¼ë¡œê·¸ ì°½ì„ ë‹«ì€ ê²½ìš°
 		if(result == JOptionPane.CLOSED_OPTION) {				
 		}
 		
-		//»ç¿ëÀÚ°¡ "¿¹"¸¦ ´­·¶À» °æ¿ì
+		//ì‚¬ìš©ìê°€ "ì˜ˆ"ë¥¼ ëˆŒë €ì„ ê²½ìš°
 		else if(result == JOptionPane.YES_OPTION) {
-			System.out.println("Oculus Á¾·á");
+			System.out.println("Oculus ì¢…ë£Œ");
 			System.exit(0);
 		}
 		
-		//»ç¿ëÀÚ°¡ "¾Æ´Ï¿À"¸¦ ´­·¶À» °æ¿ì
+		//ì‚¬ìš©ìê°€ "ì•„ë‹ˆì˜¤"ë¥¼ ëˆŒë €ì„ ê²½ìš°
 		else {
 		}
 	}
 
-	//¸ŞÀÎ ´Ù½Ã ½ÃÀÛÇÏ±â
+	//ë©”ì¸ ë‹¤ì‹œ ì‹œì‘í•˜ê¸°
 	public void restart(){
 		MainFrame mFrame = new MainFrame();
 
-		Calendar now = Calendar.getInstance();   // ÇöÀç ³¯Â¥¿Í ½Ã°£ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		Calendar now = Calendar.getInstance();   // í˜„ì¬ ë‚ ì§œì™€ ì‹œê°„ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 
 		Save.SaveDay();
 
