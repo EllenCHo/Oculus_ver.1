@@ -1,4 +1,4 @@
-// 01. ÇöÀç ³¯Â¥¿Í ½Ã°¢ Ç¥½Ã
+// 01. í˜„ì¬ ë‚ ì§œì™€ ì‹œê° í‘œì‹œ
 
 import java.util.*;
 import java.awt.*;
@@ -7,8 +7,8 @@ import java.io.*;
 import javax.swing.*;
 
 public class DateJLabel implements Runnable{
-	private JLabel date;							// ½Ã°£À» ³ªÅ¸³¾ Label
-	private Calendar cal;							// ´Ş·Â ¹Ş¾Æ¿Ã º¯¼ö
+	private JLabel date;							// ì‹œê°„ì„ ë‚˜íƒ€ë‚¼ Label
+	private Calendar cal;							// ë‹¬ë ¥ ë°›ì•„ì˜¬ ë³€ìˆ˜
 	String dayOfWeek;			
 
 	public static FileReader fr;
@@ -17,26 +17,26 @@ public class DateJLabel implements Runnable{
 	public static BufferedWriter bw;
 	public static boolean flag = true;
 
-	public static void stop(){						// Ã¢À» ´İ¾ÒÀ» ½Ã¿¡ ¾²·¹µå Á¾·á
+	public static void stop(){						// ì°½ì„ ë‹«ì•˜ì„ ì‹œì— ì“°ë ˆë“œ ì¢…ë£Œ
 		flag = false;
 	}
 
 	DateJLabel(Calendar now, JLabel date){					
 		this.cal = now;
 		this.date = date;
-		date.setFont(new Font("Arial", Font.BOLD, 20));			// ÆùÆ® ¼³Á¤
+		date.setFont(new Font("Arial", Font.BOLD, 20));			// í°íŠ¸ ì„¤ì •
 		this.dayOfWeek = null;
 		flag = true;
 	}
 
 	public void run(){
 		
-		//½Ã°£, ºĞ, ÃÊ¸¦ ½ÊÀÇ ´ÜÀ§¿Í ÀÏÀÇ ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+		//ì‹œê°„, ë¶„, ì´ˆë¥¼ ì‹­ì˜ ë‹¨ìœ„ì™€ ì¼ì˜ ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
 		int h = cal.get(Calendar.HOUR_OF_DAY), h10 = h/10, h1 = h%10;
 		int m = cal.get(Calendar.MINUTE), m10 = m/10, m1 = m%10;
 		int s = cal.get(Calendar.SECOND), s10 = s/10, s1 = s%10;
 		
-		//¿äÀÏÀº ¼ıÀÚ·Î Ç¥½ÃµÇ±â¶§¹®¿¡ ¿äÀÏ¸íÀ¸·Î ¼³Á¤ÇÏ±â À§ÇØ ½ºÀ§Ä¡¹® »ç¿ë
+		//ìš”ì¼ì€ ìˆ«ìë¡œ í‘œì‹œë˜ê¸°ë•Œë¬¸ì— ìš”ì¼ëª…ìœ¼ë¡œ ì„¤ì •í•˜ê¸° ìœ„í•´ ìŠ¤ìœ„ì¹˜ë¬¸ ì‚¬ìš©
 		switch(cal.get(Calendar.DAY_OF_WEEK)){	
 		case Calendar.SUNDAY : dayOfWeek = "Sun."; break;
 		case Calendar.MONDAY : dayOfWeek = "Mon."; break;
@@ -59,13 +59,13 @@ public class DateJLabel implements Runnable{
 					return;
 				}
 
-				if(s == 60){								// 1ºĞ Áö³¯¶§¸¶´Ù ½Ã°£ °»½Å
+				if(s == 60){								// 1ë¶„ ì§€ë‚ ë•Œë§ˆë‹¤ ì‹œê°„ ê°±ì‹ 
 					cal = Calendar.getInstance();
 					h = cal.get(Calendar.HOUR_OF_DAY); h10 = h/10; h1 = h%10;
 					m = cal.get(Calendar.MINUTE); m10 = m/10; m1 = m%10;
 					s = cal.get(Calendar.SECOND); s10 = s/10; s1 = s%10;
 				}
-				if(m == 60){								// 1½Ã°£ÀÌ Áö³ª¸é ½Ã°£ ¿Ã¸®±â
+				if(m == 60){								// 1ì‹œê°„ì´ ì§€ë‚˜ë©´ ì‹œê°„ ì˜¬ë¦¬ê¸°
 					h++;
 					m = 0;
 				}
@@ -74,7 +74,7 @@ public class DateJLabel implements Runnable{
 				m10 = m/10; m1 = m%10;
 				s10 = s/10; s1 = s%10;
 				
-				if(h == 24){								//ÇÏ·ç°¡ Áö³ª¸é ´Ù½Ã ¿äÀÏ¸í ¼³Á¤ÇÏ°í Ä«¿îÆ® ÃÊ±âÈ­
+				if(h == 24){								//í•˜ë£¨ê°€ ì§€ë‚˜ë©´ ë‹¤ì‹œ ìš”ì¼ëª… ì„¤ì •í•˜ê³  ì¹´ìš´íŠ¸ ì´ˆê¸°í™”
 					switch(cal.get(Calendar.DAY_OF_WEEK)) {
 					case Calendar.SUNDAY : dayOfWeek = "Sun."; break;
 					case Calendar.MONDAY : dayOfWeek = "Mon."; break;
@@ -85,7 +85,7 @@ public class DateJLabel implements Runnable{
 					case Calendar.SATURDAY : dayOfWeek = "Sat."; break;
 					}
 
-					//Ä«¿îÆ® ÃÊ±âÈ­
+					//ì¹´ìš´íŠ¸ ì´ˆê¸°í™”
 					MainFrame.FMC = 0;	
 					MainFrame.FDC = 0;
 				}
