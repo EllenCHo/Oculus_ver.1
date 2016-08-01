@@ -30,7 +30,7 @@ public class Tray implements ActionListener, ItemListener{
 			popup = new PopupMenu();
 			Open = new MenuItem("Open");				//열기 메뉴 추가
 			Close = new MenuItem("Exit");				//닫기 메뉴 추가
-			Wait = new CheckboxMenuItem("자동실행", true);	//자동실행 메뉴 추가
+			Wait = new CheckboxMenuItem("Auto Start", true);	//자동실행 메뉴 추가
 
 			//액션 리스너 달기
 			Open.addActionListener(this);

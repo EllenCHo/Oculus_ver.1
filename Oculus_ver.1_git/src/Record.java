@@ -52,8 +52,6 @@ public class Record extends JFrame implements ActionListener
 	}
 
 	public void run(){
-
-
 		today = Calendar.getInstance(); 				// 현재 시스템의 시간 정보를 얻는 Calendar 클래스 객체를 생성,디폴트의 타임 존 및 로케일을 사용해 달력을 가져옴
 		cal = new GregorianCalendar();					// GregorianCalendar 객체 생성
 		year = today.get(Calendar.YEAR);				// 년도 정보
@@ -97,7 +95,40 @@ public class Record extends JFrame implements ActionListener
 					}
 				}
 			}
-		}catch(IOException e){System.out.println("파일입력실패");}
+		}catch (java.io.FileNotFoundException e) { //Info.txt가 없을 경우
+			try {
+				FileWriter fw = null;
+				BufferedWriter bw = null;
+				File dsFile = new File("log\\Info.txt");		//Info 파일 생성
+				if(!dsFile.exists()){							//log폴더가 없을 경우
+					File dsDir = new File("log"); 				//로그 폴더 생성
+					dsDir.mkdirs();
+					//dsDir.delete();
+					dsDir = null;
+				}
+				//dsFile.delete();
+				dsFile = null;				
+				fw = new FileWriter("log\\Info.txt"); // 파일 출력 스트림
+				// 생성
+				bw = new BufferedWriter(fw); // 버퍼 파일 출력
+				// 스트림 생성,
+				// 출력 효율 향상
+
+				//Info 기록을 초기화해서 기록
+				bw.write(String.format("%d,%d,%d,0.00", today.get(Calendar.YEAR),
+						today.get(Calendar.MONTH) + 1, today.get(Calendar.DAY_OF_MONTH)));
+				bw.flush();
+				if(bw != null)
+					bw.close();
+				if(fw != null)
+					fw.close();
+			}
+			catch (IOException te) {				
+				te.printStackTrace();
+				System.exit(1);
+			}
+			return;
+		}	catch(IOException e){System.out.println("파일입력실패");}
 
 
 		panNorth = new JPanel();					// JPanel 객체를 생성하여 panNorth에 저장
