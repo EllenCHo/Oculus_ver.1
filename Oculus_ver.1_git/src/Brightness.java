@@ -1,4 +1,6 @@
-// 07. È«Ã¤ ¿îµ¿ : ¸í¾Ï Æ®·¹ÀÌ´×
+/**
+ *  07. í™ì±„ ìš´ë™ : ëª…ì•” íŠ¸ë ˆì´ë‹ 
+ */
 
 import java.io.*;
 
@@ -38,17 +40,17 @@ public class Brightness implements Runnable{
 	}
 
 	public void run(){
-		htu3 = new HowToUse(3);						//¿îµ¿¿¡ ´ëÇÑ ¼³¸í¼­
+		htu3 = new HowToUse(3);						//ìš´ë™ì— ëŒ€í•œ ì„¤ëª…ì„œ
 		int k = -1;
 		
-		//for(k = 0; k < 1; k++){   // µğ¹ö±ë¿ë
-		for(k = 0; k < 10; k++){   // ¿­ ¹ø ¹İº¹ ÈÄ Á¾·á
+		//for(k = 0; k < 1; k++){   // ë””ë²„ê¹…ìš©
+		for(k = 0; k < 10; k++){   // ì—´ ë²ˆ ë°˜ë³µ í›„ ì¢…ë£Œ
 			try{
 				try{
-					setBrightness(0);				//ÃÖÀú Á¶¸í
-					Thread.sleep(5000);				//5ÃÊÁ¤µµ Á¤Áö
-					setBrightness(100);				//ÃÖ´ë Á¶¸í
-					Thread.sleep(3500);				//3.5ÃÊ Á¤µµ Á¤Áö
+					setBrightness(0);				//ìµœì € ì¡°ëª…
+					Thread.sleep(5000);				//5ì´ˆì •ë„ ì •ì§€
+					setBrightness(100);				//ìµœëŒ€ ì¡°ëª…
+					Thread.sleep(3500);				//3.5ì´ˆ ì •ë„ ì •ì§€
 				}catch(IOException e){
 					System.err.println(e);
 					return;
@@ -59,8 +61,8 @@ public class Brightness implements Runnable{
 			}
 		}
 		try{
-			setBrightness(80);   // Áß°£À¸·Î µ¹·ÁÁØ´Ù.
-			htu3.finish();		 // ¼³¸í¼­ ´İ±â
+			setBrightness(80);   // ì¤‘ê°„ìœ¼ë¡œ ëŒë ¤ì¤€ë‹¤.
+			htu3.finish();		 // ì„¤ëª…ì„œ ë‹«ê¸°
 			return;
 		}catch(IOException e){
 			System.err.println(e);
