@@ -34,60 +34,72 @@ public class Record extends JFrame implements ActionListener
 
 	String line;
 	String[] str;
+	int year_ck;
 	int date;
 	int setmonth;
 	int c;
 	public static double Date[][] = new double [12][31];   // 
 	public static int Target[][] = new int [12][31];   // 등급
-	
+
 	public Record(){
 		for(int i =0; i<12; i++){					// 기록 초기화
 			for(int j =0; j<31; j++){
 				Date[i][j] = 0;
 			}
 		}
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		// 닫기 버튼을 눌렀을 때 해당 창만 종료
 	}
 
 	public void run(){
-		// 파일 입력
-		try{
-			fr = new FileReader("log\\Info.txt");
-			br = new BufferedReader(fr);
-
-			while((line = br.readLine()) != null){  			// 한 줄씩 읽어옴
-				str = line.split(",");   				// 쉼표로 분리
-
-				setmonth = Integer.parseInt(str[0]); 			// 이번 달만 기록
-				date = Integer.parseInt(str[1]);   			// int형으로 변환하여 저장 : 첫 번째 숫자는 날짜, 두 번째 숫자는 
-				Date[setmonth-1][date-1] = Double.parseDouble(str[2]);  // 배열은 0부터 시작
-
-				for(int i =0; i<12; i++){
-					for(int j =0; j<31; j++){
-						
-						//등급나누기
-						if(Date[i][j]<26 && Date[i][j]>0)		// 기록이 0 초과 26 미만이면
-							Target[i][j] = 1;			// 목표치는 1
-						else if(Date[i][j]<51 && Date[i][j]>=26)	// 기록이 26 이상 51 미만이면
-							Target[i][j] = 2;			// 목표치는 2
-						else if(Date[i][j]<76 && Date[i][j]>=51)	// 기록이 51 이상 76 미만이면
-							Target[i][j] = 3;			// 목표치는 3
-						else if(Date[i][j]>=76)				// 기록이 76 이상이면
-							Target[i][j] = 4;			// 목표치는 4
-						else if(Date[i][j]==0)				// 기록이 0이면
-							Target[i][j] = 0;			// 목표치는 0
-					}
-				}
-			}
-		}catch(IOException e){System.out.println("파일입력실패");}
+		
 
 		today = Calendar.getInstance(); 				// 현재 시스템의 시간 정보를 얻는 Calendar 클래스 객체를 생성,디폴트의 타임 존 및 로케일을 사용해 달력을 가져옴
 		cal = new GregorianCalendar();					// GregorianCalendar 객체 생성
 		year = today.get(Calendar.YEAR);				// 년도 정보
 		month = today.get(Calendar.MONTH)+1;				// 월 정보, 1월의 값이 0이므로 +1 
 		
-		
+		// 파일 입력
+				try{
+					fr = new FileReader("log\\Info.txt");
+					br = new BufferedReader(fr);
+
+					while((line = br.readLine()) != null){  			// 한 줄씩 읽어옴
+						str = line.split(",");   				// 쉼표로 분리
+						year_ck = Integer.parseInt(str[0]);
+						
+						if(year_ck == year){				//기록된 연도가 올해라면
+							setmonth = Integer.parseInt(str[1]); 			// 이번 달만 기록
+							date = Integer.parseInt(str[2]);   			// int형으로 변환하여 저장 : 첫 번째 숫자는 날짜, 두 번째 숫자는 
+							Date[setmonth-1][date-1] = Double.parseDouble(str[3]);  // 배열은 0부터 시작
+
+							for(int i =0; i<12; i++){
+								for(int j =0; j<31; j++){
+
+									//등급나누기
+									if(Date[i][j]<26 && Date[i][j]>0)		// 기록이 0 초과 26 미만이면
+										Target[i][j] = 1;			// 목표치는 1
+									else if(Date[i][j]<51 && Date[i][j]>=26)	// 기록이 26 이상 51 미만이면
+										Target[i][j] = 2;			// 목표치는 2
+									else if(Date[i][j]<76 && Date[i][j]>=51)	// 기록이 51 이상 76 미만이면
+										Target[i][j] = 3;			// 목표치는 3
+									else if(Date[i][j]>=76)				// 기록이 76 이상이면
+										Target[i][j] = 4;			// 목표치는 4
+									else if(Date[i][j]==0)				// 기록이 0이면
+										Target[i][j] = 0;			// 목표치는 0
+								}
+							}
+						}else {
+							for(int i =0; i<12; i++){
+								for(int j =0; j<31; j++){
+									Target[i][j] = 0;	
+								}
+							}
+						}
+					}
+				}catch(IOException e){System.out.println("파일입력실패");}
+
+
 		panNorth = new JPanel();					// JPanel 객체를 생성하여 panNorth에 저장
 		panNorth.add(btnBefore = new JButton("Before"));		// "Before" 버튼을 panNorth에 삽입    
 		panNorth.add(txtYear = new JTextField(year+"년"));		// 년도를 나타내는 텍스트필드를 panNorth에 삽입
@@ -99,13 +111,13 @@ public class Record extends JFrame implements ActionListener
 		txtYear.setFont(f);						// txtYear 텍스트필드에 폰트 적용
 		txtMonth.setFont(f);       					// txtMonth 텍스트필드에 폰트 적용
 		add(panNorth,"North"); 						// panNorth을 위에 삽입
-		
+
 		panSouth = new JPanel();					// JPanel 객체를 생성하여 panSouth에 저장
 		panSouth.add(Explain = new JLabel("빨강 : 1 ~ 25%, 주황 : 26 ~ 50%, 파랑 : 51 ~ 75%, 초록 : 76 ~ 100%"));  	// 문자열 레이블 컴포넌트 생성
 		f=new Font("Sherif",Font.BOLD,12); 				// 폰트 설정
 		Explain.setFont(f);						// Explain 레이블에 폰트 적용
 		add(panSouth,"South");						// panSouth를 아래에 삽입
-		
+
 		// 달력에 날에 해당하는 부분
 		panWest = new JPanel(new GridLayout(7,7));			// 7X7 분할로 컴포넌트 배치
 		f=new Font("Sherif",Font.BOLD,12);				// 폰트 설정

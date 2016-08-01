@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 class MainFrame extends JFrame implements WindowListener{
+	public static int Year = -1;
 	public static int Month = -1;
 	public static int Day = -1;
 	public static int FM = -1;   	// Follow Me 목표 횟수
@@ -133,16 +134,17 @@ class MainFrame extends JFrame implements WindowListener{
 			DateJLabel.br = new BufferedReader(DateJLabel.fr);   // 버퍼 파일 입력 스트림 생성, 입력 효율 향상
 			
 			line = DateJLabel.br.readLine();
-			for(int i = 0; i < 6; i++){
+			for(int i = 0; i < 7; i++){
 				str = line.split(",");
 			}
 			
-			Month = Integer.parseInt(str[0]);
-			Day = Integer.parseInt(str[1]);
-			FM = Integer.parseInt(str[2]);
-			FMC = Integer.parseInt(str[3]);
-			FD = Integer.parseInt(str[4]);
-			FDC = Integer.parseInt(str[5]);
+			Year = Integer.parseInt(str[0]);
+			Month = Integer.parseInt(str[1]);
+			Day = Integer.parseInt(str[2]);
+			FM = Integer.parseInt(str[3]);
+			FMC = Integer.parseInt(str[4]);
+			FD = Integer.parseInt(str[5]);
+			FDC = Integer.parseInt(str[6]);
 			
 			DateJLabel.br.close();   // 파일 입출력 스트림을 닫고 시스템 자원 해제
 			DateJLabel.fr.close();
