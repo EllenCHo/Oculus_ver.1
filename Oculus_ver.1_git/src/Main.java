@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 class MainFrame extends JFrame implements WindowListener {
-	public static int Year = -1;
+	public static int Year = -1;			//연도 지정
 	public static int Month = -1;
 	public static int Day = -1;
 	public static int FM = -1; // Follow Me 목표 횟수
