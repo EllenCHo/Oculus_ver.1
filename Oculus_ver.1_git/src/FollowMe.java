@@ -120,7 +120,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		int speedx;							//x좌표의 다음 스피드 저장
 		int speedy;							//y좌표의 다음 스피드 저장
 
-		ImageIcon icon = new ImageIcon("image\\RYAN.png");			//공 이미지 설정
+		ImageIcon icon = new ImageIcon("image\\heart.png");			//공 이미지 설정
 		Image img = icon.getImage();
 
 		boolean play = true;
