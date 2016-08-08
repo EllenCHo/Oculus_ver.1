@@ -5,7 +5,11 @@ public class HowToUse extends JFrame{
 	Container c;											// 컨테이너 변수 선언
 	ImageIcon icon;											// 이미지 아이콘 변수 선언
 	
-	public HowToUse(int ex){								// 전달인자 'ex'는 운동 종류 (1: FollowME, 2: FifteenDots, 3: Brightness)
+	/**
+	 * 무슨 설명문을 띄울지 결정하는 메소드
+	 * @param ex	운동 종류 (1: FollowME, 2: FifteenDots, 3: Brightness)	
+	 */
+	public HowToUse(int ex){							
 		
 		// 운동종류에 따라 설명문 바꾸기	
 		switch(ex){
