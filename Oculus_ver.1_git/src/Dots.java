@@ -9,6 +9,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	String line;
 	String[] str;
 	boolean flag;
+	boolean play;
 	
 	int[][] order = {														// 버튼이 나타나는 순서
 			{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4},
@@ -34,14 +35,18 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 	HowToUse htu2;															// 설명서 설정
 
-	public void windowActivated(WindowEvent e) {}							// 윈도우가 활성화 될 때 호출
+	public void windowActivated(WindowEvent e) {
+		play = true;
+	}							// 윈도우가 활성화 될 때 호출
 	public void windowClosed(WindowEvent e) {}								// 윈도우가 완전히 닫혀질 때 호출
 	public void windowClosing(WindowEvent e) {
 		finish();															// 창 닫으면 카운트되지않고 종료
 	}
 	public void windowDeactivated(WindowEvent e) {}							// 윈도우가 비활성화될 때 호출
 	public void windowDeiconified(WindowEvent e) {}							// 윈도우가 아이콘에서 이전 크기로 될 때 호출
-	public void windowIconified(WindowEvent e) {}							// 윈도우가 아이콘화(최소화)될 때 호출
+	public void windowIconified(WindowEvent e) {
+		play = false;
+	}							// 윈도우가 아이콘화(최소화)될 때 호출
 	public void windowOpened(WindowEvent e) {}								// 윈도우가 열릴 때 호출
 
 
@@ -68,6 +73,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		this.addWindowListener(this);
 
 		flag = false;
+		play = true;
 
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 5; j++){
@@ -103,7 +109,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	public void run(){
 		int k = -4;
 
-		while(true){
+		while(play){
 			try{
 				//Thread.sleep(1000);   									// 디버깅용
 				Thread.sleep(2000);   										// 2초씩 넘어감

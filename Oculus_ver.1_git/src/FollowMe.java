@@ -13,7 +13,8 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	public static int szset = 0;		//공 크기 디폴트 값(중)
 	Setting setting;					//설정창
 	Container contentPane;
-	boolean flag;	
+	boolean flag;
+	boolean play;
 	JButton btn; 						//공 설정 버튼
 	HowToUse htu1;						//설명서 설정
 	
@@ -28,14 +29,18 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	int size[] = {res.width/15, res.width/20};													//컴퓨터 창 크기 따른 상대적인 공 크기(중, 하)
 
 	//인터페이스를 상속했으므로 다 오버로딩해야함
-	public void windowActivated(WindowEvent e) {}
+	public void windowActivated(WindowEvent e) {
+		play = true;
+	}
 	public void windowClosed(WindowEvent e) {}
 	public void windowClosing(WindowEvent e) {
 		finish();									//창 닫으면 카운트되지않고 종료
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
-	public void windowIconified(WindowEvent e) {}
+	public void windowIconified(WindowEvent e) {
+		play = false;
+	}
 	public void windowOpened(WindowEvent e) {}
 
 	FollowMe() {
@@ -49,7 +54,8 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		contentPane.add(panel); 									// 패널을 컨텐트팬에 부착
 		this.addWindowListener(this);
 
-		flag = false;		
+		flag = false;
+		play = true;
 
 		btn = new JButton("메뉴"); 									//버튼 만들기
 
@@ -80,7 +86,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 	public void run(){
 		int k = -10;
-		while(true){
+		while(play){
 			try{
 				//Thread.sleep(100);   // 디버깅용
 				Thread.sleep(1000);   // 60초 후 종료
@@ -99,6 +105,9 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 			
 			if(k == -5)
 				htu1.finish();			//5초가 지나면 설명문 사라지게 하기
+			
+			if(k == 0)
+				setting.setVisible(false);
 
 			if(k == 60){				//운동을 다했을 경우 카운트
 				MainFrame.FMC++;
@@ -123,14 +132,12 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		ImageIcon icon = new ImageIcon("image\\heart.png");			//공 이미지 설정
 		Image img = icon.getImage();
 
-		boolean play = true;
-
 		public DrawCircle() {
 			speedX = speedY = 10;			//초기 스피드 10
 			try {
 				new Thread(){
 					public void run(){
-						while(play){
+						while(true){
 							Random rd = new Random();
 							//Random.nextInt():int형의 난수를 발생
 							//Random.nextInt(int n) : 0과 (n-1)사이의 int형의 난수를 발생한다.
