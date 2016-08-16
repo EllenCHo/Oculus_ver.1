@@ -3,14 +3,15 @@ import java.util.Calendar;
 /**
  * MainFrame 비활성화 시 1분마다 시간을 체크해서 일정시간(50분)이 되면 자동으로 운동 띄움.
  * @author Sol
- *
+ * @see Brightness, Dots, FollowMe
+ * 
  */
 
-/*-
- * @param Canlendar cal - 현재 시간 갱신을 위한 변수
- * @param boolean flag - 종료 플래그
- */
 public class Waiting implements Runnable{
+	/**
+	 * @param Canlendar cal - 현재 시간 갱신을 위한 변수
+	 * @param boolean flag - 종료 플래그
+	 */
 	private Calendar cal;
 	static boolean flag;
 	

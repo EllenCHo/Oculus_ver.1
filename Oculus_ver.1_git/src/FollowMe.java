@@ -8,25 +8,25 @@ import java.util.Random;
 /**
  * 안구이동근 운동 : 움직이는 점 트레이닝
  * @author Sol
+ * @see HowToUse, Save
  *
  */
-
-/*-
- * @param : static int spset = 3 - 공 스피드 디폴트 값(랜덤)
- * @param : static int szset = 0 - 공 크기 디폴트 값(중)
- * @param : boolean flag - 종료 플래그
- * @param : boolean play - 반복 플래그
- * 
- */
 public class FollowMe extends JFrame implements Runnable, WindowListener{
+	/**
+	 * @param : static int spset = 3 - 공 스피드 디폴트 값(랜덤)
+	 * @param : static int szset = 0 - 공 크기 디폴트 값(중)
+	 * @param : boolean flag - 종료 플래그
+	 * @param : boolean play - 반복 플래그
+	 * 
+	 */
 	public static int spset = 3;
 	public static int szset = 0;
 	Setting setting;					
 	Container contentPane;
 	boolean flag;
 	boolean play;
-	JButton btn; 						//공 설정 버튼
-	HowToUse htu1;						//설명서 설정
+	JButton btn; 						
+	HowToUse htu1;						
 	
 	Color color = new Color(206,247,110);							//백그라운드 색깔 설정
 	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//전체화면 사이즈 가져오기

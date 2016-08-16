@@ -9,16 +9,17 @@ import javax.swing.JOptionPane;
 /**
  * 메인창에서 닫기 버튼을 눌렀을 시에 나타나는 트레이
  * @author Sol
+ * @see Waiting
  *
  */
 
-/*-
- * @param SystemTray tray - 트레이 생성
- * @param PopupMenu popup - 팝업 메뉴 생성
- * @param MenuItem Open, Close - 열기 닫기 메뉴
- * @param CheckboxMenuItem Wait - 자동시작 여부를 위한 체크박스
- */
 public class Tray implements ActionListener, ItemListener{
+	/**
+	 * @param SystemTray tray - 트레이 생성
+	 * @param PopupMenu popup - 팝업 메뉴 생성
+	 * @param MenuItem Open, Close - 열기 닫기 메뉴
+	 * @param CheckboxMenuItem Wait - 자동시작 여부를 위한 체크박스
+	 */
 	private SystemTray tray;
 	private PopupMenu popup;
 	private MenuItem Open, Close;
@@ -34,7 +35,7 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	/*-
+	/**
 	 * 트레이 설정
 	 */
 	public void setup() throws AWTException{
@@ -79,7 +80,7 @@ public class Tray implements ActionListener, ItemListener{
 	}
 
 
-	/*-
+	/**
 	 * Open, Close 메뉴를 눌렀을 때 발생하는 이벤트 설정
 	 * Open이면 트레이 아이콘을 삭제하고 메인창 restart()
 	 * Close면 메시지창을 뜨게 함 
@@ -93,7 +94,7 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	/*-
+	/**
 	 * 자동시작 아이템이 체크 됐을 때 기능 설정
 	 * 체크가 되어있다면 Waiting 실행, 체크가 풀리면 Waiting 종료
 	 */
@@ -106,7 +107,7 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	/*-
+	/**
 	 * exit 버튼을 눌렀을 때 나타나는 창 설정
 	 * @param title : 창의 제목 설정
 	 * @param message : 나타날 메세지 유형 설정
@@ -129,7 +130,7 @@ public class Tray implements ActionListener, ItemListener{
 		}
 	}
 
-	/*-
+	/**
 	 * 메인창을 다시 시작하게 하는 메소드
 	 */
 	public void restart(){

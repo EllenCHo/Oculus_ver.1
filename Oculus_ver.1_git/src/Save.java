@@ -7,6 +7,7 @@ import java.util.Calendar;
 /**
  * 동기화를 이용해서 Log, Today 저장
  * @author Sol
+ * @see DateJLabel
  *
  */
 public class Save {

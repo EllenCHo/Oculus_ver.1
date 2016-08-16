@@ -1,9 +1,8 @@
+import java.io.*;
+
 /**
  *  07. 홍채 운동 : 명암 트레이닝 
  */
-
-import java.io.*;
-
 public class Brightness implements Runnable{
 	HowToUse htu3;
 	
