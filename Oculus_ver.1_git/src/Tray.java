@@ -13,12 +13,14 @@ import javax.swing.JOptionPane;
  */
 
 /*-
+ * @param SystemTray tray - 트레이 생성
+ * @param PopupMenu popup - 팝업 메뉴 생성
  * @param MenuItem Open, Close - 열기 닫기 메뉴
  * @param CheckboxMenuItem Wait - 자동시작 여부를 위한 체크박스
  */
 public class Tray implements ActionListener, ItemListener{
-	private SystemTray tray;						//트레이 생성
-	private PopupMenu popup;						//팝업 메뉴 생성
+	private SystemTray tray;
+	private PopupMenu popup;
 	private MenuItem Open, Close;
 	private CheckboxMenuItem Wait;
 	private TrayIcon icon;
@@ -58,7 +60,7 @@ public class Tray implements ActionListener, ItemListener{
 			/*트레이아이콘 설정*/
 			Image image = Toolkit.getDefaultToolkit().getImage("image\\logo.png");
 			icon = new TrayIcon(image, "Oculus", popup);
-			icon.setImageAutoSize(true);					//픽셀사이즈 16x16
+			icon.setImageAutoSize(true);
 
 			/*트레이 아이콘 근처로 팝업창 뜨게하기*/
 			icon.displayMessage("Oculus", "트레이로 이동합니다.", MessageType.INFO);
@@ -66,7 +68,8 @@ public class Tray implements ActionListener, ItemListener{
 			/*더블클릭했을 시에 메인 창이 뜨도록 함.(의문점 : MousePressed를 이용했을 때는 실행이 안됨, 더블클릭시에 실행됨)*/
 			icon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					tray.remove(icon);			//트레이를 열었을때 트레이 아이콘 삭제
+					/* 트레이를 열었을때 트레이 아이콘 삭제하고 메인창 restart() */
+					tray.remove(icon);
 					restart();
 				}
 			});
@@ -132,8 +135,7 @@ public class Tray implements ActionListener, ItemListener{
 	public void restart(){
 		MainFrame mFrame = new MainFrame();
 
-		Calendar now = Calendar.getInstance();   // 현재 날짜와 시간 정보를 가져온다.
-
+		Calendar now = Calendar.getInstance();
 		Save.SaveDay();
 
 		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate()));
