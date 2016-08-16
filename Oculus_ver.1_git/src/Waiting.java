@@ -1,24 +1,31 @@
-// MainFrame 비활성화 시 자동으로 운동 띄움.
-
 import java.util.Calendar;
 
+/**
+ * MainFrame 비활성화 시 일정시간이 되면 자동으로 운동 띄움.
+ * @author Sol
+ *
+ */
+
+/*-
+ * @param Canlendar cal - 
+ */
 public class Waiting implements Runnable{
 	private Calendar cal;
 	static boolean flag;
 	
 	Waiting(){
 		cal = Calendar.getInstance();
-		flag = false;
+		flag = true;
 	}
 	
 	public static void finish(){
-		flag = true;
+		flag = false;
 	}
 	
 	public void run(){
 		System.out.println("Waiting 실행 중");
 		
-		while(true){
+		while(flag){
 			cal = Calendar.getInstance();		//현재 시간 갱신
 			
 			//일정 시간(50분)이 되면 운동 중 하나가 자동실행
@@ -89,7 +96,7 @@ public class Waiting implements Runnable{
 			
 			try{
 				Thread.sleep(60000);   // 1분마다 실행
-				if(flag == true){
+				if(flag == false){
 					System.out.println("Waiting 종료");
 					return;
 				}

@@ -1,5 +1,3 @@
-// 05. 안구이동근 운동 : 움직이는 점 트레이닝
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -7,11 +5,23 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
+/**
+ * 안구이동근 운동 : 움직이는 점 트레이닝
+ * @author Sol
+ *
+ */
 
+/*-
+ * @param : static int spset = 3 - 공 스피드 디폴트 값(랜덤)
+ * @param : static int szset = 0 - 공 크기 디폴트 값(중)
+ * @param : boolean flag - 종료 플래그
+ * @param : boolean play - 반복 플래그
+ * 
+ */
 public class FollowMe extends JFrame implements Runnable, WindowListener{
-	public static int spset = 3;		//공 스피드 디폴트 값(랜덤)
-	public static int szset = 0;		//공 크기 디폴트 값(중)
-	Setting setting;					//설정창
+	public static int spset = 3;
+	public static int szset = 0;
+	Setting setting;					
 	Container contentPane;
 	boolean flag;
 	boolean play;

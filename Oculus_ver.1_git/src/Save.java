@@ -1,12 +1,14 @@
-
-//파일 저장 동기화
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 
+/**
+ * 동기화를 이용해서 Log, Today 저장
+ * @author Sol
+ *
+ */
 public class Save {
 	public static synchronized void SaveNow() {
 		try {
