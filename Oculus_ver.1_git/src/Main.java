@@ -34,8 +34,10 @@ class MainFrame extends JFrame implements WindowListener {
 	String str[]; // 기록을 가져올 변수
 
 	public void windowActivated(WindowEvent e) {
-		Save.SaveDay();										//메인 창이 활성화 될때마다 하루가 바꼈는지 확인
-															//하루가 바꼈다면 기록 저장
+		Save.Load();										//기록 불러오기
+		Save.SaveDay();										//메인 창이 활성화 될때마다 하루가 바꼈는지 확인 
+															//하루가 바꼈다면 기록 저장 
+
 	}
 
 	public void windowClosed(WindowEvent e) {
@@ -74,6 +76,8 @@ class MainFrame extends JFrame implements WindowListener {
 
 		this.addWindowListener(this);
 		cal = Calendar.getInstance(); // 달력 초기화
+		
+		Save.Load();			//기록 불러와서 저장하기
 
 		// 시계 생성
 		date = new JLabel("현재 날짜시각", null, SwingConstants.CENTER);
@@ -146,78 +150,8 @@ class MainFrame extends JFrame implements WindowListener {
 		mContainer.add(exercise2);
 		mContainer.add(exercise3);
 		mContainer.add(reference);
-
-		// 기록에 저장된 내용으로 월, 일, 목표횟수, 카운트 세팅
-		try {
-			DateJLabel.fr = new FileReader("log\\Today.txt"); // 파일 입력 스트림 생성
-			DateJLabel.br = new BufferedReader(DateJLabel.fr); // 버퍼 파일 입력 스트림
-																// 생성, 입력 효율 향상
-
-			line = DateJLabel.br.readLine();
-			for (int i = 0; i < 7; i++) {
-				str = line.split(",");
-			}
-
-			Year = Integer.parseInt(str[0]);
-			Month = Integer.parseInt(str[1]);
-			Day = Integer.parseInt(str[2]);
-			FM = Integer.parseInt(str[3]); //목표치
-			FMC = Integer.parseInt(str[4]); //실제한 것
-			FD = Integer.parseInt(str[5]); //목표치
-			FDC = Integer.parseInt(str[6]); //실제한 것
-
-			DateJLabel.br.close(); // 파일 입출력 스트림을 닫고 시스템 자원 해제
-			DateJLabel.fr.close();
-
-		}
-		catch (java.io.FileNotFoundException e) { //Today.txt가 없을 경우에 대한 처리가 없어서 추가한 부분
-			//TODO 2016.08.01 dsaint31 Today.txt 초기 파일 생성이 필요. 오늘 날짜를 읽어들여서 처리하게 추가할 것.
-			FM = 9; //TODO dsaint31 2016.08.01 목표치 초기화 필요.
-			FD = 9; //TODO dsaint31 2016.08.01 목표치 초기화 필요.
-			Year = cal.get(Calendar.YEAR);			
-			Month = cal.get(Calendar.MONTH) + 1;			
-			Day = cal.get(Calendar.DAY_OF_MONTH);			
-			FMC = 0;			
-			FDC = 0;
-						
-			try {
-				FileWriter fw = null;
-				BufferedWriter bw = null;
-				File dsFile = new File("log\\Today.txt");
-				if(!dsFile.exists()){
-					File dsDir = new File("log"); 
-					dsDir.mkdirs();
-					//dsDir.delete();
-					dsDir = null;
-				}
-				//dsFile.delete();
-				dsFile = null;				
-				fw = new FileWriter("log\\Today.txt"); // 파일 출력 스트림
-				// 생성
-				bw = new BufferedWriter(fw); // 버퍼 파일 출력
-				// 스트림 생성,
-				// 출력 효율 향상
-
-				//Today 기록을 초기화해서 기록
-				bw.write(String.format("%d,%d,%d,%d,0,%d,0", cal.get(Calendar.YEAR),
-						cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), FM, FD));
-				bw.flush();
-				if(bw != null)
-					bw.close();
-				if(fw != null)
-					fw.close();
-			}
-			catch (IOException te) {				
-				te.printStackTrace();
-				System.exit(1);
-			}
-			return;
-		}		
-		catch (IOException e) {
-			System.err.println(e);
-			System.exit(1);
-		}
 	}
+
 
 	public void runRecord() {
 		record.addActionListener(new ActionListener() { // Record 버튼 : 리스너 & 스레드
@@ -354,7 +288,7 @@ public class Main {
 
 		Calendar now = Calendar.getInstance(); // 현재 날짜와 시간 정보를 가져온다.
 
-		Save.SaveDay(); // 날짜가 지나면 기록에 저장
+		//Save.SaveDay(); // 날짜가 지나면 기록에 저장
 
 		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate())); // 시계
 																				// 쓰레드

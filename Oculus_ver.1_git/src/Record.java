@@ -34,24 +34,29 @@ public class Record extends JFrame implements ActionListener
 
 	String line;
 	String[] str;
+	int fyear;
 	int date;
 	int setmonth;
 	int c;
 	public static double Date[][] = new double [12][31];    			// 일
 	public static int Target[][] = new int [12][31];					// 등급
-	
+
 	public Record(){													// 기록 초기화
 		for(int i =0; i<12; i++){
 			for(int j =0; j<31; j++){
 				Date[i][j] = 0;
 			}
 		}
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);				// 닫기 버튼을 눌렀을 때 해당 창만 종료
 	}
 
 	public void run(){
-		
+		today = Calendar.getInstance(); 								// 현재 시스템의 시간 정보를 얻는 Calendar 클래스 객체를 생성,디폴트의 타임 존 및 로케일을 사용해 달력을 가져옴
+		cal = new GregorianCalendar();									// GregorianCalendar 객체 생성
+		year = today.get(Calendar.YEAR);								// 년도 정보
+		month = today.get(Calendar.MONTH)+1;							// 월 정보, 1월의 값이 0이므로 +1 
+
 		// 파일 입력
 		try{
 			fr = new FileReader("log\\Info.txt");						// 기록이 저장된 파일 가져오기, 파일 입력 스트림 생성
@@ -59,36 +64,36 @@ public class Record extends JFrame implements ActionListener
 
 			while((line = br.readLine()) != null){  					// 한 줄씩 읽어옴
 				str = line.split(",");   								// 쉼표로 분리
+			
+				fyear = Integer.parseInt(str[0]); 
+				setmonth = Integer.parseInt(str[1]); 					// 월을 int형으로 변환하여 저장
+				date = Integer.parseInt(str[2]);   						// 일을 int형으로 변환하여 저장 
+				Date[setmonth-1][date-1] = Double.parseDouble(str[3]);  // 배열은 0부터 시작, 퍼센트를 double형으로 변환하여 저장
+				if(fyear == cal.get(Calendar.YEAR))
+				{
+					for(int i =0; i<12; i++){
+						for(int j =0; j<31; j++){
 
-				setmonth = Integer.parseInt(str[0]); 					// 월을 int형으로 변환하여 저장
-				date = Integer.parseInt(str[1]);   						// 일을 int형으로 변환하여 저장 
-				Date[setmonth-1][date-1] = Double.parseDouble(str[2]);  // 배열은 0부터 시작, 퍼센트를 double형으로 변환하여 저장
-
-				for(int i =0; i<12; i++){
-					for(int j =0; j<31; j++){
-						
-						//등급나누기
-						if(Date[i][j]<26 && Date[i][j]>0)				// 퍼센트가 0 초과 26 미만이면
-							Target[i][j] = 1;							// 목표치는 1
-						else if(Date[i][j]<51 && Date[i][j]>=26)		// 퍼센트가 26 이상 51 미만이면
-							Target[i][j] = 2;							// 목표치는 2
-						else if(Date[i][j]<76 && Date[i][j]>=51)		// 퍼센트가 51 이상 76 미만이면
-							Target[i][j] = 3;							// 목표치는 3
-						else if(Date[i][j]>=76)							// 퍼센트가 76 이상이면
-							Target[i][j] = 4;							// 목표치는 4
-						else if(Date[i][j]==0)							// 퍼센트가 0이면
-							Target[i][j] = 0;							// 목표치는 0
+							//등급나누기
+							if(Date[i][j]<26 && Date[i][j]>0)				// 퍼센트가 0 초과 26 미만이면
+								Target[i][j] = 1;							// 목표치는 1
+							else if(Date[i][j]<51 && Date[i][j]>=26)		// 퍼센트가 26 이상 51 미만이면
+								Target[i][j] = 2;							// 목표치는 2
+							else if(Date[i][j]<76 && Date[i][j]>=51)		// 퍼센트가 51 이상 76 미만이면
+								Target[i][j] = 3;							// 목표치는 3
+							else if(Date[i][j]>=76)							// 퍼센트가 76 이상이면
+								Target[i][j] = 4;							// 목표치는 4
+							else if(Date[i][j]==0)							// 퍼센트가 0이면
+								Target[i][j] = 0;							// 목표치는 0
+						}
 					}
 				}
 			}
 		}catch(IOException e){System.out.println("파일입력실패");}			// 예외처리
 
-		today = Calendar.getInstance(); 								// 현재 시스템의 시간 정보를 얻는 Calendar 클래스 객체를 생성,디폴트의 타임 존 및 로케일을 사용해 달력을 가져옴
-		cal = new GregorianCalendar();									// GregorianCalendar 객체 생성
-		year = today.get(Calendar.YEAR);								// 년도 정보
-		month = today.get(Calendar.MONTH)+1;							// 월 정보, 1월의 값이 0이므로 +1 
-		
-		
+
+
+
 		panNorth = new JPanel();										// JPanel 객체를 생성하여 panNorth에 저장
 		panNorth.add(btnBefore = new JButton("Before"));				// "Before" 버튼을 panNorth에 삽입    
 		panNorth.add(txtYear = new JTextField(year+"년"));				// 년도를 나타내는 텍스트필드를 panNorth에 삽입
@@ -100,13 +105,13 @@ public class Record extends JFrame implements ActionListener
 		txtYear.setFont(f);												// txtYear 텍스트필드에 폰트 적용
 		txtMonth.setFont(f);       										// txtMonth 텍스트필드에 폰트 적용
 		add(panNorth,"North"); 											// panNorth을 위에 삽입
-		
+
 		panSouth = new JPanel();										// JPanel 객체를 생성하여 panSouth에 저장
 		panSouth.add(Explain = new JLabel("빨강 : 1 ~ 25%, 주황 : 26 ~ 50%, 파랑 : 51 ~ 75%, 초록 : 76 ~ 100%"));  	// 문자열 레이블 컴포넌트 생성
 		f=new Font("Sherif",Font.BOLD,12); 								// 폰트 설정
 		Explain.setFont(f);												// Explain 레이블에 폰트 적용
 		add(panSouth,"South");											// panSouth를 아래에 삽입
-		
+
 		// 달력에 날에 해당하는 부분
 		panWest = new JPanel(new GridLayout(7,7));						// 7X7 분할로 컴포넌트 배치
 		f=new Font("Sherif",Font.BOLD,12);								// 폰트 설정
@@ -153,17 +158,17 @@ public class Record extends JFrame implements ActionListener
 
 		for(int i=cal.getMinimum(Calendar.DAY_OF_MONTH); i<=cal.getMaximum(Calendar.DAY_OF_MONTH); i++){    // 월의 최저값과 최고값을 이용하여 for문 돌리기
 			cal.set(Calendar.DATE,i);									// i의 값을 일로 설정
-			
+
 			if(cal.get(Calendar.MONTH) !=month-1){ 						// 달이 일치하지않으면 break
 				break;
 			}
 
 			todays=i;
-			
+
 			if(memoday==1){
 				calBtn[i+6+hopping].setForeground(new Color(0,255,0));  // 초록색                   
 			}
-			
+
 			else{
 				calBtn[i+6+hopping].setForeground(new Color(0,0,0));	// 색깔 x
 			}
@@ -223,10 +228,10 @@ public class Record extends JFrame implements ActionListener
 			this.txtYear.setText(year+"년");
 			this.txtMonth.setText(month+"월");                                       
 		}
-		
+
 		else if(Integer.parseInt(ae.getActionCommand()) >= 1 && Integer.parseInt(ae.getActionCommand()) <=31){				//날짜를 눌렀을때
 			day = Integer.parseInt(ae.getActionCommand());
-			
+
 			System.out.println(+year+"-"+month+"-"+day);							// 버튼의 밸류 즉 1,2,3.... 문자를 정수형으로 변환하여 클릭한 날짜를 바꿔준다.
 			calSet();
 		}      
@@ -236,13 +241,13 @@ public class Record extends JFrame implements ActionListener
 		for(int i = 0 ; i < calBtn.length;i++){
 			if((calBtn[i].getText()).equals(""))
 				calBtn[i].setEnabled(false);
-			
+
 			//일이 찍히지 않은 나머지 버튼을 비활성화 시킨다. 
 		}//end for
 	}//end hideInit()
 
 	public void gridInit(){
-		
+
 		//jPanel3에 버튼 붙이기
 		for(int i = 0 ; i < days.length;i++) //0<=i<7
 		{
@@ -256,7 +261,7 @@ public class Record extends JFrame implements ActionListener
 		}              
 	}//end gridInit()
 
-															// 팬 레이아웃 설정
+	// 팬 레이아웃 설정
 	public void panelInit(){
 		GridLayout gridLayout1 = new GridLayout(7,7);		// 7x7 GridLayout 배치관리
 		panWest.setLayout(gridLayout1);   					// panWest 컴포넌트 배치

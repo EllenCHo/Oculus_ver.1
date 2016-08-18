@@ -107,7 +107,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	}
 
 	public void run(){
-		int k = -4;
+		int k = -7;
 
 		while(play){
 			try{
