@@ -65,7 +65,6 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 	Dots() {
 		super("Fifteen Dots");
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		icon = new ImageIcon("image\\RYAN_resize.png");				
 
@@ -111,8 +110,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		int k = -4;
 
 		while(true){
-			try{
-				//Thread.sleep(1000);   							
+			try{						
 				Thread.sleep(2000);   									
 
 				if(flag == true){

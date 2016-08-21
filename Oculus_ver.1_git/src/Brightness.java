@@ -6,6 +6,11 @@ import java.io.*;
 public class Brightness implements Runnable{
 	HowToUse htu3;
 	
+	/**
+	 * 모니터의 밝기를 조절하는 메소드
+	 * @param brightness : 0~100 사이의 명도 조절
+	 * @throws IOException
+	 */
 	public static void setBrightness(int brightness)  throws IOException {
 		//Creates a powerShell command that will set the brightness to the requested value (0-100), after the requested delay (in milliseconds) has passed. 
 			String s = String.format("$brightness = %d;", brightness)
@@ -38,18 +43,23 @@ public class Brightness implements Runnable{
 		stderr.close();
 	}
 
+	/**
+	 * 5초 정도 최저 조명을 유지하고 3.5초정도 최대 조명을 유지한다.
+	 * 이 운동은 열번 동안 최저조명과 최대 조명을 번갈아 실행한다.
+	 * 운동이 끝나면 80정도의 조명으로 되돌려주고 설명서를 닫으며 종료한다.
+	 */
 	public void run(){
-		htu3 = new HowToUse(3);						//운동에 대한 설명서
+		/*운동에 대한 설명서*/
+		htu3 = new HowToUse(3);
 		int k = -1;
 		
-		//for(k = 0; k < 1; k++){   // 디버깅용
-		for(k = 0; k < 10; k++){   // 열 번 반복 후 종료
+		for(k = 0; k < 10; k++){ 
 			try{
 				try{
-					setBrightness(0);				//최저 조명
-					Thread.sleep(5000);				//5초정도 정지
-					setBrightness(100);				//최대 조명
-					Thread.sleep(3500);				//3.5초 정도 정지
+					setBrightness(0);				
+					Thread.sleep(5000);				
+					setBrightness(100);				
+					Thread.sleep(3500);				
 				}catch(IOException e){
 					System.err.println(e);
 					return;
@@ -60,8 +70,8 @@ public class Brightness implements Runnable{
 			}
 		}
 		try{
-			setBrightness(80);   // 중간으로 돌려준다.
-			htu3.finish();		 // 설명서 닫기
+			setBrightness(80);   
+			htu3.finish();		
 			return;
 		}catch(IOException e){
 			System.err.println(e);

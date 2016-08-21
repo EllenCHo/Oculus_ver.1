@@ -9,16 +9,18 @@ import java.util.Random;
  * 안구이동근 운동 : 움직이는 점 트레이닝
  * @author Sol
  * @see HowToUse, Save
- *
+ * @param static int spset - 공 스피드 디폴트 값(랜덤)
+ * @param static int szset - 공 크기 디폴트 값(중)
+ * @param boolean flag - 종료 플래그
+ * @param boolean play - 반복 플래그
+ * @param JButton btn - 설정창을 불러오기 위한 버튼
+ * @param Color color - 백그라운드 색깔 지정(연두색)
+ * @param Dimention res - 전체화면 사이즈를 가져오기 위한 변수
+ * @param int speed1[] - 창크기에 따른 공 스피드(하, 중, 상)
+ * @param int speed2[] - 창크기에 따른 랜덤 공 스피드
+ * @param int size[] - 컴퓨터 창 크기 따른 상대적인 공 크기(중, 하)
  */
 public class FollowMe extends JFrame implements Runnable, WindowListener{
-	/**
-	 * @param : static int spset = 3 - 공 스피드 디폴트 값(랜덤)
-	 * @param : static int szset = 0 - 공 크기 디폴트 값(중)
-	 * @param : boolean flag - 종료 플래그
-	 * @param : boolean play - 반복 플래그
-	 * 
-	 */
 	public static int spset = 3;
 	public static int szset = 0;
 	Setting setting;					
@@ -27,83 +29,98 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	boolean play;
 	JButton btn; 						
 	HowToUse htu1;						
-	
-	Color color = new Color(206,247,110);							//백그라운드 색깔 설정
-	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 	//전체화면 사이즈 가져오기
+
+	Color color = new Color(206,247,110);						
+	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 
 
 	String [] sptext = {"하", "중", "상", "랜덤"};
 	String [] sztext = {"중", "소"};
-	
-	int speed1[]= {res.width/350, res.width/250, res.width/150};			 					//창크기에 따른 공 스피드(하, 중, 상)
-	int speed2[] = {res.width/350, res.width/250, res.width/200, res.width/50};					//창크기에 따른 랜덤 공 스피드
-	int size[] = {res.width/15, res.width/20};													//컴퓨터 창 크기 따른 상대적인 공 크기(중, 하)
 
-	//인터페이스를 상속했으므로 다 오버로딩해야함
+	int speed1[]= {res.width/350, res.width/250, res.width/150};			 				
+	int speed2[] = {res.width/350, res.width/250, res.width/200, res.width/50};				
+	int size[] = {res.width/15, res.width/20};													
+
+	/*창이 포커스를 가지고 있다면 실행*/
 	public void windowActivated(WindowEvent e) {
 		play = true;
 	}
 	public void windowClosed(WindowEvent e) {}
+	/*창을 닫았을 때 실행*/
 	public void windowClosing(WindowEvent e) {
-		finish();									//창 닫으면 카운트되지않고 종료
+		finish();								
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
+	/*창에 포커스가 가지않는다면 실행*/
 	public void windowIconified(WindowEvent e) {
 		play = false;
 	}
 	public void windowOpened(WindowEvent e) {}
 
+	/**
+	 * 배치관리자를 삭제하고 공이 움직이는 패널과 설정 버튼 추가
+	 * 모니터 크기만큼 창크기를 설정하고 설정 버튼을 눌렀을 경우 설정창이 화면 중앙에 나오도록 설정
+	 */
 	FollowMe() {
 		super("FolloFollow Me");
 		contentPane = getContentPane();
-		contentPane.setLayout(null); 								//배치관리자 삭제
-		contentPane.setBackground(color);							//백그라운드 색깔 적용
-		DrawCircle panel = new DrawCircle();					//공이 움직이는 패널 생성
-		panel.setSize(res.width-100,res.height); 					//범위 지정
-		panel.setBackground(color);									//패널 백그라운드 색깔 적용
-		contentPane.add(panel); 									// 패널을 컨텐트팬에 부착
+		contentPane.setLayout(null); 								
+		contentPane.setBackground(color);			
+		
+		DrawCircle panel = new DrawCircle();					
+		panel.setSize(res.width-100,res.height); 					
+		panel.setBackground(color);						
+		
+		contentPane.add(panel); 				
+		
 		this.addWindowListener(this);
 
 		flag = false;
 		play = true;
 
-		btn = new JButton("메뉴"); 									//버튼 만들기
+		btn = new JButton("메뉴"); 									
 
-		btn.setSize(50,50);											//버튼 사이즈 지정
-		btn.setLocation(res.width-70,30);							//버튼 위치 지정
+		btn.setSize(50,50);									
+		btn.setLocation(res.width-70,30);							
 		contentPane.add(btn);
 
-		btn.addActionListener(new ActionListener() {				//버튼 마우스 리스너 추가
+		btn.addActionListener(new ActionListener() {				
 			public void actionPerformed(ActionEvent e){
-				setting.setVisible(true);							//설정 창 보이기
+				setting.setVisible(true);							
 			}
 		});
 
-		setting = new Setting(this, "설정");							//설정창 생성
-		setting.setLocationRelativeTo(null);						//설정창이 화면 중앙에 나오도록 설정
+		setting = new Setting(this, "설정");							
+		setting.setLocationRelativeTo(null);						
 
-		setSize(res.width, res.height);								//모니터 크기만큼 창 크기 설정
+		setSize(res.width, res.height);								
 		setVisible(true);
 
-		htu1 = new HowToUse(1);										//운동에 대한 설명서
+		htu1 = new HowToUse(1);										
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
+	/**
+	 * 운동을 종료하는 메소드
+	 */
 	void finish(){
 		flag = true;
 	}
 
+	/**
+	 * 5초가 지나면 설명문을 사라지게 하고 10초가 지나면 설정창이 사라지게 하며 60초동안 운동을 시작한다
+	 * 운동을 끝까지 했다면 FMC을 카운트하고 카운트가 설정한 목표를 넘어가지 않도록 설정한다.
+	 * 마지막으로 기록을 저장하고 창을 닫는다.
+	 */
 	public void run(){
 		int k = -10;
 		while(play){
 			try{
-				//Thread.sleep(100);   // 디버깅용
-				Thread.sleep(1000);   // 60초 후 종료
+				Thread.sleep(1000);   
 
 				if(flag == true){
-					htu1.finish();			//설명서 닫기
-					dispose();				//Follow Me 창 닫기
+					dispose();				
 					return;
 				}
 			}catch(InterruptedException e){
@@ -112,90 +129,106 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 			}
 
 			k++;
-			
+
 			if(k == -5)
-				htu1.finish();			//5초가 지나면 설명문 사라지게 하기
-			
+				htu1.finish();			
+
 			if(k == 0)
 				setting.setVisible(false);
 
-			if(k == 60){				//운동을 다했을 경우 카운트
+			if(k == 60){				
 				MainFrame.FMC++;
-				if(MainFrame.FMC > MainFrame.FM) MainFrame.FMC = MainFrame.FM;		//카운트가 설정한 목표을 더 넘지 못하도록 설정
-				Save.SaveNow();			//기록 저장
-				
-				dispose();				//Follow Me 창 닫기
+				if(MainFrame.FMC > MainFrame.FM) MainFrame.FMC = MainFrame.FM;		
+				Save.SaveNow();			
+
+				dispose();				
 				return;
 			}
 		}
 	}
 
-	public class DrawCircle extends JPanel {						//공이 움직이는 패널을 포함한 클래스
-		private int xPos=200; 				//x 좌표
-		private int yPos=100; 				//y 좌표
+	/**
+	 * 공이 움직이는 패널
+	 * @author Sol
+	 * @param xPos - 공이 처음 시작하는 x 위치
+	 * @param yPos - 공이 처음 시작하는 y 위치
+	 * @param speedX - x좌표로의 스피드(초기값 10)
+	 * @param speedY - y좌표로의 스피드(초기값 10)
+	 * @param speedx - x좌표의 다음 스피드 저장
+	 * @param speedy - y좌표의 다음 스피드 저장
+	 * @param icon - 공이미지 설정
+	 * @param img - 아이콘의 이미지를 저장, 이 변수로 공의 이미지 설정
+	 */
+	public class DrawCircle extends JPanel {						
+		private int xPos=200; 			
+		private int yPos=100; 				
 
-		int speedX; 						//x좌표로의 스피드
-		int speedY; 						//y좌표로의 스피드
-		int speedx;							//x좌표의 다음 스피드 저장
-		int speedy;							//y좌표의 다음 스피드 저장
+		int speedX; 					
+		int speedY; 					
+		int speedx;						
+		int speedy;							
 
-		ImageIcon icon = new ImageIcon("image\\heart.png");			//공 이미지 설정
+		ImageIcon icon = new ImageIcon("image\\heart.png");	
 		Image img = icon.getImage();
 
 		public DrawCircle() {
-			speedX = speedY = 10;			//초기 스피드 10
+			speedX = speedY = 10;			
 			try {
 				new Thread(){
 					public void run(){
 						while(true){
 							Random rd = new Random();
-							//Random.nextInt():int형의 난수를 발생
-							//Random.nextInt(int n) : 0과 (n-1)사이의 int형의 난수를 발생한다.
 
-							int x_dir = rd.nextInt(2);  			//0~1 난수 발생 (스피드를 음수로 할지 양수로 할지 랜덤으로 하기위해)
+							/*
+							 * Random.nextInt(int n) : 0과 (n-1)사이의 int형의 난수를 발생한다.
+							 * dir은 0~1의 난수를 만들어서 스피드를 음수로 할 지 양수로 할 지 결정
+							 * rnd는 랜덤 스피드를 골랐을 경우 스피드를 바꾸기 위해 설정
+							 */
+							int x_dir = rd.nextInt(2);  		
 							int y_dir = rd.nextInt(2);
 
-							int x_rnd = rd.nextInt(4);				//0~3 난수 발생 (랜덤 스피드를 골랐을 경우 스피드를 바꾸기 위해)
+							int x_rnd = rd.nextInt(4);				
 							int y_rnd = rd.nextInt(4);
-							
-							if(spset <3){							//하, 중, 상을 골랐을 경우
+
+							/*하, 중, 상을 골랐을 경우*/
+							if(spset <3){							
 								speedx= speed1[spset];
 								speedy= speed1[spset];
 							}
-
-							if(spset ==3){							//랜덤을 골랐을 경우
+							
+							/*랜덤을 골랐을 경우*/
+							if(spset ==3){							
 								speedx = speed2[x_rnd];
 								speedy = speed2[y_rnd];
 							}
 
-							xPos = xPos + speedX; 					//x좌표 이동
-							yPos = yPos + speedY; 					//y좌표 이동
+							/*좌표 이동*/
+							xPos = xPos + speedX; 					
+							yPos = yPos + speedY; 					
 
+							/*패널 창의 끝에 닿으면 그 반대로 움직이도록 설정, 이때 dir이 0이면 다른 축의 방향은 그대로*/
 							if(xPos + size[szset] >=DrawCircle.this.getWidth() ){
-								//패널 창의 끝에 닿았으므로 x좌표를 왼쪽으로 가도록 속도로 음수로 설정
 								speedX = -speedx;
-								speedY = (y_dir == 0 ? speedy : -speedy);	//y_dir이 0이면 y방향이 그대로
+								speedY = (y_dir == 0 ? speedy : -speedy);	
 							}
 
 							if( yPos+ size[szset] >=DrawCircle.this.getHeight()){
-								//패널 창의 끝에 닿았으므로 y좌표를 아래쪽으로 가도록 속도로 음수로 설정
 								speedY = -speedy;
-								speedX = (x_dir == 0 ? speedx : -speedx);	//x_dir이 0이면 x방향이 그대로
+								speedX = (x_dir == 0 ? speedx : -speedx);	
 							}
-
 							if(xPos < 0){
-								//패널 창의 끝에 닿았으므로 x좌표를 오른쪽으로 가도록 속도로 양수로 설정
 								speedX = speedx;
 								speedY = (y_dir == 0 ? speedy : -speedy);
 							}
 
 							if(yPos < 0){
-								//패널 창의 끝에 닿았으므로 y좌표를 위쪽으로 가도록 속도로 양수로 설정
 								speedY = speedy;
 								speedX = (x_dir == 0 ? speedx : -speedx);
 							}
 
-							repaint(); 										//공이 움직이기때문에 다시 그리기
+							/*공이 움직이기 때문에 다시 그린다.*/
+							repaint(); 										
+							
 							try {
 								Thread.sleep(10);
 							} catch (InterruptedException e) {
@@ -210,30 +243,37 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 			}
 		}
 
-		public void paintComponent(Graphics g) {									//공 그리기
+		public void paintComponent(Graphics g) {									
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D)g;
 
-			g.drawString("공 크기 : "+sztext[szset], res.width-170, 50);				//공에 대한 설정을 패널 오른 위쪽에 그리기
+			/*공에 대한 설정을 오른쪽 위에 그리기*/
+			g.drawString("공 크기 : "+sztext[szset], res.width-170, 50);				
 			g.drawString("공 속도 : "+sptext[spset], res.width-170, 70);
 
-			g2d.drawImage(img, xPos, yPos, size[szset], size[szset], this);			//x, y 위치에 size 만큼의 이미지 그리기
+			/*x, y 위치에 size만큼의 이미지 그리기*/
+			g2d.drawImage(img, xPos, yPos, size[szset], size[szset], this);		
 		}
 	}
 }
 
-
-class Setting extends JDialog {												//설정 클래스
+/**
+ * 공 설정창 클래스
+ * @author Sol
+ * @param sp - 설정된 값을 적용하기 전의 값을 보관하는 임시 공 스피드 (초기값 : 랜덤)
+ * @param sz - 설정된 값을 적용하기 전의 값을 보관하는 임시 공 크기 (초기값 : 중)
+ */
+class Setting extends JDialog {
 	Container cp;
 
-	int sp=3;				//공 스피드 초기값 : 랜덤
-	int sz=0;				//공 크기 초기값 : 중
+	int sp=3;				
+	int sz=0;			
 
 	JLabel csize = new JLabel("공 크기");
 	JLabel cspeed = new JLabel("공 속도");
 
-	JRadioButton [] speed = new JRadioButton[4];		//공 스피드 라디오 버튼 생성
-	JRadioButton [] size = new JRadioButton[2];			//공 크기 라이도 버튼 생성
+	JRadioButton [] speed = new JRadioButton[4];		
+	JRadioButton [] size = new JRadioButton[2];			
 
 	String [] sptext = {"하", "중", "상", "랜덤"};
 	String [] sztext = {"중", "소"};
@@ -244,55 +284,55 @@ class Setting extends JDialog {												//설정 클래스
 		cp = getContentPane();
 		cp.setLayout(null);
 
-		
-		ButtonGroup gspeed = new ButtonGroup();			//속도 선택 그룹
+		/*공 속도 선택 그룹에 라디오 버튼을 넣고 리스너를 단다. 설정된 값(초기조건:랜덤)이 선택된 상태로 나오게 함*/
+		ButtonGroup gspeed = new ButtonGroup();			
 		for(int i=0; i<speed.length; i++){
-			speed[i] = new JRadioButton(sptext[i]);		//라디오 버튼에 텍스트 추가
-			gspeed.add(speed[i]);						//버튼 그룹에 추가
-			speed[i].addItemListener(new SpListener()); //버튼 선택됐는지 알기 위해 리스너 달기
+			speed[i] = new JRadioButton(sptext[i]);		
+			gspeed.add(speed[i]);						
+			speed[i].addItemListener(new SpListener()); 
 		}
-		speed[sp].setSelected(true); 					//초기조건 : 랜덤
+		speed[FollowMe.spset].setSelected(true); 					
 
-
-		ButtonGroup gsize = new ButtonGroup();			//공 크기 선택 그룹
+		/*공 크기 선택 그룹에 라디오 버튼을 넣고 리스너를 단다. 설정된 값(초기조건:중)이 선택된 상태로 나오게 함*/
+		ButtonGroup gsize = new ButtonGroup();			
 		for(int i=0; i<size.length; i++){
-			size[i] = new JRadioButton(sztext[i]);		//라디오 버튼에 텍스트 추가
-			gsize.add(size[i]);							//버튼 그룹에 추가
-			size[i].addItemListener(new SzListener());	//버튼 선택됐는지 알기 위해 리스너 달기
+			size[i] = new JRadioButton(sztext[i]);		
+			gsize.add(size[i]);							
+			size[i].addItemListener(new SzListener());	
 		}
-		size[sz].setSelected(true); 					//초기조건 : 중
+		size[FollowMe.szset].setSelected(true); 					
 
-
-		//확인 버튼
 		JButton ok = new JButton("확인");
 		ok.setBackground(new Color(93,93,93));
 		ok.setForeground(Color.white);
-		
-		//버튼 UI 설정
+
+		/*버튼 UI 설정*/
 		ok.setUI(new StyledButtonUI());
+		
+		/*확인 버튼을 누르면 선택된 공 스피드, 사이즈로 설정하고 설정창을 사라지게 한다.*/
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FollowMe.spset = sp;			//선택된 공 스피드로 설정
-				FollowMe.szset = sz;			//선택된 공 사이즈로 설정
+				FollowMe.spset = sp;			
+				FollowMe.szset = sz;			
 				setVisible(false);				
 			}
 		});
+
 		
-		//취소 버튼
 		JButton cancel = new JButton("취소");
 		cancel.setBackground(new Color(93,93,93));
 		cancel.setForeground(Color.white);
 		
-		//버튼 UI 설정
+		/*버튼 UI 설정*/
 		cancel.setUI(new StyledButtonUI());
+		
+		/*취소 버튼을 누르면 그냥 설정창을 사라지게 한다.*/
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);				
 			}
 		});
 
-
-		//공 크기 텍스트와 라디오 버튼 위치지정
 		csize.setLocation(135,20);
 		csize.setSize(200,30);
 		size[0].setLocation(55,50);
@@ -300,7 +340,6 @@ class Setting extends JDialog {												//설정 클래스
 		size[1].setLocation(185,50);
 		size[1].setSize(75,30);
 
-		//공 속도 텍스트와 라디오 버튼 위치지정
 		cspeed.setLocation(135,120);
 		cspeed.setSize(200,30);
 		for(int i=0; i<speed.length; i++){
@@ -308,13 +347,11 @@ class Setting extends JDialog {												//설정 클래스
 			speed[i].setSize(60,30);
 		}
 
-		//확인 취소 버튼 위치 지정
 		ok.setLocation(55,220);
 		ok.setSize(75,30);
 		cancel.setLocation(185,220);
 		cancel.setSize(75,30);
 
-		//버튼 추가
 		cp.add(csize);
 		cp.add(cspeed);
 		cp.add(ok);
@@ -328,14 +365,21 @@ class Setting extends JDialog {												//설정 클래스
 
 		setSize(350,300);
 		setVisible(true);
-		setResizable(false);				//창 크기를 못 늘리게 고정
+		
+		/*창 크기를 못 늘리게 고정*/
+		setResizable(false);		
 	}
 
-	class SpListener implements ItemListener {						//공 스피드 버튼 리스너
+	/**
+	 * 공 스피드 버튼 리스너
+	 * @author Sol
+	 * 선택된 버튼에 따라 임시 스피드 변수에 스피드 값 저장
+	 */
+	class SpListener implements ItemListener {						
 		public void itemStateChanged(ItemEvent e){
 			if(e.getStateChange() == ItemEvent.DESELECTED)
-				return; //선택 해제된 경우 그냥 리턴
-			
+				return; 
+
 			if(speed[0].isSelected())
 				sp = 0;
 			else if(speed[1].isSelected())
@@ -347,11 +391,16 @@ class Setting extends JDialog {												//설정 클래스
 		}
 	}
 
-	class SzListener implements ItemListener {						//공 사이즈 버튼 리스너
+	/**
+	 * 공 사이즈 버튼 리스너
+	 * @author Sol
+	 * 선택된 버튼에 따라 임시 사이즈 변수에 사이즈 값 저장
+	 */
+	class SzListener implements ItemListener {						
 		public void itemStateChanged(ItemEvent e){
 			if(e.getStateChange() == ItemEvent.DESELECTED)
-				return; //선택 해제된 경우 그냥 리턴
-			
+				return; 
+
 			if(size[0].isSelected())
 				sz = 0;
 			else
@@ -360,8 +409,12 @@ class Setting extends JDialog {												//설정 클래스
 	}
 }
 
-class StyledButtonUI extends BasicButtonUI {						//버튼 UI설정 메소드
-
+/**
+ * 버튼 UI 설정 클래스
+ * @author Sol
+ *
+ */
+class StyledButtonUI extends BasicButtonUI {					
 	@Override
 	public void installUI (JComponent c) {
 		super.installUI(c);

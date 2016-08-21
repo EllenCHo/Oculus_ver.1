@@ -7,24 +7,27 @@ import java.io.IOException;
 import java.util.Calendar;
 
 /**
- * 동기화를 이용해서 Log, Today 저장
+ * 기록을 저장하고 불러오는 클래스
  * @author Sol
  * @see DateJLabel
  *
  */
 public class Save {
-
-	
+	/**
+	 * Today에 저장된 정보로 MainFrame의 월, 일, FM, FMC, FD, FMC를 설정한다.
+	 * 만약 log 폴더에 Today.txt가 없다면 Today.txt를 만들고 초기값(목표치 = 0)을 저장한다.
+	 * 폴더가 없다면 log 폴더 생성한다.
+	 * @param Calendar cal - 현재 날짜와 시간 정보를 가져올 변수
+	 * @param String str[] - 기록을 가져올 변수
+	 */
 	public static void Load(){
-		Calendar cal = Calendar.getInstance(); // 현재 날짜와 시간 정보를 가져온다.;
-		String line; // 달력을 가져올 변수
-		String str[] = {}; // 기록을 가져올 변수
-		// 기록에 저장된 내용으로 월, 일, 목표횟수, 카운트 세팅
+		Calendar cal = Calendar.getInstance(); 
+		String line; 
+		String str[] = {};
 		
 		try {
-			DateJLabel.fr = new FileReader("log\\Today.txt"); // 파일 입력 스트림 생성
-			DateJLabel.br = new BufferedReader(DateJLabel.fr); // 버퍼 파일 입력 스트림
-																// 생성, 입력 효율 향상
+			DateJLabel.fr = new FileReader("log\\Today.txt"); 
+			DateJLabel.br = new BufferedReader(DateJLabel.fr); 
 
 			line = DateJLabel.br.readLine();
 			for (int i = 0; i < 7; i++) {
@@ -34,19 +37,18 @@ public class Save {
 			MainFrame.Year = Integer.parseInt(str[0]);
 			MainFrame.Month = Integer.parseInt(str[1]);
 			MainFrame.Day = Integer.parseInt(str[2]);
-			MainFrame.FM = Integer.parseInt(str[3]); //목표치
-			MainFrame.FMC = Integer.parseInt(str[4]); //실제한 것
-			MainFrame.FD = Integer.parseInt(str[5]); //목표치
-			MainFrame.FDC = Integer.parseInt(str[6]); //실제한 것
+			MainFrame.FM = Integer.parseInt(str[3]); 
+			MainFrame.FMC = Integer.parseInt(str[4]);
+			MainFrame.FD = Integer.parseInt(str[5]); 
+			MainFrame.FDC = Integer.parseInt(str[6]);
 
-			DateJLabel.br.close(); // 파일 입출력 스트림을 닫고 시스템 자원 해제
+			DateJLabel.br.close();
 			DateJLabel.fr.close();
 
 		}
-		catch (java.io.FileNotFoundException e) { //Today.txt가 없을 경우에 대한 처리가 없어서 추가한 부분
-			//TODO 2016.08.01 dsaint31 Today.txt 초기 파일 생성이 필요. 오늘 날짜를 읽어들여서 처리하게 추가할 것.
-			MainFrame.FM = 9; //TODO dsaint31 2016.08.01 목표치 초기화 필요.
-			MainFrame.FD = 9; //TODO dsaint31 2016.08.01 목표치 초기화 필요.
+		catch (java.io.FileNotFoundException e) {
+			MainFrame.FM = 9;
+			MainFrame.FD = 9;
 			MainFrame.Year = cal.get(Calendar.YEAR);			
 			MainFrame.Month = cal.get(Calendar.MONTH) + 1;			
 			MainFrame.Day = cal.get(Calendar.DAY_OF_MONTH);			
@@ -60,18 +62,12 @@ public class Save {
 				if(!dsFile.exists()){
 					File dsDir = new File("log"); 
 					dsDir.mkdirs();
-					//dsDir.delete();
 					dsDir = null;
 				}
-				//dsFile.delete();
-				dsFile = null;				
-				fw = new FileWriter("log\\Today.txt"); // 파일 출력 스트림
-				// 생성
-				bw = new BufferedWriter(fw); // 버퍼 파일 출력
-				// 스트림 생성,
-				// 출력 효율 향상
 
-				//Today 기록을 초기화해서 기록
+				dsFile = null;				
+				fw = new FileWriter("log\\Today.txt"); 
+				bw = new BufferedWriter(fw);
 				bw.write(String.format("%d,%d,%d,%d,0,%d,0", cal.get(Calendar.YEAR),
 						cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), MainFrame.FM, MainFrame.FD));
 				bw.flush();
@@ -92,74 +88,76 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * 연도, 월, 일과 현재 설정된 목표값과 카운트 값을 Today.txt에 저장한다.
+	 */
 	public static synchronized void SaveNow() {
 		try {
-			DateJLabel.fw = new FileWriter("log\\Today.txt"); // 파일 출력 스트림 생성
-			DateJLabel.bw = new BufferedWriter(DateJLabel.fw); // 버퍼 파일 출력 스트림
-																// 생성, 출력 효율 향상
-
-			// 기록 저장
+			DateJLabel.fw = new FileWriter("log\\Today.txt"); 
+			DateJLabel.bw = new BufferedWriter(DateJLabel.fw);
+			
 			DateJLabel.bw.write(String.format("%d,%d,%d,%d,%d,%d,%d", MainFrame.Year, MainFrame.Month, MainFrame.Day,
 					MainFrame.FM, MainFrame.FMC, MainFrame.FD, MainFrame.FDC));
 			DateJLabel.bw.flush();
 
-			DateJLabel.bw.close(); // 파일 입출력 스트림을 닫고 시스템 자원 해제
+			DateJLabel.bw.close();
 			DateJLabel.fw.close();
 		} catch (IOException e) {
 			System.err.println(e);
 			System.exit(1);
 		}
 	}
-
+	
+	/**
+	 * 하루가 지났다면 연도, 월, 일, 목표 달성치를 Info.txt에 저장한다.
+	 * 하루가 지났기 때문에 Today.txt에 달성치 값을 저장한다.
+	 * 만약 log 폴더에 Info.txt가 없다면 Info.txt를 만들고 달성치가 0인 값을 저장한다.
+	 * 폴더가 없다면 log 폴더 생성한다
+	 * @param Calendar now - 현재 날짜와 시간 정보를 가져올 변수
+	 */
 	public static void SaveDay() {
-		Calendar now = Calendar.getInstance(); // 현재 날짜와 시간 정보를 가져온다.
+		Calendar now = Calendar.getInstance(); 
 
 		try {
 			if (now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day) {
-				DateJLabel.fw = new FileWriter("log\\Info.txt", true); // 파일 출력 스트림  생성
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw); // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
+				DateJLabel.fw = new FileWriter("log\\Info.txt", true); 
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw); 
 
-				// Info.txt에 오늘 기록 입력
 				DateJLabel.bw.write(String.format("%d,%d,%d,%.2f\r\n", MainFrame.Year, MainFrame.Month, MainFrame.Day,
 						(double) 100 * (MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));
-				DateJLabel.bw.flush(); // 버퍼에 남은 것 출력
+				DateJLabel.bw.flush();
 
 				MainFrame.FMC = 0;
 				MainFrame.FDC = 0;
 
-				DateJLabel.fw = new FileWriter("log\\Today.txt"); // 파일 출력 스트림 생성
-				DateJLabel.bw = new BufferedWriter(DateJLabel.fw); // 버퍼 파일 출력 스트림 생성, 출력 효율 향상
+				DateJLabel.fw = new FileWriter("log\\Today.txt"); 
+				DateJLabel.bw = new BufferedWriter(DateJLabel.fw); 
 
 				// Today 기록을 초기화해서 기록
 				DateJLabel.bw.write(String.format("%d,%d,%d,%d,0,%d,0", now.get(Calendar.YEAR),
 						now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH), MainFrame.FM, MainFrame.FD));
 				DateJLabel.bw.flush();
 
-				DateJLabel.br.close(); // 파일 입출력 스트림을 닫고 시스템 자원 해제
+				DateJLabel.br.close(); 
 				DateJLabel.fr.close();
 				DateJLabel.bw.close();
 				DateJLabel.fw.close();
 			}
-		} catch (java.io.FileNotFoundException e) { //Info.txt가 없을 경우
+		} catch (java.io.FileNotFoundException e) { 
 			try {
 				FileWriter fw = null;
 				BufferedWriter bw = null;
-				File dsFile = new File("log\\Info.txt");		//Info 파일 생성
-				if(!dsFile.exists()){							//log폴더가 없을 경우
-					File dsDir = new File("log"); 				//로그 폴더 생성
+				File dsFile = new File("log\\Info.txt");		
+				if(!dsFile.exists()){							
+					File dsDir = new File("log"); 				
 					dsDir.mkdirs();
-					//dsDir.delete();
 					dsDir = null;
 				}
-				//dsFile.delete();
+				
 				dsFile = null;				
-				fw = new FileWriter("log\\Info.txt"); // 파일 출력 스트림
-				// 생성
-				bw = new BufferedWriter(fw); // 버퍼 파일 출력
-				// 스트림 생성,
-				// 출력 효율 향상
-
-				//Info 기록을 초기화해서 기록
+				fw = new FileWriter("log\\Info.txt"); 
+				bw = new BufferedWriter(fw);
+				
 				bw.write(String.format("%d,%d,%d,0.00", now.get(Calendar.YEAR),
 						now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH)));
 				bw.flush();

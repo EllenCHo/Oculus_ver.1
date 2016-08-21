@@ -10,16 +10,13 @@ import javax.swing.JOptionPane;
  * 메인창에서 닫기 버튼을 눌렀을 시에 나타나는 트레이
  * @author Sol
  * @see Waiting
+ * @param SystemTray tray - 트레이 생성
+ * @param PopupMenu popup - 팝업 메뉴 생성
+ * @param MenuItem Open, Close - 열기 닫기 메뉴
+ * @param CheckboxMenuItem Wait - 자동시작 여부를 위한 체크박스
  *
  */
-
 public class Tray implements ActionListener, ItemListener{
-	/**
-	 * @param SystemTray tray - 트레이 생성
-	 * @param PopupMenu popup - 팝업 메뉴 생성
-	 * @param MenuItem Open, Close - 열기 닫기 메뉴
-	 * @param CheckboxMenuItem Wait - 자동시작 여부를 위한 체크박스
-	 */
 	private SystemTray tray;
 	private PopupMenu popup;
 	private MenuItem Open, Close;

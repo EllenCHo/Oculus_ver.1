@@ -7,7 +7,8 @@ import javax.swing.*;
 /**
  * 오늘의 목표달성치
  * @author YoungEun
- * percent1 = FollowMe 달성률, percent2 = Fifteen Dots 달성률
+ * @param percent1 = FollowMe 달성률
+ * @param percent2 = Fifteen Dots 달성률
  */
 
 class Graph extends JFrame{

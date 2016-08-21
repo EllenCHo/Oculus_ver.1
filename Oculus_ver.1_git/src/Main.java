@@ -1,6 +1,3 @@
-
-// 00. Main Page
-
 import java.util.*;
 import java.io.*;
 import java.awt.*;
@@ -10,64 +7,75 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+/**
+ * 메인창
+ * @author Sol
+ * @param public static int Year - 연도 지정
+ * @param public static int Month - 월 지정
+ * @param public static int Day - 일 지정
+ * @param public static int FM - Follow Me 목표 횟수
+ * @param public static int FMC - Follow Me 카운트
+ * @param public static int FD - Fifteen Dots 목표 횟수
+ * @param public static int FDC - Fifteen Dots 카운트
+ *
+ */
 class MainFrame extends JFrame implements WindowListener {
-	public static int Year = -1;			//연도 지정
+	public static int Year = -1;		
 	public static int Month = -1;
 	public static int Day = -1;
-	public static int FM = -1; // Follow Me 목표 횟수
-	public static int FMC = -1; // Follow Me 카운트
-	public static int FD = -1; // Fifteen Dots 목표 횟수
-	public static int FDC = -1; // Fifteen Dots 카운트
+	public static int FM = -1; 
+	public static int FMC = -1; 
+	public static int FD = -1; 
+	public static int FDC = -1; 
 
-	private JLabel date; // 현재 날짜, 시각
-	private JButton record; // 월간/주간 목표 그래프
-	private JButton graph; // 오늘 목표달성치(%)
-	private JButton goal; // 목표 설정
-	private JButton exercise1; // 운동 1 : Follow Me
-	private JButton exercise2; // 운동 2 : 15 dots
-	private JButton exercise3; // 운동 3 : Brightness
-	private JButton reference; // 개발자 및 앱 소개
+	private JLabel date;
+	private JButton record; 
+	private JButton graph; 
+	private JButton goal;
+	private JButton exercise1;
+	private JButton exercise2; 
+	private JButton exercise3; 
+	private JButton reference; 
 
 	private Calendar cal;
 
-	String line; // 달력을 가져올 변수
-	String str[]; // 기록을 가져올 변수
-
+	/*창이 포커스를 받을 때마다 기록을 불러오고 하루가 바꼈다면 기록 저장*/
 	public void windowActivated(WindowEvent e) {
-		Save.Load();										//기록 불러오기
-		Save.SaveDay();										//메인 창이 활성화 될때마다 하루가 바꼈는지 확인 
-															//하루가 바꼈다면 기록 저장 
-
+		Save.Load();										
+		Save.SaveDay();			
 	}
-
+	
 	public void windowClosed(WindowEvent e) {
 	}
 
+	/*창을 닫으면 트레이를 시작하고 시계 쓰레드를 종료한다. 트레이로 돌려보냈을 시에 지정시간(50분)이 되면 운동 중 하나가 자동으로 실행하게 함*/
 	public void windowClosing(WindowEvent e) {
-		new Tray(); // 닫았을 때 트레이로 돌아감
-		DateJLabel.stop(); // 시계 쓰레드 종료
-		Thread Waiting = new Thread(new Waiting()); // 트레이로 돌려보냈을 시에 지정시간이 되면
-													// 자동으로 실행하게 함
+		new Tray(); 
+		DateJLabel.stop(); 
+		Thread Waiting = new Thread(new Waiting()); 
 		Waiting.start();
 	}
 
 	public void windowDeactivated(WindowEvent e) {
 	}
 
+	/*창을 내렸을 경우 지정시간(50분)이 되면 운동 중 하나가 자동으로 실행하게 함*/
 	public void windowIconified(WindowEvent e) {
-		Thread Waiting = new Thread(new Waiting()); // 창을 내렸을 경우 지정시간이 되면 운동이
-													// 랜덤으로 실행되도록 설정
+		Thread Waiting = new Thread(new Waiting()); 
 		Waiting.start();
 	}
 
+	/*창을 올리면 Waiting 종료*/
 	public void windowDeiconified(WindowEvent e) {
-		Waiting.finish(); // 창을 다시 올리면 웨이팅 종료
+		Waiting.finish(); 
 	}
 
+	/*트레이에서 돌아오면 Waiting 종료*/
 	public void windowOpened(WindowEvent e) {
-		Waiting.finish(); // 트레이에서 돌아오면 웨이팅 종료
+		Waiting.finish(); 
 	}
 
+	/*창을 가운데에 띄우고 시계, 기록, 운동들, 레퍼런스 버튼 달기*/
 	MainFrame() {
 		setTitle("Oclulus");
 		setSize(750, 1000);
@@ -75,73 +83,57 @@ class MainFrame extends JFrame implements WindowListener {
 		setVisible(true);
 
 		this.addWindowListener(this);
-		cal = Calendar.getInstance(); // 달력 초기화
+		cal = Calendar.getInstance(); 
 		
-		Save.Load();			//기록 불러와서 저장하기
+		Save.Load();			
 
-		// 시계 생성
 		date = new JLabel("현재 날짜시각", null, SwingConstants.CENTER);
 
-		// 기록 버튼 생성과 버튼 색상 설정
 		record = new JButton("월간 기록 확인");
 		record.setFont(new Font("Gothic", Font.BOLD, 20));
 		record.setBackground(new Color(93, 93, 93));
 		record.setForeground(Color.white);
-		record.setUI(new StyledButtonUI()); // customize the button with your
-											// own look
-
-		// 그래프 버튼 생성과 버튼 색상 설정
+		record.setUI(new StyledButtonUI()); 
+		
 		graph = new JButton("오늘 목표달성율(%)");
 		graph.setFont(new Font("Gothic", Font.BOLD, 20));
 		graph.setBackground(new Color(93, 93, 93));
 		graph.setForeground(Color.white);
-		graph.setUI(new StyledButtonUI()); // customize the button with your own
-											// look
-
-		// 설정 버튼 생성과 버튼 색상 설정
+		graph.setUI(new StyledButtonUI()); 
+		
 		goal = new JButton("설정");
 		goal.setFont(new Font("Gothic", Font.BOLD, 20));
 		goal.setBackground(new Color(93, 93, 93));
 		goal.setForeground(Color.white);
-		goal.setUI(new StyledButtonUI()); // customize the button with your own
-											// look
-
-		// Follow Me 버튼 생성과 버튼 색상 설정
+		goal.setUI(new StyledButtonUI());
+		
 		exercise1 = new JButton("Follow Me");
 		exercise1.setFont(new Font("Arial", Font.BOLD, 20));
 		exercise1.setBackground(new Color(93, 93, 93));
 		exercise1.setForeground(Color.white);
-		exercise1.setUI(new StyledButtonUI()); // customize the button with your
-												// own look
-
-		// Fifteen Dots 버튼 생성과 버튼 색상 설정
+		exercise1.setUI(new StyledButtonUI());
+		
 		exercise2 = new JButton("Fifteen Dots");
 		exercise2.setFont(new Font("Gothic", Font.BOLD, 20));
 		exercise2.setBackground(new Color(93, 93, 93));
 		exercise2.setForeground(Color.white);
-		exercise2.setUI(new StyledButtonUI()); // customize the button with your
-												// own look
-
-		// Brightness 버튼 생성과 버튼 색상 설정
+		exercise2.setUI(new StyledButtonUI()); 
+		
 		exercise3 = new JButton("Brightness");
 		exercise3.setFont(new Font("Gothic", Font.BOLD, 20));
 		exercise3.setBackground(new Color(93, 93, 93));
 		exercise3.setForeground(Color.white);
-		exercise3.setUI(new StyledButtonUI()); // customize the button with your
-												// own look
-
-		// 소개 버튼 생성과 버튼 색상 설정
+		exercise3.setUI(new StyledButtonUI()); 
+		
 		reference = new JButton("가천대학교 의용생체공학과 소개");
 		reference.setFont(new Font("Gothic", Font.BOLD, 20));
 		reference.setBackground(new Color(93, 93, 93));
 		reference.setForeground(Color.white);
-		reference.setUI(new StyledButtonUI()); // customize the button with your
-												// own look
-
+		reference.setUI(new StyledButtonUI()); 
+		
 		Container mContainer = getContentPane();
-		mContainer.setLayout(new GridLayout(4, 2, 30, 30)); // 레이아웃 관리자 설정
-
-		// 버튼 추가
+		mContainer.setLayout(new GridLayout(4, 2, 30, 30)); 
+		
 		mContainer.add(date);
 		mContainer.add(record);
 		mContainer.add(graph);
@@ -154,7 +146,7 @@ class MainFrame extends JFrame implements WindowListener {
 
 
 	public void runRecord() {
-		record.addActionListener(new ActionListener() { // Record 버튼 : 리스너 & 스레드
+		record.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				Record record = new Record();
 				record.run();
@@ -171,7 +163,7 @@ class MainFrame extends JFrame implements WindowListener {
 	}
 
 	public void runGoal() {
-		goal.addActionListener(new ActionListener() { // Goal 버튼 : 리스너 & 스레드
+		goal.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				Thread goal = new Thread(new Goal());
 				goal.start();
@@ -180,8 +172,7 @@ class MainFrame extends JFrame implements WindowListener {
 	}
 
 	public void runExercise1() {
-		exercise1.addActionListener(new ActionListener() { // Follow Me 버튼 : 리스너
-															// & 스레드
+		exercise1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Thread followMe = new Thread(new FollowMe());
 				followMe.start();
@@ -190,8 +181,7 @@ class MainFrame extends JFrame implements WindowListener {
 	}
 
 	public void runExercise2() {
-		exercise2.addActionListener(new ActionListener() { // Dots 버튼 : 리스너 &
-															// 스레드
+		exercise2.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				Thread dots = new Thread(new Dots());
 				dots.start();
@@ -200,8 +190,7 @@ class MainFrame extends JFrame implements WindowListener {
 	}
 
 	public void runExercise3() {
-		exercise3.addActionListener(new ActionListener() { // Brightness 버튼 :
-															// 리스너 & 스레드
+		exercise3.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				Thread brightness = new Thread(new Brightness());
 				brightness.start();
@@ -282,20 +271,17 @@ class MainFrame extends JFrame implements WindowListener {
 	}
 }
 
+/*시계, 운동 쓰레드 시작*/
 public class Main {
 	public static void main(String[] args) {
 		MainFrame mFrame = new MainFrame();
 
-		Calendar now = Calendar.getInstance(); // 현재 날짜와 시간 정보를 가져온다.
+		Calendar now = Calendar.getInstance(); 
 
-		//Save.SaveDay(); // 날짜가 지나면 기록에 저장
-
-		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate())); // 시계
-																				// 쓰레드
-																				// 시작
+		Thread dateJLabel = new Thread(new DateJLabel(now, mFrame.getDate())); 
+		
 		dateJLabel.start();
 
-		// 쓰레드 생성
 		mFrame.runRecord();
 		mFrame.runGraph();
 		mFrame.runGoal();
@@ -305,7 +291,12 @@ public class Main {
 		mFrame.runReference();
 	}
 
-	// 버튼 디자인 바꾸기
+
+	/**
+	 * 버튼 UI 설정 클래스
+	 * @author Sol
+	 *
+	 */
 	class StyledButtonUI extends BasicButtonUI {
 
 		@Override

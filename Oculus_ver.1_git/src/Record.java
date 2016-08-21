@@ -100,7 +100,7 @@ public class Record extends JFrame implements ActionListener
 		
 		
 		panNorth = new JPanel();									
-		panNorth.add(btnBefore = new JButton("Before"));				   
+		panNorth.add(btnBefore = new JButton("Before"));				  
 		panNorth.add(txtYear = new JTextField(year+"년"));				
 		panNorth.add(txtMonth = new JTextField( month+"월",3));		
 		txtYear.setEnabled(false); 									
