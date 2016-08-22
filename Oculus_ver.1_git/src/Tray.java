@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
 public class Tray implements ActionListener, ItemListener{
 	private SystemTray tray;
 	private PopupMenu popup;
-	private MenuItem Open, Close;
-	private CheckboxMenuItem Wait;
+	private MenuItem open, close;
+	private CheckboxMenuItem wait;
 	private TrayIcon icon;
 
 	public Tray(){
@@ -40,19 +40,19 @@ public class Tray implements ActionListener, ItemListener{
 		if(SystemTray.isSupported()){
 			/* 메뉴 달기 */
 			popup = new PopupMenu();
-			Open = new MenuItem("Open");				
-			Close = new MenuItem("Exit");			
-			Wait = new CheckboxMenuItem("Auto Start", true);	
+			open = new MenuItem("Open");				
+			close = new MenuItem("Exit");			
+			wait = new CheckboxMenuItem("Auto Start", true);	
 
 			/*액션 리스너 달기*/
-			Open.addActionListener(this);
-			Close.addActionListener(this);
-			Wait.addItemListener(this);
+			open.addActionListener(this);
+			close.addActionListener(this);
+			wait.addItemListener(this);
 
 			/*팝업에 메뉴 달기*/
-			popup.add(Open);
-			popup.add(Wait);
-			popup.add(Close);
+			popup.add(open);
+			popup.add(wait);
+			popup.add(close);
 
 
 			/*트레이아이콘 설정*/
@@ -83,10 +83,10 @@ public class Tray implements ActionListener, ItemListener{
 	 * Close면 메시지창을 뜨게 함 
 	 */
 	public void actionPerformed(ActionEvent ae){
-		if(ae.getSource() == Open){
+		if(ae.getSource() == open){
 			restart();	
 			tray.remove(icon);						
-		} else if(ae.getSource() == Close){
+		} else if(ae.getSource() == close){
 			showMessage("종료", "종료하시겠습니까?");		
 		}
 	}

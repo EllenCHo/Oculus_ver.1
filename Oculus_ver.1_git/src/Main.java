@@ -20,9 +20,9 @@ import javax.swing.plaf.basic.BasicButtonUI;
  *
  */
 class MainFrame extends JFrame implements WindowListener {
-	public static int Year = -1;		
-	public static int Month = -1;
-	public static int Day = -1;
+	public static int year = -1;		
+	public static int month = -1;
+	public static int day = -1;
 	public static int FM = -1; 
 	public static int FMC = -1; 
 	public static int FD = -1; 

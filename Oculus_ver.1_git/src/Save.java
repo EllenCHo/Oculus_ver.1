@@ -34,9 +34,9 @@ public class Save {
 				str = line.split(",");
 			}
 
-			MainFrame.Year = Integer.parseInt(str[0]);
-			MainFrame.Month = Integer.parseInt(str[1]);
-			MainFrame.Day = Integer.parseInt(str[2]);
+			MainFrame.year = Integer.parseInt(str[0]);
+			MainFrame.month = Integer.parseInt(str[1]);
+			MainFrame.day = Integer.parseInt(str[2]);
 			MainFrame.FM = Integer.parseInt(str[3]); 
 			MainFrame.FMC = Integer.parseInt(str[4]);
 			MainFrame.FD = Integer.parseInt(str[5]); 
@@ -49,9 +49,9 @@ public class Save {
 		catch (java.io.FileNotFoundException e) {
 			MainFrame.FM = 9;
 			MainFrame.FD = 9;
-			MainFrame.Year = cal.get(Calendar.YEAR);			
-			MainFrame.Month = cal.get(Calendar.MONTH) + 1;			
-			MainFrame.Day = cal.get(Calendar.DAY_OF_MONTH);			
+			MainFrame.year = cal.get(Calendar.YEAR);			
+			MainFrame.month = cal.get(Calendar.MONTH) + 1;			
+			MainFrame.day = cal.get(Calendar.DAY_OF_MONTH);			
 			MainFrame.FMC = 0;			
 			MainFrame.FDC = 0;
 						
@@ -96,7 +96,7 @@ public class Save {
 			DateJLabel.fw = new FileWriter("log\\Today.txt"); 
 			DateJLabel.bw = new BufferedWriter(DateJLabel.fw);
 			
-			DateJLabel.bw.write(String.format("%d,%d,%d,%d,%d,%d,%d", MainFrame.Year, MainFrame.Month, MainFrame.Day,
+			DateJLabel.bw.write(String.format("%d,%d,%d,%d,%d,%d,%d", MainFrame.year, MainFrame.month, MainFrame.day,
 					MainFrame.FM, MainFrame.FMC, MainFrame.FD, MainFrame.FDC));
 			DateJLabel.bw.flush();
 
@@ -119,11 +119,11 @@ public class Save {
 		Calendar now = Calendar.getInstance(); 
 
 		try {
-			if (now.get(Calendar.DAY_OF_MONTH) != MainFrame.Day) {
+			if (now.get(Calendar.DAY_OF_MONTH) != MainFrame.day) {
 				DateJLabel.fw = new FileWriter("log\\Info.txt", true); 
 				DateJLabel.bw = new BufferedWriter(DateJLabel.fw); 
 
-				DateJLabel.bw.write(String.format("%d,%d,%d,%.2f\r\n", MainFrame.Year, MainFrame.Month, MainFrame.Day,
+				DateJLabel.bw.write(String.format("%d,%d,%d,%.2f\r\n", MainFrame.year, MainFrame.month, MainFrame.day,
 						(double) 100 * (MainFrame.FMC + MainFrame.FDC) / (MainFrame.FM + MainFrame.FD)));
 				DateJLabel.bw.flush();
 
