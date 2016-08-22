@@ -13,7 +13,7 @@ import javax.swing.*;
 public class Record extends JFrame implements ActionListener
 {
 	String [] days = {"일","월","화","수","목","금","토"};		 		
-	int year,month,day,todays,memoday=0;	
+	int year,month,day,todays,memoDay=0;	
 	Font f;
 	Color bc,fc;
 	Calendar today;
@@ -39,7 +39,7 @@ public class Record extends JFrame implements ActionListener
 	String line;
 	String[] str;
 	int date;
-	int setmonth;
+	int setMonth;
 	int c;
 	public static double Date[][] = new double [12][31];    		
 	public static int Target[][] = new int [12][31];				
@@ -71,9 +71,9 @@ public class Record extends JFrame implements ActionListener
 			while((line = br.readLine()) != null){  					
 				str = line.split(",");   							
 
-				setmonth = Integer.parseInt(str[0]); 				
+				setMonth = Integer.parseInt(str[0]); 				
 				date = Integer.parseInt(str[1]);   						 
-				Date[setmonth-1][date-1] = Double.parseDouble(str[2]); 
+				Date[setMonth-1][date-1] = Double.parseDouble(str[2]); 
 
 				for(int i =0; i<12; i++){
 					for(int j =0; j<31; j++){
@@ -173,7 +173,7 @@ public class Record extends JFrame implements ActionListener
 
 			todays=i;
 			
-			if(memoday==1){
+			if(memoDay==1){
 				calBtn[i+6+hopping].setForeground(new Color(0,255,0));                 
 			}
 			
