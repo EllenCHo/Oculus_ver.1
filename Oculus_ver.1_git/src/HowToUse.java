@@ -11,6 +11,7 @@ public class HowToUse extends JFrame{
 	ImageIcon icon;										
 	
 	/**
+	 * 운동 선택
 	 * @param ex - 운동 종류 (1: FollowME, 2: FifteenDots, 3: Brightness)
 	 */
 	public HowToUse(int ex){								
@@ -47,9 +48,11 @@ public class HowToUse extends JFrame{
 		return true;
 	}
 	
+	/* 이미지 가져옴 */
 	class MyPanel extends JPanel{
 		Image img = icon.getImage();									
 
+		/* 이미지 그리기 */
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
 			g.drawImage(img,0,0, getWidth(), getHeight(),this);	
