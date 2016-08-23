@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -23,10 +24,12 @@ public class Reference extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
 	}
 	
+	/* 이미지 가져옴 */
 	class MyPanel extends JPanel{
 		ImageIcon icon = new ImageIcon("image\\Ref.jpg");		
 		Image img = icon.getImage();							
 
+		/* 이미지 그리기 */
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
 			g.drawImage(img,0,0, getWidth(), getHeight(),this);	
