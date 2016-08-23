@@ -14,9 +14,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	String[] str;
 	boolean flag;
 	
-	/**
-	 * 버튼이 나타나는 순서
-	 */
+	/* 버튼이 나타나는 순서 */
 	int[][] order = {											
 			{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4},
 			{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4},
@@ -42,7 +40,8 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	HowToUse htu2;													
 
 	public void windowActivated(WindowEvent e) {}					
-	public void windowClosed(WindowEvent e) {}						
+	public void windowClosed(WindowEvent e) {}
+	/* 창을 닫았을 때 실행 */
 	public void windowClosing(WindowEvent e) {
 		finish();														
 	}
@@ -65,8 +64,10 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 	Dots() {
 		super("Fifteen Dots");
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		icon = new ImageIcon("image\\RYAN_resize.png");				
+		/* 캐릭터 이미지 */
+		icon = new ImageIcon("image\\heart.png");				
 
 		contentPane = getContentPane();									
 		contentPane.setLayout(new GridLayout(3, 5, 5, 5)); 				
@@ -78,7 +79,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 5; j++){
 				btn[i][j] = new JButton(icon);
-				btn[i][j].setSize(res.width/15, res.width/15);			
+				btn[i][j].setSize(res.width/15, res.width/15);		
 
 				// 버튼 정렬
 				btn[i][j].setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,7 +95,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		}
 
 
-		setSize(res.width, res.height);									
+		setSize(res.width, res.height);			// 모니터 크기만큼 창 크기 설정						
 		setVisible(true);												
 
 		htu2 = new HowToUse(2);											
@@ -110,8 +111,9 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		int k = -4;
 
 		while(true){
-			try{						
-				Thread.sleep(2000);   									
+			try{
+				//Thread.sleep(1000);   							
+				Thread.sleep(2000);   				// 2초씩 넘어감							
 
 				if(flag == true){
 					htu2.finish();										
@@ -126,6 +128,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 			k++;
 
+			/* 2초가 지난후 설명이 사라지게 하기 */
 			if(k == -1)
 				htu2.finish();										
 
@@ -139,7 +142,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 			if(row == 33){
 				MainFrame.FDC++;
 				if(MainFrame.FDC > MainFrame.FD) MainFrame.FDC = MainFrame.FD;
-				Save.SaveNow();										
+				Save.SaveNow();						// 기록 저장									
 
 				dispose();											
 				return;
