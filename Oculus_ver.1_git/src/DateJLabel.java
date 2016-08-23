@@ -21,6 +21,7 @@ public class DateJLabel implements Runnable{
 	public static BufferedWriter bw;						
 	public static boolean flag = true;
 
+	/* 창을 닫았을 시에 쓰레드 종료 */
 	public static void stop(){							
 		flag = false;
 	}
@@ -36,8 +37,9 @@ public class DateJLabel implements Runnable{
 	/**
 	 * 	시간과 요일 설정
 	 *  시간, 분, 초를 십의 단위와 일의 단위로 나눠서 저장
-	 *  요일은 숫자로 표시되기때문에 요일명으로 설정하기 위해 스위치문 사용
+	 *  요일은 스위치문 사용하여 설정
 	 *  1분 지날때마다 시간 갱신
+	 *  1시간이 지나면 시간 올리기
 	 *  하루가 지나면 다시 요일명 설정하고 카운트 초기화
 	 */
 	public void run(){
