@@ -19,11 +19,11 @@ public class Record extends JFrame implements ActionListener
 	Calendar today;
 	Calendar cal;
 	JButton btnBefore,btnAfter;
-	JButton[] calBtn = new JButton[49]; 							
+	JButton[] calBtn = new JButton[49];				// 일 수를 49일로 설정 							
 	JLabel thing;
 	JLabel time;
 	JLabel Explain;
-	JPanel panWest; 												
+	JPanel panWest; 								// 달력의 일을 나타내는 부분								
 	JPanel panSouth;												
 	JPanel panNorth; 											
 	JTextField txtMonth,txtYear;
@@ -31,7 +31,7 @@ public class Record extends JFrame implements ActionListener
 
 	BorderLayout bLayout= new BorderLayout();    				
 
-	int target; 											
+	int target; 									// 목표치											
 
 	FileReader fr = null;											
 	BufferedReader br = null;								
@@ -60,6 +60,7 @@ public class Record extends JFrame implements ActionListener
 	/**
 	 * 파일입력
 	 * 등급 나누기
+	 * 쉼표로 분리하여 한줄씩 읽어옴
 	 * @throws IOException
 	 */
 	public void run(){
@@ -75,6 +76,7 @@ public class Record extends JFrame implements ActionListener
 				date = Integer.parseInt(str[1]);   						 
 				Date[setMonth-1][date-1] = Double.parseDouble(str[2]); 
 
+				/* 등급 나누기 */
 				for(int i =0; i<12; i++){
 					for(int j =0; j<31; j++){
 						
@@ -142,12 +144,6 @@ public class Record extends JFrame implements ActionListener
 		cal.set(Calendar.MONTH,(month-1));								// 월 지정
 		cal.set(Calendar.DATE,1);										// 일 지정
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);					// 요일 가져옴
-		/*
-		 * get 및 set 를 위한 필드치로, 요일을 나타냅니다.
-		 * 이 필드의 값은,SUNDAY,MONDAY,TUESDAY,WEDNESDAY
-		 * ,THURSDAY,FRIDAY, 및 SATURDAY 가 됩니다. 
-		 * get()메소드의 의해 요일이 숫자로 반환
-		 */
 		int j=0;
 		int hopping=0;
 
@@ -164,6 +160,7 @@ public class Record extends JFrame implements ActionListener
 			calBtn[kk+7].setText(""); 								
 		}
 
+		/* 월의 최저값과 최고값을 이용하여 for문 돌리기 */
 		for(int i=cal.getMinimum(Calendar.DAY_OF_MONTH); i<=cal.getMaximum(Calendar.DAY_OF_MONTH); i++){    
 			cal.set(Calendar.DATE,i);								
 			
@@ -238,6 +235,7 @@ public class Record extends JFrame implements ActionListener
 			this.txtMonth.setText(month+"월");                                       
 		}
 		
+		/* 날짜를 눌렀을 때 버튼의 벨류 즉 1,2,3.... 문자를 정수형으로 변화하여 클릭한 날짜를 바꿔준다. */
 		else if(Integer.parseInt(ae.getActionCommand()) >= 1 && Integer.parseInt(ae.getActionCommand()) <=31){			
 			day = Integer.parseInt(ae.getActionCommand());
 			
@@ -246,6 +244,9 @@ public class Record extends JFrame implements ActionListener
 		}      
 	}//end actionperformed()
 
+	/**
+	 * 일이 찍히지 않은 버튼 비활성화
+	 */
 	public void hideInit(){
 		for(int i = 0 ; i < calBtn.length;i++){
 			if((calBtn[i].getText()).equals(""))
