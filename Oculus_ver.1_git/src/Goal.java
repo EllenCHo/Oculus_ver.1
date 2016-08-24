@@ -1,15 +1,10 @@
-// 04. 목표 설정
-
 import java.awt.*;
 import java.awt.event.*;
-//import java.io.BufferedWriter;
-//import java.io.FileWriter;
-//import java.io.IOException;
-
 import javax.swing.*;
 
 /**
  * 운동들의 목표 횟수 설정창
+ * 
  * @author Sol
  * @param int yet[] - 설정된 값을 적용하기 전의 값을 보관하는 변수
  */

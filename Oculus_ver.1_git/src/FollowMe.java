@@ -6,7 +6,8 @@ import java.awt.event.*;
 import java.util.Random;
 
 /**
- * 안구이동근 운동 : 움직이는 점 트레이닝
+ * 안구이동근 운동 : 움직이는 점 트레이닝(설명추가)
+ * 
  * @author Sol
  * @see HowToUse, Save
  * @param static int speedSet - 공 스피드 디폴트 값(랜덤)
@@ -58,6 +59,8 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	public void windowOpened(WindowEvent e) {}
 
 	/**
+	 * FollowMe 생성자
+	 * 
 	 * 배치관리자를 삭제하고 공이 움직이는 패널과 설정 버튼 추가
 	 * 모니터 크기만큼 창크기를 설정하고 설정 버튼을 눌렀을 경우 설정창이 화면 중앙에 나오도록 설정
 	 */
@@ -103,12 +106,16 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 	/**
 	 * 운동을 종료하는 메소드
+	 * 
+	 * 설명
 	 */
 	void finish(){
 		flag = true;
 	}
 
 	/**
+	 * 제목
+	 * 
 	 * 5초가 지나면 설명문을 사라지게 하고 10초가 지나면 설정창이 사라지게 하며 60초동안 운동을 시작한다
 	 * 운동을 끝까지 했다면 FMC을 카운트하고 카운트가 설정한 목표를 넘어가지 않도록 설정한다.
 	 * 마지막으로 기록을 저장하고 창을 닫는다.
@@ -149,6 +156,8 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 	/**
 	 * 공이 움직이는 패널
+	 * 
+	 * 설명추가
 	 * @author Sol
 	 * @param xPos - 공이 처음 시작하는 x 위치
 	 * @param yPos - 공이 처음 시작하는 y 위치
@@ -259,6 +268,8 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 
 /**
  * 공 설정창 클래스
+ * 
+ * 설명추가
  * @author Sol
  * @param speedTmp - 설정된 값을 적용하기 전의 값을 보관하는 임시 공 스피드 (초기값 : 랜덤)
  * @param sizeTmp - 설정된 값을 적용하기 전의 값을 보관하는 임시 공 크기 (초기값 : 중)

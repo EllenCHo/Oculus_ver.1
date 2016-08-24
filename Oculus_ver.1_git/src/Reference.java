@@ -4,6 +4,7 @@ import javax.swing.*;
 
 /**
  * 개발자 및 학교 & 학과 소개
+ * 
  * @author YoungEun
  */
 

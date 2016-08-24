@@ -1,39 +1,41 @@
 import java.io.*;
 
 /**
- *  07. 홍채 운동 : 명암 트레이닝 
+ *  홍채 운동 : 명암 트레이닝 (설명추가)
+ *  @author Sol
  */
 public class Brightness implements Runnable{
 	HowToUse htu3;
-	
+
 	/**
 	 * 모니터의 밝기를 조절하는 메소드
 	 * @param brightness : 0~100 사이의 명도 조절
 	 * @throws IOException
 	 */
-	public static void setBrightness(int brightness)  throws IOException {
+	public static void setBrightness(int brightness)  throws IOException 
+	{
 		//Creates a powerShell command that will set the brightness to the requested value (0-100), after the requested delay (in milliseconds) has passed. 
-			String s = String.format("$brightness = %d;", brightness)
+		String s = String.format("$brightness = %d;", brightness)
 				+ "$delay = 0;"
 				+ "$myMonitor = Get-WmiObject -Namespace root\\wmi -Class WmiMonitorBrightnessMethods;"
 				+ "$myMonitor.wmisetbrightness($delay, $brightness)";
-			String command = "powershell.exe  " + s;
-		
+		String command = "powershell.exe  " + s;
+
 		// Executing the command
-			Process powerShellProcess = Runtime.getRuntime().exec(command);
-			powerShellProcess.getOutputStream().close();
+		Process powerShellProcess = Runtime.getRuntime().exec(command);
+		powerShellProcess.getOutputStream().close();
 
 		//Report any error messages
-			String line;
+		String line;
 
-			BufferedReader stderr = new BufferedReader(new InputStreamReader(
-					powerShellProcess.getErrorStream()));
-			line = stderr.readLine();
-		
+		BufferedReader stderr = new BufferedReader(new InputStreamReader(
+				powerShellProcess.getErrorStream()));
+		line = stderr.readLine();
+
 		if (line != null)
 		{
 			System.err.println("Standard Error:");
-			
+
 			do
 			{
 				System.err.println(line);
@@ -52,7 +54,7 @@ public class Brightness implements Runnable{
 		/*운동에 대한 설명서*/
 		htu3 = new HowToUse(3);
 		int k = -1;
-		
+
 		for(k = 0; k < 10; k++){ 
 			try{
 				try{

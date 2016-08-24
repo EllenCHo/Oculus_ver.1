@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * 제목
+ * 
  * 선택된 운동 종류에 해당하는 설명 이미지를 가져옴
  * @author YoungEun
  */

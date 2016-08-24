@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * 모양체 운동 : 15점 트레이닝
+ * 모양체 운동 : 15점 트레이닝(설명추가)
  * @author YoungEun
  */
 
@@ -14,7 +14,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 	String[] str;
 	boolean flag;
 	
-	/* 버튼이 나타나는 순서 */
+	//버튼이 나타나는 순서
 	int[][] order = {											
 			{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4},
 			{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4},
@@ -34,14 +34,14 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 	Color color = new Color(206,247,110);						
 
-	//http://b-jay.tistory.com/123
+	//참고자료 : http://b-jay.tistory.com/123
 	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 		
 
 	HowToUse htu2;													
 
 	public void windowActivated(WindowEvent e) {}					
 	public void windowClosed(WindowEvent e) {}
-	/* 창을 닫았을 때 실행 */
+	//창을 닫았을 때 실행
 	public void windowClosing(WindowEvent e) {
 		finish();														
 	}
@@ -64,9 +64,8 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 	Dots() {
 		super("Fifteen Dots");
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		/* 캐릭터 이미지 */
+		//캐릭터 이미지
 		icon = new ImageIcon("image\\heart.png");				
 
 		contentPane = getContentPane();									
@@ -94,8 +93,8 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 			}
 		}
 
-
-		setSize(res.width, res.height);			// 모니터 크기만큼 창 크기 설정						
+		// 모니터 크기만큼 창 크기 설정
+		setSize(res.width, res.height);									
 		setVisible(true);												
 
 		htu2 = new HowToUse(2);											
@@ -111,9 +110,8 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		int k = -4;
 
 		while(true){
-			try{
-				//Thread.sleep(1000);   							
-				Thread.sleep(2000);   				// 2초씩 넘어감							
+			try{						
+				Thread.sleep(2000);   										
 
 				if(flag == true){
 					htu2.finish();										
@@ -128,7 +126,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 
 			k++;
 
-			/* 2초가 지난후 설명이 사라지게 하기 */
+			//2초가 지난후 설명이 사라지게 하기
 			if(k == -1)
 				htu2.finish();										
 

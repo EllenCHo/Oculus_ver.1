@@ -2,7 +2,7 @@
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
-//import java.util.*;
+
 
 class Graph extends JFrame{
 	Container c;
@@ -74,7 +74,9 @@ class Graph extends JFrame{
 			}
 
 			this.outCircle = new Ellipse2D.Float(1,1,2*r,2*r);				// Ellipse2D(x, y, 직경, 직경), 그래프 테두리 객체 생성
-			this.outFillCircle = new Ellipse2D.Float((int)outCircle.getX()+1,(int)outCircle.getY()+1,(int)outCircle.getWidth()-1,(int)outCircle.getHeight()-1);	// 그래프 채우기 객체 생성, outcircle보다 직경이 작아야지 외곽선이 보임
+			this.outFillCircle = new Ellipse2D.Float((int)outCircle.getX()+1,
+					(int)outCircle.getY()+1,(int)outCircle.getWidth()-1,
+					(int)outCircle.getHeight()-1);	// 그래프 채우기 객체 생성, outcircle보다 직경이 작아야지 외곽선이 보임
 
 			setValue(value);												// 화면에 보이게 함
 		}
@@ -97,23 +99,22 @@ class Graph extends JFrame{
 		public void paintComponent(Graphics g){	
 			super.paintComponent(g);
 
-			Graphics2D g2 = (Graphics2D)g;	
-
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // 안티앨리어싱 활성화 (계단 현상 제거하기. 즉 원이 사각형모양으로 삐뚤삐뚤 삐져나오는거 제거)
-
-			g2.setStroke(new BasicStroke(1));								// 선두께 1로 설정
-
-			g2.draw(outCircle);												// 외각원 그리기
-
-			g.setColor(arcColor);											// 그래프 색 적용
+			Graphics2D g2 = (Graphics2D)g;
 			
+			// 안티앨리어싱 활성화 (계단 현상 제거하기. 즉 원이 사각형모양으로 삐뚤삐뚤 삐져나오는거 제거)
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
+			g2.setStroke(new BasicStroke(1));								// 선두께 1로 설정
+			g2.draw(outCircle);												// 외각원 그리기
+			g.setColor(arcColor);											// 그래프 색 적용		
 			g2.fill(inArc);													// 호 채우기
 
 			FontMetrics fm = g.getFontMetrics();
 			int offX = fm.stringWidth(value+"%") /3;
-
-			stringX = (int)(Math.cos(Math.toRadians(angle/2d))*(r/2)) + (int)r - offX;				// 삼각함수를 통하여 해당되는 각도의 x좌표 구함
-			stringY = (int)(Math.sin(Math.toRadians(angle/2d))*(r/2)) * -1 + (int)r + 5;			// 삼각함수를 통하여 해당되는 각도의 y좌표 구함
+			
+			// 삼각함수를 통하여 해당되는 각도의 x좌표 구함
+			stringX = (int)(Math.cos(Math.toRadians(angle/2d))*(r/2)) + (int)r - offX;		
+			// 삼각함수를 통하여 해당되는 각도의 y좌표 구함
+			stringY = (int)(Math.sin(Math.toRadians(angle/2d))*(r/2)) * -1 + (int)r + 5;			
 
 			g.setColor(Color.black);										// 외각원 그리기
 

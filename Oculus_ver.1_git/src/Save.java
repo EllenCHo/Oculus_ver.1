@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 /**
  * 기록을 저장하고 불러오는 클래스
+ * 
  * @author Sol
  * @see DateJLabel
  *
@@ -90,6 +91,7 @@ public class Save {
 	
 	/**
 	 * 연도, 월, 일과 현재 설정된 목표값과 카운트 값을 Today.txt에 저장한다.
+	 * 왜 static을 썼는지 설명 추가
 	 */
 	public static synchronized void SaveNow() {
 		try {

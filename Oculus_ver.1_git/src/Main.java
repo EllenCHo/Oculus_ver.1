@@ -9,10 +9,12 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  * 메인창
+ * 
+ * 설명추가
  * @author Sol
- * @param public static int Year - 연도 지정
- * @param public static int Month - 월 지정
- * @param public static int Day - 일 지정
+ * @param public static int year - 연도 지정
+ * @param public static int month - 월 지정
+ * @param public static int day - 일 지정
  * @param public static int FM - Follow Me 목표 횟수
  * @param public static int FMC - Follow Me 카운트
  * @param public static int FD - Fifteen Dots 목표 횟수

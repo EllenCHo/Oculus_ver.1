@@ -45,7 +45,7 @@ public class Record extends JFrame implements ActionListener
 	public static int Target[][] = new int [12][31];				
 	
 	/**
-	 * 기록 초기화
+	 * 기록 초기화(설명추가)
 	 */
 	public Record(){											
 		for(int i =0; i<12; i++){
