@@ -31,28 +31,31 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	JButton btn; 						
 	HowToUse htu1;						
 
-	Color color = new Color(206,247,110);						
+	//백그라운드 색깔 설정
+	Color color = new Color(206,247,110);		
+	
+	//전체화면 사이즈 가져오기
 	Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 
 
 	String [] speedText = {"하", "중", "상", "랜덤"};
 	String [] sizeText = {"중", "소"};
 
-	int speed1[]= {res.width/350, res.width/250, res.width/150};			 				
+	int speed1[]= {res.width/350, res.width/250, res.width/150};	
 	int speed2[] = {res.width/350, res.width/250, res.width/200, res.width/50};				
 	int size[] = {res.width/15, res.width/20};													
 
-	/*창이 포커스를 가지고 있다면 실행*/
+	//창이 포커스를 가지고 있다면 실행
 	public void windowActivated(WindowEvent e) {
 		play = true;
 	}
 	public void windowClosed(WindowEvent e) {}
-	/*창을 닫았을 때 실행*/
+	//창을 닫았을 때 실행
 	public void windowClosing(WindowEvent e) {
 		finish();								
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
-	/*창에 포커스가 가지않는다면 실행*/
+	//창에 포커스가 가지않는다면 실행
 	public void windowIconified(WindowEvent e) {
 		play = false;
 	}
@@ -67,38 +70,50 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	FollowMe() {
 		super("FolloFollow Me");
 		contentPane = getContentPane();
-		contentPane.setLayout(null); 								
+		
+		//배치관리자를 삭제하고 백그라운드 색상을 설정한다.
+		contentPane.setLayout(null); 	
 		contentPane.setBackground(color);			
 		
+		//공이 움직이는 패널 생성하고 백그라운드 색상과 범위를 설정한다.
 		DrawCircle panel = new DrawCircle();					
 		panel.setSize(res.width-100,res.height); 					
 		panel.setBackground(color);						
 		
-		contentPane.add(panel); 				
+						
 		
 		this.addWindowListener(this);
 
 		flag = false;
 		play = true;
 
+		//버튼을 생성하고 사이즈와 위치를 설정한다.
 		btn = new JButton("메뉴"); 									
-
 		btn.setSize(50,50);									
 		btn.setLocation(res.width-70,30);							
-		contentPane.add(btn);
+		
 
+		//버튼 마우스 리스너 추가
 		btn.addActionListener(new ActionListener() {				
 			public void actionPerformed(ActionEvent e){
+				//설정 창 보이기
 				setting.setVisible(true);							
 			}
 		});
 
+		//컨텐트 펜에 패널과 버튼 부착
+		contentPane.add(panel); 
+		contentPane.add(btn);
+		
+		//설정창을 생성하고 화면 중앙에 나오도록 설정한다.
 		setting = new Setting(this, "설정");							
 		setting.setLocationRelativeTo(null);						
 
+		//모니터 크기만큼 창 크기 설정
 		setSize(res.width, res.height);								
 		setVisible(true);
 
+		//운동에 대한 설명서
 		htu1 = new HowToUse(1);										
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -107,14 +122,14 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	/**
 	 * 운동을 종료하는 메소드
 	 * 
-	 * 설명
+	 * flag가 true가 되면 창이 꺼진다.
 	 */
 	void finish(){
 		flag = true;
 	}
 
 	/**
-	 * 제목
+	 * 운동이 계속 돌아가는 메소드
 	 * 
 	 * 5초가 지나면 설명문을 사라지게 하고 10초가 지나면 설정창이 사라지게 하며 60초동안 운동을 시작한다
 	 * 운동을 끝까지 했다면 FMC을 카운트하고 카운트가 설정한 목표를 넘어가지 않도록 설정한다.
@@ -157,7 +172,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 	/**
 	 * 공이 움직이는 패널
 	 * 
-	 * 설명추가
+	 * 공이 랜덤으로 패널 안을 이동한다.
 	 * @author Sol
 	 * @param xPos - 공이 처음 시작하는 x 위치
 	 * @param yPos - 공이 처음 시작하는 y 위치
@@ -181,7 +196,8 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 		Image img = icon.getImage();
 
 		public DrawCircle() {
-			speedX = speedY = 10;			
+			speedX = speedY = 10;
+			
 			try {
 				new Thread(){
 					public void run(){
@@ -199,23 +215,23 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 							int x_rnd = rd.nextInt(4);				
 							int y_rnd = rd.nextInt(4);
 
-							/*하, 중, 상을 골랐을 경우*/
+							//하, 중, 상을 골랐을 경우
 							if(speedSet <3){							
 								speedx= speed1[speedSet];
 								speedy= speed1[speedSet];
 							}
 							
-							/*랜덤을 골랐을 경우*/
+							//랜덤을 골랐을 경우
 							if(speedSet ==3){							
 								speedx = speed2[x_rnd];
 								speedy = speed2[y_rnd];
 							}
 
-							/*좌표 이동*/
+							//좌표 이동
 							xPos = xPos + speedX; 					
 							yPos = yPos + speedY; 					
 
-							/*패널 창의 끝에 닿으면 그 반대로 움직이도록 설정, 이때 dir이 0이면 다른 축의 방향은 그대로*/
+							//패널 창의 끝에 닿으면 그 반대로 움직이도록 설정, 이때 dir이 0이면 다른 축의 방향은 그대로
 							if(xPos + size[sizeSet] >=DrawCircle.this.getWidth() ){
 								speedX = -speedx;
 								speedY = (y_dir == 0 ? speedy : -speedy);	
@@ -235,7 +251,7 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 								speedX = (x_dir == 0 ? speedx : -speedx);
 							}
 
-							/*공이 움직이기 때문에 다시 그린다.*/
+							//공이 움직이기 때문에 다시 그린다.
 							repaint(); 										
 							
 							try {
@@ -251,16 +267,19 @@ public class FollowMe extends JFrame implements Runnable, WindowListener{
 				e.printStackTrace();
 			}
 		}
-
+		
+		/**
+		 * 공에 대한 이미지와 위치를 설정하는 메소드
+		 */
 		public void paintComponent(Graphics g) {									
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D)g;
 
-			/*공에 대한 설정을 오른쪽 위에 그리기*/
+			//공에 대한 설정을 오른쪽 위에 그리기
 			g.drawString("공 크기 : "+sizeText[sizeSet], res.width-170, 50);				
 			g.drawString("공 속도 : "+speedText[speedSet], res.width-170, 70);
 
-			/*x, y 위치에 size만큼의 이미지 그리기*/
+			//x, y 위치에 size만큼의 이미지 그리기
 			g2d.drawImage(img, xPos, yPos, size[sizeSet], size[sizeSet], this);		
 		}
 	}
@@ -282,8 +301,10 @@ class Setting extends JDialog {
 
 	JLabel sizeLabel = new JLabel("공 크기");
 	JLabel speedLabel = new JLabel("공 속도");
-
-	JRadioButton [] speedBTN = new JRadioButton[4];		
+	
+	//공 스피드 라디오 버튼 생성
+	JRadioButton [] speedBTN = new JRadioButton[4];	
+	//공 크기 라디오 버튼 생성
 	JRadioButton [] sizeBTN = new JRadioButton[2];			
 
 	String [] speedText = {"하", "중", "상", "랜덤"};
@@ -295,7 +316,7 @@ class Setting extends JDialog {
 		c = getContentPane();
 		c.setLayout(null);
 
-		/*공 속도 선택 그룹에 라디오 버튼을 넣고 리스너를 단다. 설정된 값(초기조건:랜덤)이 선택된 상태로 나오게 함*/
+		//공 속도 선택 그룹에 라디오 버튼을 넣고 리스너를 단다. 설정된 값(초기조건:랜덤)이 선택된 상태로 나오게 함
 		ButtonGroup gspeed = new ButtonGroup();			
 		for(int i=0; i<speedBTN.length; i++){
 			speedBTN[i] = new JRadioButton(speedText[i]);		
@@ -304,7 +325,7 @@ class Setting extends JDialog {
 		}
 		speedBTN[FollowMe.speedSet].setSelected(true); 					
 
-		/*공 크기 선택 그룹에 라디오 버튼을 넣고 리스너를 단다. 설정된 값(초기조건:중)이 선택된 상태로 나오게 함*/
+		//공 크기 선택 그룹에 라디오 버튼을 넣고 리스너를 단다. 설정된 값(초기조건:중)이 선택된 상태로 나오게 함
 		ButtonGroup gsize = new ButtonGroup();			
 		for(int i=0; i<sizeBTN.length; i++){
 			sizeBTN[i] = new JRadioButton(sizeText[i]);		
@@ -313,14 +334,15 @@ class Setting extends JDialog {
 		}
 		sizeBTN[FollowMe.sizeSet].setSelected(true); 					
 
+		//확인 버튼
 		JButton ok = new JButton("확인");
 		ok.setBackground(new Color(93,93,93));
 		ok.setForeground(Color.white);
 
-		/*버튼 UI 설정*/
+		//버튼 UI 설정
 		ok.setUI(new StyledButtonUI());
 		
-		/*확인 버튼을 누르면 선택된 공 스피드, 사이즈로 설정하고 설정창을 사라지게 한다.*/
+		//확인 버튼을 누르면 선택된 공 스피드, 사이즈로 설정하고 설정창을 사라지게 한다.
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FollowMe.speedSet = speedTmp;			
@@ -329,21 +351,22 @@ class Setting extends JDialog {
 			}
 		});
 
-		
+		//취소 버튼
 		JButton cancel = new JButton("취소");
 		cancel.setBackground(new Color(93,93,93));
 		cancel.setForeground(Color.white);
 		
-		/*버튼 UI 설정*/
+		//버튼 UI 설정
 		cancel.setUI(new StyledButtonUI());
 		
-		/*취소 버튼을 누르면 그냥 설정창을 사라지게 한다.*/
+		//취소 버튼을 누르면 그냥 설정창을 사라지게 한다.
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);				
 			}
 		});
 
+		//공 크기 텍스트와 라디오 버튼 위치지정
 		sizeLabel.setLocation(135,20);
 		sizeLabel.setSize(200,30);
 		sizeBTN[0].setLocation(55,50);
@@ -351,6 +374,7 @@ class Setting extends JDialog {
 		sizeBTN[1].setLocation(185,50);
 		sizeBTN[1].setSize(75,30);
 
+		//공 속도 텍스트와 라디오 버튼 위치지정
 		speedLabel.setLocation(135,120);
 		speedLabel.setSize(200,30);
 		for(int i=0; i<speedBTN.length; i++){
@@ -358,11 +382,13 @@ class Setting extends JDialog {
 			speedBTN[i].setSize(60,30);
 		}
 
+		//확인 취소 버튼 위치 지정
 		ok.setLocation(55,220);
 		ok.setSize(75,30);
 		cancel.setLocation(185,220);
 		cancel.setSize(75,30);
 
+		//버튼을 창에 부착한다.
 		c.add(sizeLabel);
 		c.add(speedLabel);
 		c.add(ok);
@@ -377,7 +403,7 @@ class Setting extends JDialog {
 		setSize(350,300);
 		setVisible(true);
 		
-		/*창 크기를 못 늘리게 고정*/
+		//창 크기를 못 늘리게 고정
 		setResizable(false);		
 	}
 

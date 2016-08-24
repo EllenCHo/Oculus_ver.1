@@ -37,37 +37,37 @@ public class Tray implements ActionListener, ItemListener{
 	 * 트레이 설정
 	 */
 	public void setup() throws AWTException{
-		/* 현재 os에서 사용가능하다면 트레이 설정 */
+		//현재 os에서 사용가능하다면 트레이 설정 
 		if(SystemTray.isSupported()){
-			/* 메뉴 달기 */
+			//메뉴 달기 
 			popup = new PopupMenu();
 			open = new MenuItem("Open");				
 			close = new MenuItem("Exit");			
 			wait = new CheckboxMenuItem("Auto Start", true);	
 
-			/*액션 리스너 달기*/
+			//액션 리스너 달기
 			open.addActionListener(this);
 			close.addActionListener(this);
 			wait.addItemListener(this);
 
-			/*팝업에 메뉴 달기*/
+			//팝업에 메뉴 달기
 			popup.add(open);
 			popup.add(wait);
 			popup.add(close);
 
 
-			/*트레이아이콘 설정*/
+			//트레이아이콘 설정
 			Image image = Toolkit.getDefaultToolkit().getImage("image\\logo.png");
 			icon = new TrayIcon(image, "Oculus", popup);
 			icon.setImageAutoSize(true);
 
-			/*트레이 아이콘 근처로 팝업창 뜨게하기*/
+			//트레이 아이콘 근처로 팝업창 뜨게하기
 			icon.displayMessage("Oculus", "트레이로 이동합니다.", MessageType.INFO);
 
-			/*더블클릭했을 시에 메인 창이 뜨도록 함.(의문점 : MousePressed를 이용했을 때는 실행이 안됨, 더블클릭시에 실행됨)*/
+			//더블클릭했을 시에 메인 창이 뜨도록 함.(의문점 : MousePressed를 이용했을 때는 실행이 안됨, 더블클릭시에 실행됨)
 			icon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					/* 트레이를 열었을때 트레이 아이콘 삭제하고 메인창 restart() */
+					//트레이를 열었을때 트레이 아이콘 삭제하고 메인창 restart()
 					tray.remove(icon);
 					restart();
 				}

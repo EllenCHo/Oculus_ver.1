@@ -11,7 +11,9 @@ import javax.swing.*;
 public class Goal extends JFrame implements Runnable{
 	Container contentPane;
 
-	JRadioButton[] FDSet= new JRadioButton[2];			
+	//Fifteen Dots 목표 횟수 버튼
+	JRadioButton[] FDSet= new JRadioButton[2];
+	//Follow Me 목표 횟수 버튼
 	JRadioButton[] FMSet = new JRadioButton[2];			
 
 	int yet [] = new int[2];
@@ -31,37 +33,43 @@ public class Goal extends JFrame implements Runnable{
 		contentPane = getContentPane();
 		contentPane.setLayout(null); 					
 
+		//Fifteen Dots, FollowMe 버튼 그룹 생성
 		ButtonGroup GFD = new ButtonGroup();			
 		ButtonGroup GFM = new ButtonGroup();			
 
+		//Fifteen Dots 버튼  생성하고 리스너 달기
 		FDSet[0]=new JRadioButton("9회");				
 		FDSet[1]=new JRadioButton("15회");	
 		FDSet[0].addItemListener(new SetFDListener());	
 		FDSet[1].addItemListener(new SetFDListener());
 
+		//그룹에 버튼 추가
 		GFD.add(FDSet[0]);
 		GFD.add(FDSet[1]);
 
+		//Fifteen Dots 목표횟수가 9회이면 첫번째 라디오 버튼이 선택된 상태로 15회면 두번째 라디오 버튼이 선택된 상태로 나오게 함
 		if(MainFrame.FD == 9)
 			FDSet[0].setSelected(true); 			
 		else
 			FDSet[1].setSelected(true);		
 
-
+		//Follow Me 버튼  생성하고 리스너 달기
 		FMSet[0]=new JRadioButton("9회");				
 		FMSet[1]=new JRadioButton("15회");
 		FMSet[0].addItemListener(new SetFMListener());	
 		FMSet[1].addItemListener(new SetFMListener());
 		
+		//그룹에 버튼 추가
 		GFM.add(FMSet[0]);
 		GFM.add(FMSet[1]);
 
+		//Follow Me 목표횟수가 9회이면 첫번째 라디오 버튼이 선택된 상태로 15회면 두번째 라디오 버튼이 선택된 상태로 나오게 함
 		if(MainFrame.FM ==9)
 			FMSet[0].setSelected(true);					
 		else
 			FMSet[1].setSelected(true);					
 
-		/*확인 버튼을 눌렀을 때 목표 횟수를 변경하고 Today.txt에 설정된 목표횟수를 다시 기록한다*/
+		//확인 버튼을 눌렀을 때 목표 횟수를 변경하고 Today.txt에 설정된 목표횟수를 다시 기록한다
 		JButton ok = new JButton("확인");
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -74,7 +82,7 @@ public class Goal extends JFrame implements Runnable{
 			}
 		});
 
-		/*취소 버튼을 눌렀을 때 아무런 변화없이 설정창만 닫는다.*/
+		//취소 버튼을 눌렀을 때 아무런 변화없이 설정창만 닫는다.
 		JButton cancel = new JButton("취소");
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,9 +90,11 @@ public class Goal extends JFrame implements Runnable{
 			}
 		});
 
+		//항목 설정
 		JLabel Eye1 = new JLabel("Follow Me");
 		JLabel Eye2 = new JLabel("Fifteen Dots");
 
+		//버튼과 항목 사이즈, 위치 설정
 		Eye1.setSize(70,20);
 		Eye2.setSize(70,20);
 		ok.setSize(75,30);
@@ -119,10 +129,11 @@ public class Goal extends JFrame implements Runnable{
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		//창 크기를 못 늘리게 고정
 		setResizable(false);				
 	}
 
-	/*횟수 버튼 리스너, 확인을 누르기 전 임시로 설정된 변수에 값을 저장한다.*/
+	//횟수 버튼 리스너, 확인을 누르기 전 임시로 설정된 변수에 값을 저장한다.
 	class SetFMListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e){	
 			if(e.getStateChange() == ItemEvent.DESELECTED)
@@ -135,7 +146,7 @@ public class Goal extends JFrame implements Runnable{
 		}
 	}
 
-	/*횟수 버튼 리스너, 확인을 누르기 전 임시로 설정된 변수에 값을 저장한다.*/
+	//횟수 버튼 리스너, 확인을 누르기 전 임시로 설정된 변수에 값을 저장한다.
 	class SetFDListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e){	
 			if(e.getStateChange() == ItemEvent.DESELECTED)
