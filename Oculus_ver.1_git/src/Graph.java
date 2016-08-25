@@ -1,14 +1,21 @@
-// 03. 오늘 목표달성치
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-
+/**
+ * 오늘의 목표달성치
+ * 
+ * @author YoungEun
+ * percent1 = FollowMe 달성률, percent2 = Fifteen Dots 달성률
+ */
 class Graph extends JFrame{
 	Container c;
 	double percent1 = 100 * (double)MainFrame.FMC/MainFrame.FM;				// Follow Me 퍼센트 
 	double percent2 = 100 * (double)MainFrame.FDC/MainFrame.FD;				// Fifteen Dots 퍼센트
 
+	/**
+	 * 그래프의 위치와 크기 설정
+	 */
 	Graph(){	 															// percent1 = FollowMe 달성률, percent2 = Fifteen Dots 달성률
 		setTitle("오늘 목표달성률(%)");											// 창 이름 설정
 		c = getContentPane();												// 프레임에 연결된 컨텐트팬을 알아냄
@@ -56,9 +63,21 @@ class Graph extends JFrame{
 
 		int stringX, stringY;												// 값 출력 위치
 
+		/**
+		 * 원 크기 디폴트 값 설정
+		 * @param value - % 값
+		 */
 		public CircleGraph(double value){									// 원 크기 디폴트 값 설정
 			this(100,100,value, 1);
 		}
+		
+		/**
+		 * 운동별 그래프 설정
+		 * @param width - 원 가로
+		 * @param height - 원 세로
+		 * @param value - % 값
+		 * @param ex - 운동종류 (1 = FollowMe, 2 = Fifteen Dots)
+		 */
 		public CircleGraph(int width, int height, double value, int ex){ 	
 																			
 			this.width = width;
@@ -76,26 +95,37 @@ class Graph extends JFrame{
 			this.outCircle = new Ellipse2D.Float(1,1,2*r,2*r);				// Ellipse2D(x, y, 직경, 직경), 그래프 테두리 객체 생성
 			this.outFillCircle = new Ellipse2D.Float((int)outCircle.getX()+1,
 					(int)outCircle.getY()+1,(int)outCircle.getWidth()-1,
-					(int)outCircle.getHeight()-1);	// 그래프 채우기 객체 생성, outcircle보다 직경이 작아야지 외곽선이 보임
-
-			setValue(value);												// 화면에 보이게 함
+					// 그래프 채우기 객체 생성, outcircle보다 직경이 작아야지 외곽선이 보임
+					(int)outCircle.getHeight()-1);	
+			// 화면에 보이게 함
+			setValue(value);												
 		}
 
+		/**
+		 * 퍼센트 값 설정(0이하여도 0으로 되게 설정, 100넘어도 100으로 되게 설정)
+		 * @param value - % 값
+		 */
 		public void setValue(double value){
-			if(value > 100) value=100;										// 퍼센트 값 설정 (100넘어도 100으로 되게 설정)
-			if(value < 0) value = 0;										// 퍼센트 값 설정 (0이하여도 0으로 되게 설정)
+			// 퍼센트 값 설정 (100넘어도 100으로 되게 설정)
+			if(value > 100) value=100;										
+			// 퍼센트 값 설정 (0이하여도 0으로 되게 설정)
+			if(value < 0) value = 0;										
 
 			this.value = value;
 
 			this.angle = 3.6 * value;										// 1%당 3.6도 <-(360/100)
 			inArc = new Arc2D.Float(2,2,2*r-1,2*r-1,0,(int)angle,2);		// Arc2D(x, y, 직경, 직경)
-			repaint();														// 컴포넌트 다시 그리기
+			// 컴포넌트 다시 그리기
+			repaint();													
 		}
 
 		public double getValue(){
 			return this.value;
 		}
 
+		/**
+		 * 컴포넌트 그리기
+		 */
 		public void paintComponent(Graphics g){	
 			super.paintComponent(g);
 
@@ -115,19 +145,27 @@ class Graph extends JFrame{
 			stringX = (int)(Math.cos(Math.toRadians(angle/2d))*(r/2)) + (int)r - offX;		
 			// 삼각함수를 통하여 해당되는 각도의 y좌표 구함
 			stringY = (int)(Math.sin(Math.toRadians(angle/2d))*(r/2)) * -1 + (int)r + 5;			
-
-			g.setColor(Color.black);										// 외각원 그리기
-
-			g2.drawString(String.format("%.2f", value)+"%",stringX,stringY);// 퍼센트값(문자열) 출력
+			// 외각원 그리기
+			g.setColor(Color.black);										
+			// 퍼센트값(문자열) 출력
+			g2.drawString(String.format("%.2f", value)+"%",stringX,stringY);
 		}
-		public Dimension getPreferredSize(){								// 컴포넌트의 폭과 크기 정하기
+		
+		/**
+		 * 컴포넌트의 폭과 크기 정하기
+		 */
+		public Dimension getPreferredSize(){
 			return new Dimension(width+4,height+4);
 		}
+		
+		// 컴포넌트 크기 일정
 		public Dimension getMinimumSize(){								
-			return getPreferredSize();										// 컴포넌트 크기 일정
+			return getPreferredSize();										
 		}
+		
+		// 컴포넌트 크기 일정
 		public Dimension getMaximumSize(){							
-			return getPreferredSize();										// 컴포넌트 크기 일정
+			return getPreferredSize();										
 		}
 	}
 }
