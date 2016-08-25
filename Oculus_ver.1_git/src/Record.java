@@ -101,7 +101,41 @@ public class Record extends JFrame implements ActionListener
 					}
 				}
 			}
-		}catch(IOException e){System.out.println("파일입력실패");}	// 예외처리	
+		}
+		catch (java.io.FileNotFoundException e) { 	//Info.txt가 없을 경우
+			try {
+				FileWriter fw = null;
+				BufferedWriter bw = null;
+				File dsFile = new File("log\\Info.txt");		
+				if(!dsFile.exists()){			//log폴더가 없을 경우				
+					File dsDir = new File("log"); 				
+					dsDir.mkdirs();
+					dsDir = null;
+				}
+
+				dsFile = null;				
+				fw = new FileWriter("log\\Info.txt"); 
+				bw = new BufferedWriter(fw);
+
+				bw.write(String.format("%d,%d,%d,0.00", today.get(Calendar.YEAR),
+						today.get(Calendar.MONTH) + 1, today.get(Calendar.DAY_OF_MONTH)));
+				bw.flush();
+				if(bw != null)
+					bw.close();
+				if(fw != null)
+					fw.close();
+			}
+			catch (IOException te) {				
+				te.printStackTrace();
+				System.exit(1);
+			}
+			return;
+		}		
+		catch (IOException e) {
+			System.out.println("파일입력실패");
+			System.err.println(e);
+			System.exit(1);
+		}
 
 
 
