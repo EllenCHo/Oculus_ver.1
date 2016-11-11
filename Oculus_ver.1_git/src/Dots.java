@@ -67,7 +67,7 @@ public class Dots extends JFrame implements Runnable, WindowListener{
 		super("Fifteen Dots");
 
 		// 캐릭터 이미지
-		icon = new ImageIcon("image\\heart.png");				
+		icon = new ImageIcon("image\\pinwheel.png");				
 
 		contentPane = getContentPane();									
 		contentPane.setLayout(new GridLayout(3, 5, 5, 5)); 				// 배치관리자 삭제			
